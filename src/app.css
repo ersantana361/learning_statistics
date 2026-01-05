@@ -1,0 +1,70 @@
+@import "tailwindcss";
+
+/* Statistical visualization color themes */
+@theme {
+  /* Primary distribution colors */
+  --color-distribution-primary: #3b82f6;
+  --color-distribution-secondary: #10b981;
+  --color-distribution-tertiary: #8b5cf6;
+
+  /* Hypothesis testing colors */
+  --color-rejection-region: #ef4444;
+  --color-acceptance-region: #22c55e;
+  --color-confidence-interval: #8b5cf6;
+
+  /* Significance indicators */
+  --color-significant: #22c55e;
+  --color-not-significant: #6b7280;
+  --color-p-value: #f59e0b;
+
+  /* Effect size visualization */
+  --color-effect-small: #93c5fd;
+  --color-effect-medium: #3b82f6;
+  --color-effect-large: #1d4ed8;
+
+  /* Error types */
+  --color-type-i-error: #ef4444;
+  --color-type-ii-error: #f97316;
+
+  /* Data points and scatter */
+  --color-data-point: #3b82f6;
+  --color-data-point-hover: #1d4ed8;
+  --color-outlier: #ef4444;
+
+  /* Regression and lines */
+  --color-regression-line: #10b981;
+  --color-residual: #f59e0b;
+
+  /* Background shades for distributions */
+  --color-shade-light: rgba(59, 130, 246, 0.1);
+  --color-shade-medium: rgba(59, 130, 246, 0.3);
+  --color-shade-dark: rgba(59, 130, 246, 0.5);
+}
+
+/* Base styles */
+:root {
+  font-family: 'Inter', system-ui, -apple-system, sans-serif;
+}
+
+body {
+  @apply bg-gray-50 text-gray-900 antialiased;
+}
+
+/* Visualization container defaults */
+.viz-container {
+  @apply bg-white rounded-lg shadow-sm border border-gray-200 p-4;
+}
+
+/* Interactive element transitions */
+.interactive {
+  @apply transition-all duration-200 ease-out;
+}
+
+/* Math display styling (KaTeX) */
+.math-display {
+  @apply text-lg my-4;
+}
+
+.math-inline {
+  @apply text-base;
+}
