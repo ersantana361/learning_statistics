@@ -5,6 +5,11 @@
 	import ExerciseCard from '$lib/components/feedback/ExerciseCard.svelte';
 	import type { Exercise } from '$lib/components/feedback/ExerciseCard.svelte';
 
+	// LaTeX formulas (defined here to avoid template escaping issues)
+	const cltFormula = String.raw`\bar{X} \sim N\left(\mu, \frac{\sigma}{\sqrt{n}}\right)`;
+	const seFormula = String.raw`SE = \frac{\sigma}{\sqrt{n}} = \frac{20}{\sqrt{100}} = ?`;
+	const seExplanation = String.raw`SE = \frac{20}{\sqrt{100}} = \frac{20}{10} = 2`;
+
 	// Parameters
 	let populationType = $state<'uniform' | 'exponential' | 'bimodal' | 'normal'>('uniform');
 	let sampleSize = $state(30);
@@ -36,11 +41,11 @@
 			id: 'clt-2',
 			type: 'numeric',
 			question: 'If a population has σ = 20 and you take samples of size n = 100, what is the standard error of the mean?',
-			questionMath: 'SE = \\frac{\\sigma}{\\sqrt{n}} = \\frac{20}{\\sqrt{100}} = ?',
+			questionMath: seFormula,
 			correctAnswer: 2,
 			tolerance: 0.01,
 			explanation: 'The standard error is calculated as σ/√n = 20/√100 = 20/10 = 2',
-			explanationMath: 'SE = \\frac{20}{\\sqrt{100}} = \\frac{20}{10} = 2',
+			explanationMath: seExplanation,
 			difficulty: 'medium'
 		},
 		{
@@ -83,7 +88,7 @@
 		</p>
 		<div class="bg-white rounded-lg p-4">
 			<MathDisplay
-				formula="\\bar{X} \\sim N\\left(\\mu, \\frac{\\sigma}{\\sqrt{n}}\\right)"
+				formula={cltFormula}
 				displayMode={true}
 			/>
 			<p class="text-sm text-gray-600 text-center mt-2">

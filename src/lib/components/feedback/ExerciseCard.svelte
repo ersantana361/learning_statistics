@@ -138,10 +138,9 @@
 								class:border-gray-300={selectedChoice !== choice.id}
 								class:border-blue-500={selectedChoice === choice.id && !submitted}
 								class:bg-blue-500={selectedChoice === choice.id && !submitted}
-								class:text-white={selectedChoice === choice.id && !submitted}
 								class:border-green-500={submitted && choice.isCorrect}
 								class:bg-green-500={submitted && choice.isCorrect}
-								class:text-white={submitted && choice.isCorrect}
+								class:text-white={(selectedChoice === choice.id && !submitted) || (submitted && choice.isCorrect)}
 							>
 								{#if submitted && choice.isCorrect}
 									✓
