@@ -308,14 +308,14 @@
 						<h4 class="font-medium text-gray-900 mb-2">When It Matters</h4>
 						<ul class="text-sm text-gray-600 space-y-1">
 							<li>• Very unequal sample sizes</li>
-							<li>• Variance ratio > 2 or < 0.5</li>
+							<li>• Variance ratio &gt; 2 or &lt; 0.5</li>
 							<li>• Larger variance in smaller group (worst case)</li>
 						</ul>
 					</div>
 					<div>
 						<h4 class="font-medium text-gray-900 mb-2">How to Check</h4>
 						<ul class="text-sm text-gray-600 mb-4 space-y-1">
-							<li>• Compare sample SDs (rule of thumb: ratio < 2)</li>
+							<li>• Compare sample SDs (rule of thumb: ratio &lt; 2)</li>
 							<li>• Levene's test</li>
 							<li>• Look at boxplot spreads</li>
 						</ul>
