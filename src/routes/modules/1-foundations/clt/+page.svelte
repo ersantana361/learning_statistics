@@ -105,8 +105,9 @@
 		<div class="bg-white rounded-xl border border-gray-200 p-6 mb-4">
 			<div class="grid grid-cols-1 md:grid-cols-4 gap-6">
 				<div>
-					<label class="block text-sm font-medium text-gray-700 mb-2">Population Shape</label>
+					<label class="block text-sm font-medium text-gray-700 mb-2" for="population-shape">Population Shape</label>
 					<select
+						id="population-shape"
 						bind:value={populationType}
 						onchange={resetAnimation}
 						class="w-full px-3 py-2 border border-gray-300 rounded-lg"
@@ -138,8 +139,9 @@
 					/>
 				</div>
 				<div>
-					<label class="block text-sm font-medium text-gray-700 mb-2">Animation Speed</label>
+					<label class="block text-sm font-medium text-gray-700 mb-2" for="animation-speed">Animation Speed</label>
 					<select
+						id="animation-speed"
 						bind:value={speed}
 						class="w-full px-3 py-2 border border-gray-300 rounded-lg"
 					>

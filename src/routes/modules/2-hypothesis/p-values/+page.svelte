@@ -237,8 +237,8 @@
 				/>
 
 				<div>
-					<label class="block text-sm font-medium text-gray-700 mb-2">Test Type</label>
-					<div class="flex gap-2">
+					<span class="block text-sm font-medium text-gray-700 mb-2">Test Type</span>
+					<div class="flex gap-2" role="group" aria-label="Test Type">
 						<button
 							class="px-3 py-1.5 text-sm rounded-lg {testType === 'two-tailed' ? 'bg-emerald-500 text-white' : 'bg-gray-100 text-gray-700'}"
 							onclick={() => testType = 'two-tailed'}
@@ -261,8 +261,8 @@
 				</div>
 
 				<div>
-					<label class="block text-sm font-medium text-gray-700 mb-2">Distribution</label>
-					<div class="flex items-center gap-4">
+					<span class="block text-sm font-medium text-gray-700 mb-2">Distribution</span>
+					<div class="flex items-center gap-4" role="radiogroup" aria-label="Distribution">
 						<label class="flex items-center gap-2">
 							<input type="radio" bind:group={useT} value={false} class="text-emerald-500" />
 							<span class="text-sm">Z (normal)</span>
@@ -414,24 +414,27 @@
 				<h3 class="font-medium text-emerald-900 mb-3">Try It: Build a Test Statistic</h3>
 				<div class="grid md:grid-cols-4 gap-4 mb-4">
 					<div>
-						<label class="text-sm text-emerald-800">Sample Mean (x̄)</label>
+						<label class="text-sm text-emerald-800" for="scenario-sample-mean">Sample Mean (x̄)</label>
 						<input
+							id="scenario-sample-mean"
 							type="number"
 							bind:value={scenarioSampleMean}
 							class="w-full mt-1 px-3 py-2 border border-emerald-200 rounded-lg"
 						/>
 					</div>
 					<div>
-						<label class="text-sm text-emerald-800">Null Hypothesis (μ₀)</label>
+						<label class="text-sm text-emerald-800" for="scenario-null-mean">Null Hypothesis (μ₀)</label>
 						<input
+							id="scenario-null-mean"
 							type="number"
 							bind:value={scenarioNullMean}
 							class="w-full mt-1 px-3 py-2 border border-emerald-200 rounded-lg"
 						/>
 					</div>
 					<div>
-						<label class="text-sm text-emerald-800">Standard Error</label>
+						<label class="text-sm text-emerald-800" for="scenario-se">Standard Error</label>
 						<input
+							id="scenario-se"
 							type="number"
 							bind:value={scenarioSE}
 							min="0.1"
@@ -440,7 +443,7 @@
 						/>
 					</div>
 					<div>
-						<label class="text-sm text-emerald-800">Result</label>
+						<span class="text-sm text-emerald-800">Result</span>
 						<div class="mt-1 px-3 py-2 bg-white rounded-lg text-center">
 							<div class="text-lg font-bold text-emerald-700">z = {scenarioZ.toFixed(2)}</div>
 							<div class="text-xs text-emerald-600">p = {scenarioP.toFixed(4)}</div>

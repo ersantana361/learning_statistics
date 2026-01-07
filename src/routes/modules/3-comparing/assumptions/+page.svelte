@@ -274,7 +274,7 @@
 						</p>
 						<h4 class="font-medium text-gray-900 mb-2">When It Matters</h4>
 						<ul class="text-sm text-gray-600 space-y-1">
-							<li>• Small samples (n < 20)</li>
+							<li>• Small samples (n &lt; 20)</li>
 							<li>• Severely skewed data</li>
 							<li>• Heavy tails / extreme outliers</li>
 							<li>• When constructing prediction intervals</li>

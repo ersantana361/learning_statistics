@@ -40,7 +40,7 @@
 
 	// Generate curve points
 	const xMin = -4;
-	const xMax = 4 + Math.max(effectSize, 0);
+	const xMax = $derived(4 + Math.max(effectSize, 0));
 
 	const xScale = $derived(d3.scaleLinear().domain([xMin, xMax]).range([0, innerWidth]));
 
