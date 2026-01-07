@@ -23,10 +23,10 @@
 </script>
 
 <div class="flex min-h-screen">
-	<!-- Mobile menu button -->
+	<!-- Menu toggle button -->
 	<button
 		onclick={toggleSidebar}
-		class="fixed top-4 left-4 z-50 p-2 rounded-lg bg-white shadow-md border border-gray-200 md:hidden"
+		class="fixed top-4 left-4 z-50 p-2 rounded-lg bg-white shadow-md border border-gray-200"
 		aria-label="Toggle menu"
 	>
 		<svg class="w-6 h-6 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -38,10 +38,10 @@
 		</svg>
 	</button>
 
-	<!-- Backdrop for mobile -->
+	<!-- Backdrop -->
 	{#if sidebarOpen}
 		<button
-			class="fixed inset-0 bg-black/30 z-30 md:hidden"
+			class="fixed inset-0 bg-black/30 z-30"
 			onclick={closeSidebar}
 			aria-label="Close menu"
 		></button>
@@ -49,7 +49,7 @@
 
 	<!-- Sidebar Navigation -->
 	<aside
-		class="fixed md:static w-64 h-full bg-white border-r border-gray-200 p-4 z-40 transition-transform duration-300 ease-in-out {sidebarOpen ? 'translate-x-0' : '-translate-x-full'} md:translate-x-0"
+		class="fixed w-64 h-full bg-white border-r border-gray-200 p-4 z-40 transition-transform duration-300 ease-in-out {sidebarOpen ? 'translate-x-0' : '-translate-x-full'}"
 	>
 		<a href="/" class="text-lg font-bold text-gray-900 mb-6 block hover:text-blue-600">
 			StatLab
@@ -86,7 +86,7 @@
 	</aside>
 
 	<!-- Main Content -->
-	<main class="flex-1 p-4 pt-16 md:p-8 md:pt-8">
+	<main class="flex-1 p-4 pt-16 md:px-8 md:pb-8">
 		{@render children()}
 	</main>
 </div>
