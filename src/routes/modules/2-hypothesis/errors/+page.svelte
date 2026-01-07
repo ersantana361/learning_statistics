@@ -230,6 +230,70 @@
 			],
 			explanation: 'True! More data means narrower sampling distributions, allowing you to keep α fixed while reducing β. This is why adequate sample size is crucial for research.',
 			difficulty: 'medium'
+		},
+		{
+			id: 'err-6',
+			type: 'multiple-choice',
+			question: 'A pregnancy test has very high sensitivity (99% true positive rate). This means:',
+			choices: [
+				{ id: 'a', text: 'Low Type I error rate' },
+				{ id: 'b', text: 'Low Type II error rate', isCorrect: true },
+				{ id: 'c', text: 'Low false positive rate' },
+				{ id: 'd', text: 'High specificity' }
+			],
+			explanation: 'Sensitivity = 1 - β (true positive rate). High sensitivity means low β (Type II error). The test rarely misses a real pregnancy, but may have false positives.',
+			difficulty: 'medium',
+			hint: 'Sensitivity is about detecting true positives (H₁ true cases).'
+		},
+		{
+			id: 'err-7',
+			type: 'multiple-choice',
+			question: 'An airport security scanner is set very sensitive (low threshold). What\'s likely?',
+			choices: [
+				{ id: 'a', text: 'Low α, low β' },
+				{ id: 'b', text: 'Low α, high β' },
+				{ id: 'c', text: 'High α, low β', isCorrect: true },
+				{ id: 'd', text: 'High α, high β' }
+			],
+			explanation: 'A sensitive (low threshold) scanner triggers easily. It rarely misses threats (low β) but often false alarms on harmless items (high α). The tradeoff prioritizes catching threats.',
+			difficulty: 'hard'
+		},
+		{
+			id: 'err-8',
+			type: 'true-false',
+			question: 'If power = 0.80, then the Type II error rate (β) is 0.80.',
+			choices: [
+				{ id: 'true', text: 'True' },
+				{ id: 'false', text: 'False', isCorrect: true }
+			],
+			explanation: 'False! Power = 1 - β. If power is 0.80, then β = 0.20 (20% chance of Type II error). Power and β are complements, not the same thing.',
+			difficulty: 'easy'
+		},
+		{
+			id: 'err-9',
+			type: 'multiple-choice',
+			question: 'A researcher claims their study has α = 0.05 and power = 0.95. They must have:',
+			choices: [
+				{ id: 'a', text: 'A very small sample size' },
+				{ id: 'b', text: 'A large effect size or large sample size', isCorrect: true },
+				{ id: 'c', text: 'Used a two-tailed test' },
+				{ id: 'd', text: 'Made a mistake—these values are impossible together' }
+			],
+			explanation: 'Low α AND high power requires either detecting a large effect or having a large sample size. Both are achievable with proper study design.',
+			difficulty: 'medium'
+		},
+		{
+			id: 'err-10',
+			type: 'multiple-choice',
+			question: 'Which scenario prioritizes Type II error over Type I error?',
+			choices: [
+				{ id: 'a', text: 'Criminal justice ("beyond reasonable doubt")' },
+				{ id: 'b', text: 'Cancer screening (don\'t miss cancer)', isCorrect: true },
+				{ id: 'c', text: 'Particle physics (5-sigma discoveries)' },
+				{ id: 'd', text: 'FDA drug approval' }
+			],
+			explanation: 'Cancer screening prioritizes catching all true cases (low β) even at the cost of more false positives (higher α). Missing cancer is worse than a false alarm that leads to follow-up testing.',
+			difficulty: 'hard'
 		}
 	];
 
@@ -249,6 +313,31 @@
 			Understand the tradeoff between false positives and false negatives.
 		</p>
 	</header>
+
+	<!-- Why This Matters -->
+	<section class="bg-gradient-to-r from-emerald-50 to-teal-50 rounded-xl p-6 mb-8 border border-emerald-200">
+		<h2 class="text-xl font-semibold text-emerald-900 mb-3">Why This Matters</h2>
+		<p class="text-emerald-800 mb-4">
+			Every statistical decision carries risk. When a cancer screening test comes back positive, it might be a
+			false alarm (Type I error). When it comes back negative, it might have missed the disease (Type II error).
+			Neither outcome is guaranteed to be correct, and the consequences of each error type can be vastly different.
+		</p>
+		<p class="text-emerald-800 mb-4">
+			Understanding these error types is crucial because <strong>you can't minimize both simultaneously</strong>.
+			Setting stricter criteria to reduce false positives inevitably increases false negatives, and vice versa.
+			The art of experimental design lies in finding the right balance for your specific context—and that requires
+			understanding what each error means and what it costs.
+		</p>
+		<div class="bg-white/60 rounded-lg p-4">
+			<h3 class="font-semibold text-emerald-900 mb-2">Learning Objectives</h3>
+			<ul class="text-sm text-emerald-800 space-y-1">
+				<li>• Define Type I (false positive) and Type II (false negative) errors</li>
+				<li>• Understand α (significance level) and β (false negative rate)</li>
+				<li>• Recognize the tradeoff between error types</li>
+				<li>• Evaluate which error matters more in different contexts</li>
+			</ul>
+		</div>
+	</section>
 
 	<!-- Decision Matrix -->
 	<section class="mb-8">
@@ -307,6 +396,172 @@
 			<div class="bg-green-50 rounded-lg p-4 border border-green-200">
 				<div class="text-sm text-green-800 mb-2">Power</div>
 				<MathDisplay formula={powerFormula} />
+			</div>
+		</div>
+	</section>
+
+	<!-- Understanding Step by Step -->
+	<section class="mb-8">
+		<h2 class="text-xl font-semibold text-gray-900 mb-4">Understanding the Errors Step by Step</h2>
+
+		<div class="space-y-4">
+			<div class="bg-white rounded-xl border border-gray-200 p-6">
+				<div class="flex items-start gap-4">
+					<div class="bg-red-100 text-red-700 rounded-full w-8 h-8 flex items-center justify-center font-bold flex-shrink-0">I</div>
+					<div>
+						<h3 class="font-semibold text-gray-900 mb-2">Type I Error (False Positive, α)</h3>
+						<p class="text-gray-700 mb-3">
+							You reject the null hypothesis when it's actually true. You "find" an effect that doesn't exist.
+						</p>
+						<div class="bg-red-50 rounded-lg p-4">
+							<p class="text-sm text-red-800">
+								<strong>Analogy:</strong> A fire alarm going off when there's no fire. The alarm "rejects" the
+								hypothesis of safety, but it's wrong—there's no danger. Annoying, but usually not catastrophic.
+							</p>
+						</div>
+						<div class="mt-3 text-sm text-gray-600">
+							<strong>Controlled by:</strong> The significance level α. If α = 0.05, you accept a 5% chance of Type I error.
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<div class="bg-white rounded-xl border border-gray-200 p-6">
+				<div class="flex items-start gap-4">
+					<div class="bg-amber-100 text-amber-700 rounded-full w-8 h-8 flex items-center justify-center font-bold flex-shrink-0">II</div>
+					<div>
+						<h3 class="font-semibold text-gray-900 mb-2">Type II Error (False Negative, β)</h3>
+						<p class="text-gray-700 mb-3">
+							You fail to reject the null hypothesis when it's actually false. You miss a real effect.
+						</p>
+						<div class="bg-amber-50 rounded-lg p-4">
+							<p class="text-sm text-amber-800">
+								<strong>Analogy:</strong> A fire alarm staying silent when there IS a fire. The alarm "fails to reject"
+								the hypothesis of safety, but it's wrong—there's real danger. This can be catastrophic.
+							</p>
+						</div>
+						<div class="mt-3 text-sm text-gray-600">
+							<strong>Controlled by:</strong> Sample size, effect size, and α. Larger samples and effects reduce β.
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<div class="bg-white rounded-xl border border-gray-200 p-6">
+				<div class="flex items-start gap-4">
+					<div class="bg-purple-100 text-purple-700 rounded-full w-8 h-8 flex items-center justify-center font-bold flex-shrink-0">⚖</div>
+					<div>
+						<h3 class="font-semibold text-gray-900 mb-2">The Tradeoff</h3>
+						<p class="text-gray-700 mb-3">
+							There's an inherent tension: reducing α (being more conservative about rejecting H₀) increases β.
+							You can't minimize both without increasing sample size or effect size.
+						</p>
+						<div class="grid md:grid-cols-2 gap-4 mt-3">
+							<div class="bg-gray-50 rounded-lg p-3 text-center">
+								<div class="text-gray-800 font-medium">Lower α</div>
+								<div class="text-sm text-gray-600">Fewer false positives</div>
+								<div class="text-sm text-red-600">More false negatives</div>
+							</div>
+							<div class="bg-gray-50 rounded-lg p-3 text-center">
+								<div class="text-gray-800 font-medium">Higher α</div>
+								<div class="text-sm text-gray-600">Fewer false negatives</div>
+								<div class="text-sm text-red-600">More false positives</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+
+	<!-- Worked Examples -->
+	<section class="mb-8">
+		<h2 class="text-xl font-semibold text-gray-900 mb-4">Worked Examples</h2>
+
+		<div class="space-y-6">
+			<!-- Example 1 -->
+			<div class="bg-white rounded-xl border border-gray-200 p-6">
+				<h3 class="font-semibold text-gray-900 mb-3">Example 1: Drug Trial Design</h3>
+				<div class="bg-blue-50 rounded-lg p-4 mb-4">
+					<p class="text-blue-900">
+						<strong>Scenario:</strong> A pharmaceutical company is testing a new heart medication. The FDA requires α = 0.05.
+						They want 80% power to detect a 10% reduction in heart attacks.
+					</p>
+				</div>
+
+				<div class="space-y-3">
+					<div class="flex items-start gap-3">
+						<span class="bg-gray-200 text-gray-700 rounded-full w-6 h-6 flex items-center justify-center text-sm font-medium flex-shrink-0">1</span>
+						<div>
+							<p class="text-gray-700"><strong>Type I Error:</strong> Approving an ineffective drug</p>
+							<p class="text-sm text-gray-600">
+								Consequence: Patients take a drug that doesn't work, potential side effects without benefit.
+								Rate controlled at α = 5%.
+							</p>
+						</div>
+					</div>
+
+					<div class="flex items-start gap-3">
+						<span class="bg-gray-200 text-gray-700 rounded-full w-6 h-6 flex items-center justify-center text-sm font-medium flex-shrink-0">2</span>
+						<div>
+							<p class="text-gray-700"><strong>Type II Error:</strong> Rejecting an effective drug</p>
+							<p class="text-sm text-gray-600">
+								Consequence: Patients miss out on a treatment that could save lives.
+								Target rate is β = 20% (power = 80%).
+							</p>
+						</div>
+					</div>
+
+					<div class="flex items-start gap-3">
+						<span class="bg-green-200 text-green-700 rounded-full w-6 h-6 flex items-center justify-center text-sm font-medium flex-shrink-0">✓</span>
+						<div>
+							<p class="text-green-800 font-medium">Design Decision:</p>
+							<p class="text-sm text-gray-600">
+								With these constraints, they calculate they need n = 5,000 patients per group.
+								Increasing to n = 8,000 would achieve 90% power (β = 10%).
+							</p>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<!-- Example 2 -->
+			<div class="bg-white rounded-xl border border-gray-200 p-6">
+				<h3 class="font-semibold text-gray-900 mb-3">Example 2: Manufacturing Quality Control</h3>
+				<div class="bg-purple-50 rounded-lg p-4 mb-4">
+					<p class="text-purple-900">
+						<strong>Scenario:</strong> A chip manufacturer tests batches for defects.
+						H₀: batch is good (≤2% defective). H₁: batch is bad (&gt;2% defective).
+					</p>
+				</div>
+
+				<div class="grid md:grid-cols-2 gap-4">
+					<div class="bg-red-50 rounded-lg p-4">
+						<h4 class="font-medium text-red-900 mb-2">Type I Error: Reject good batch</h4>
+						<ul class="text-sm text-red-800 space-y-1">
+							<li>• Waste good product</li>
+							<li>• Production delays</li>
+							<li>• Financial loss from scrapping</li>
+						</ul>
+						<p class="text-xs text-red-700 mt-2">Cost estimate: $50,000 per batch</p>
+					</div>
+					<div class="bg-amber-50 rounded-lg p-4">
+						<h4 class="font-medium text-amber-900 mb-2">Type II Error: Accept bad batch</h4>
+						<ul class="text-sm text-amber-800 space-y-1">
+							<li>• Defective products reach customers</li>
+							<li>• Warranty claims, recalls</li>
+							<li>• Reputation damage</li>
+						</ul>
+						<p class="text-xs text-amber-700 mt-2">Cost estimate: $500,000+ per incident</p>
+					</div>
+				</div>
+
+				<div class="mt-4 p-3 bg-green-50 rounded-lg">
+					<p class="text-sm text-green-800">
+						<strong>Conclusion:</strong> Since Type II errors cost 10× more, the company sets α = 0.10
+						(accepting more false positives) to achieve lower β and catch more bad batches.
+					</p>
+				</div>
 			</div>
 		</div>
 	</section>
@@ -641,6 +896,46 @@
 				</button>
 			</div>
 		</div>
+	</section>
+
+	<!-- Key Takeaways -->
+	<section class="mb-8">
+		<h2 class="text-xl font-semibold text-gray-900 mb-4">Key Takeaways</h2>
+		<div class="grid md:grid-cols-2 gap-4">
+			<div class="bg-green-50 rounded-lg p-4 border border-green-200">
+				<h3 class="font-semibold text-green-900 mb-2">✓ Remember</h3>
+				<ul class="text-sm text-green-800 space-y-1">
+					<li>• Type I (α): False positive - rejecting true H₀</li>
+					<li>• Type II (β): False negative - failing to reject false H₀</li>
+					<li>• Power = 1 - β (ability to detect true effects)</li>
+					<li>• Increasing sample size reduces β without changing α</li>
+				</ul>
+			</div>
+			<div class="bg-amber-50 rounded-lg p-4 border border-amber-200">
+				<h3 class="font-semibold text-amber-900 mb-2">⚠ The Tradeoff</h3>
+				<ul class="text-sm text-amber-800 space-y-1">
+					<li>• You can't minimize both errors simultaneously</li>
+					<li>• Lower α → Higher β (and vice versa)</li>
+					<li>• Context determines which error is worse</li>
+					<li>• More data is the only way to improve both</li>
+				</ul>
+			</div>
+		</div>
+	</section>
+
+	<!-- What's Next -->
+	<section class="mb-8 bg-blue-50 rounded-xl p-6 border border-blue-200">
+		<h2 class="text-xl font-semibold text-blue-900 mb-3">What's Next?</h2>
+		<p class="text-blue-800 mb-4">
+			Now that you understand Type I and II errors, you're ready to dive deeper into <strong>Statistical Power</strong>.
+			Power analysis helps you design studies that can actually detect the effects you're looking for.
+		</p>
+		<ul class="text-blue-700 space-y-2">
+			<li>• Calculate the power of a statistical test</li>
+			<li>• Understand factors that increase power (sample size, effect size, α)</li>
+			<li>• Perform power analysis for study planning</li>
+			<li>• Avoid underpowered studies that waste resources</li>
+		</ul>
 	</section>
 
 	<!-- Navigation -->

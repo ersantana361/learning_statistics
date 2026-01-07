@@ -11,6 +11,7 @@
 	const samplingDistFormula = String.raw`\text{If } X_1, X_2, \ldots, X_n \sim \text{Population}(\mu, \sigma)`;
 	const meanFormula = String.raw`\text{Then } \bar{X} \sim N\left(\mu_{\bar{X}} = \mu, \sigma_{\bar{X}} = \frac{\sigma}{\sqrt{n}}\right)`;
 	const seFormula = String.raw`SE = \frac{\sigma}{\sqrt{n}}`;
+	const unbiasedFormula = String.raw`E[\bar{X}] = \mu`;
 
 	// Parameters
 	let populationMean = $state(50);
@@ -48,7 +49,6 @@
 			const mean = d3.mean(s) ?? 0;
 			allSampleMeans = [...allSampleMeans, mean];
 		}
-		// Show the last sample
 		currentSample = sample.normal(sampleSize, populationMean, populationSd);
 	}
 
@@ -106,7 +106,7 @@
 			.range([innerHeight, 0])
 	);
 
-	// Exercises
+	// Expanded exercises (8 total)
 	const exercises: Exercise[] = [
 		{
 			id: 'sampling-1',
@@ -118,35 +118,44 @@
 				{ id: 'c', text: 'The distribution of the population' },
 				{ id: 'd', text: 'The distribution of measurement errors' }
 			],
-			explanation: 'A sampling distribution shows how a statistic (such as the sample mean) varies across many different samples taken from the same population. It\'s not about individual data points, but about the behavior of statistics computed from samples.',
+			explanation: 'A sampling distribution shows how a statistic (such as the sample mean) varies across many different samples taken from the same population.',
 			difficulty: 'easy'
 		},
 		{
 			id: 'sampling-2',
-			type: 'multiple-choice',
-			question: 'Why is the sampling distribution of the mean narrower than the population distribution?',
+			type: 'true-false',
+			question: 'The mean of the sampling distribution equals the population mean.',
 			choices: [
-				{ id: 'a', text: 'Because we remove outliers when calculating means' },
-				{ id: 'b', text: 'Because extreme values in samples tend to cancel out when averaged', isCorrect: true },
-				{ id: 'c', text: 'Because we use smaller numbers' },
-				{ id: 'd', text: 'Because the sample size is always smaller than the population' }
+				{ id: 'true', text: 'True', isCorrect: true },
+				{ id: 'false', text: 'False' }
 			],
-			explanation: 'When we take a sample and compute the mean, extreme high values tend to be balanced by extreme low values. This averaging effect reduces variability, making the distribution of sample means narrower than the original population distribution.',
-			difficulty: 'medium'
+			explanation: 'True! This is why we say the sample mean is an "unbiased estimator" of the population mean. E[X̄] = μ',
+			difficulty: 'easy'
 		},
 		{
 			id: 'sampling-3',
 			type: 'numeric',
 			question: 'A population has mean μ = 100 and standard deviation σ = 16. If you take samples of size n = 64, what is the standard error of the mean?',
-			questionMath: String.raw`SE = \frac{\sigma}{\sqrt{n}} = \frac{16}{\sqrt{64}} = ?`,
 			correctAnswer: 2,
 			tolerance: 0.01,
-			explanation: 'The standard error is σ/√n = 16/√64 = 16/8 = 2. This tells us that sample means will typically vary by about 2 units from the true population mean.',
-			explanationMath: String.raw`SE = \frac{16}{\sqrt{64}} = \frac{16}{8} = 2`,
+			explanation: 'SE = σ/√n = 16/√64 = 16/8 = 2. Sample means typically vary by about 2 units from the true population mean.',
 			difficulty: 'easy'
 		},
 		{
 			id: 'sampling-4',
+			type: 'multiple-choice',
+			question: 'Why is the sampling distribution of the mean narrower than the population distribution?',
+			choices: [
+				{ id: 'a', text: 'Because we remove outliers when calculating means' },
+				{ id: 'b', text: 'Because extreme values tend to cancel out when averaged', isCorrect: true },
+				{ id: 'c', text: 'Because we use smaller numbers' },
+				{ id: 'd', text: 'Because sample size is smaller than population size' }
+			],
+			explanation: 'When computing a mean, extreme high values tend to be balanced by extreme low values. This averaging effect reduces variability.',
+			difficulty: 'medium'
+		},
+		{
+			id: 'sampling-5',
 			type: 'multiple-choice',
 			question: 'If you increase the sample size from 25 to 100, what happens to the standard error?',
 			choices: [
@@ -155,57 +164,200 @@
 				{ id: 'c', text: 'It stays the same' },
 				{ id: 'd', text: 'It is cut to one-fourth' }
 			],
-			explanation: 'The standard error is σ/√n. When n goes from 25 to 100, √n goes from 5 to 10 (doubles). Since SE is inversely proportional to √n, the SE is cut in half.',
-			explanationMath: String.raw`\frac{\sigma}{\sqrt{25}} = \frac{\sigma}{5} \rightarrow \frac{\sigma}{\sqrt{100}} = \frac{\sigma}{10}`,
+			explanation: 'SE = σ/√n. When n goes from 25 to 100, √n goes from 5 to 10. Since SE is inversely proportional to √n, it halves.',
 			difficulty: 'medium'
 		},
 		{
-			id: 'sampling-5',
+			id: 'sampling-6',
+			type: 'numeric',
+			question: 'If σ = 20 and you want SE = 2, what sample size do you need?',
+			correctAnswer: 100,
+			tolerance: 1,
+			explanation: 'SE = σ/√n → 2 = 20/√n → √n = 10 → n = 100. To get a specific precision, work backwards from the SE formula.',
+			difficulty: 'medium'
+		},
+		{
+			id: 'sampling-7',
+			type: 'multiple-choice',
+			question: 'A researcher collects 1000 samples of size 50 each. She calculates the mean for each sample. These 1000 means form a:',
+			choices: [
+				{ id: 'a', text: 'Population distribution' },
+				{ id: 'b', text: 'Sample distribution' },
+				{ id: 'c', text: 'Sampling distribution of the mean', isCorrect: true },
+				{ id: 'd', text: 'Confidence distribution' }
+			],
+			explanation: 'The distribution of sample means (or any statistic) across repeated samples is called the sampling distribution of that statistic.',
+			difficulty: 'medium'
+		},
+		{
+			id: 'sampling-8',
 			type: 'true-false',
-			question: 'The mean of the sampling distribution equals the population mean.',
+			question: 'The standard error measures the typical difference between a sample mean and the population mean.',
 			choices: [
 				{ id: 'true', text: 'True', isCorrect: true },
 				{ id: 'false', text: 'False' }
 			],
-			explanation: 'True! This is a fundamental property: the expected value of the sample mean equals the population mean. We say the sample mean is an "unbiased estimator" of the population mean.',
-			explanationMath: String.raw`E[\bar{X}] = \mu`,
-			difficulty: 'easy'
+			explanation: 'True! The standard error quantifies the typical "error" or deviation of sample means from the true population mean. Smaller SE = more precise estimates.',
+			difficulty: 'hard'
 		}
 	];
 
 	let currentExerciseIndex = $state(0);
 </script>
 
-<div class="max-w-5xl">
+<div class="max-w-5xl mx-auto px-4">
 	<!-- Header -->
 	<header class="mb-8">
 		<nav class="text-sm text-gray-500 mb-2">
-			<a href="/modules/1-foundations" class="hover:text-blue-600">Module 1</a>
+			<a href="/modules/1-foundations" class="hover:text-blue-600">Module 1: Foundations</a>
 			<span class="mx-2">/</span>
 			<span>Sampling Distributions</span>
 		</nav>
 		<h1 class="text-3xl font-bold text-gray-900 mb-3">Sampling Distributions</h1>
 		<p class="text-lg text-gray-600">
-			Understand the crucial difference between a sample and the distribution of sample statistics.
+			The crucial bridge between samples and populations
 		</p>
 	</header>
+
+	<!-- Why This Matters -->
+	<section class="bg-gradient-to-r from-amber-50 to-orange-50 rounded-xl p-6 mb-8 border border-amber-200">
+		<h2 class="text-xl font-semibold text-amber-900 mb-3">Why This Matters</h2>
+		<p class="text-amber-800 mb-4">
+			Every time you see a poll result like "45% of voters prefer Candidate A (±3%)", you're seeing
+			the sampling distribution at work. That "±3%" comes from understanding how sample statistics
+			vary across different possible samples.
+		</p>
+		<p class="text-amber-800 mb-4">
+			The sampling distribution answers a fundamental question: <em>If I took a different sample,
+			how different would my results be?</em> This concept is the foundation for confidence intervals,
+			hypothesis tests, and everything else in inferential statistics.
+		</p>
+		<div class="bg-white/60 rounded-lg p-4 mt-4">
+			<h3 class="font-medium text-amber-900 mb-2">Learning Objectives</h3>
+			<ul class="text-amber-800 space-y-1">
+				<li>• Distinguish between a sample distribution and a sampling distribution</li>
+				<li>• Understand why the sampling distribution is narrower than the population</li>
+				<li>• Calculate and interpret the standard error</li>
+				<li>• Explain why larger samples give more precise estimates</li>
+			</ul>
+		</div>
+	</section>
 
 	<!-- Key Concept -->
 	<section class="bg-blue-50 rounded-xl p-6 mb-8">
 		<h2 class="font-semibold text-blue-900 mb-3">The Big Idea</h2>
 		<p class="text-blue-800 mb-4">
-			A <strong>sampling distribution</strong> is not the distribution of your data — it's the distribution of a
+			A <strong>sampling distribution</strong> is not the distribution of your data—it's the distribution of a
 			<em>statistic</em> (like the mean) computed from many different samples.
 		</p>
-		<div class="bg-white rounded-lg p-4 space-y-2">
+		<div class="bg-white rounded-lg p-4 space-y-2 mb-4">
 			<MathDisplay formula={samplingDistFormula} displayMode={true} />
 			<MathDisplay formula={meanFormula} displayMode={true} />
+		</div>
+		<div class="bg-blue-100 rounded-lg p-4">
+			<p class="text-blue-900 font-medium">In Plain English:</p>
+			<p class="text-blue-800 mt-1">
+				Imagine taking thousands of samples from the same population and calculating the mean of each.
+				The distribution of all those means is the sampling distribution. It tells you how much your
+				sample mean might vary from the true population mean.
+			</p>
+		</div>
+	</section>
+
+	<!-- Understanding Step by Step -->
+	<section class="mb-8">
+		<h2 class="text-xl font-semibold text-gray-900 mb-4">Understanding Sampling Distributions</h2>
+
+		<div class="space-y-6">
+			<!-- Concept 1 -->
+			<div class="bg-white rounded-lg border border-gray-200 p-5">
+				<h3 class="font-semibold text-gray-900 mb-3 flex items-center gap-2">
+					<span class="bg-blue-500 text-white w-7 h-7 rounded-full flex items-center justify-center text-sm">1</span>
+					One Sample is Just One Possibility
+				</h3>
+				<p class="text-gray-700 mb-3">
+					When you collect a sample and calculate its mean, you're getting just one possible outcome.
+					A different random sample would give a different mean. The sampling distribution captures
+					<em>all</em> the possible means you might have gotten.
+				</p>
+				<div class="bg-gray-50 rounded-lg p-4">
+					<p class="text-sm text-gray-600">
+						<strong>Analogy:</strong> Think of rolling a die. One roll gives you one number, but the
+						probability distribution describes all possible outcomes. Similarly, one sample gives one mean,
+						but the sampling distribution describes all possible means.
+					</p>
+				</div>
+			</div>
+
+			<!-- Concept 2 -->
+			<div class="bg-white rounded-lg border border-gray-200 p-5">
+				<h3 class="font-semibold text-gray-900 mb-3 flex items-center gap-2">
+					<span class="bg-blue-500 text-white w-7 h-7 rounded-full flex items-center justify-center text-sm">2</span>
+					Sample Means Are Unbiased
+				</h3>
+				<p class="text-gray-700 mb-3">
+					The center of the sampling distribution equals the population mean. This is called being
+					<strong>unbiased</strong>—on average, sample means hit the target.
+				</p>
+				<div class="bg-green-50 rounded-lg p-4">
+					<MathDisplay formula={unbiasedFormula} displayMode={true} />
+					<p class="text-green-800 text-sm mt-2">
+						Some sample means will be too high, some too low, but they average out to the true μ.
+					</p>
+				</div>
+			</div>
+
+			<!-- Concept 3 -->
+			<div class="bg-white rounded-lg border border-gray-200 p-5">
+				<h3 class="font-semibold text-gray-900 mb-3 flex items-center gap-2">
+					<span class="bg-blue-500 text-white w-7 h-7 rounded-full flex items-center justify-center text-sm">3</span>
+					Averaging Reduces Variability
+				</h3>
+				<p class="text-gray-700 mb-3">
+					Here's the magic: sample means are less variable than individual observations. When you
+					average, extreme values tend to cancel out, pulling the mean toward the center.
+				</p>
+				<div class="grid md:grid-cols-2 gap-4">
+					<div class="bg-red-50 rounded-lg p-4">
+						<h4 class="font-medium text-red-900">Individual values</h4>
+						<p class="text-sm text-red-800">Spread = σ (population SD)</p>
+					</div>
+					<div class="bg-green-50 rounded-lg p-4">
+						<h4 class="font-medium text-green-900">Sample means</h4>
+						<p class="text-sm text-green-800">Spread = σ/√n (always smaller!)</p>
+					</div>
+				</div>
+			</div>
+
+			<!-- Concept 4 -->
+			<div class="bg-white rounded-lg border border-gray-200 p-5">
+				<h3 class="font-semibold text-gray-900 mb-3 flex items-center gap-2">
+					<span class="bg-blue-500 text-white w-7 h-7 rounded-full flex items-center justify-center text-sm">4</span>
+					Larger Samples = Less Variation
+				</h3>
+				<p class="text-gray-700 mb-3">
+					The more observations you average together, the more the extreme values cancel.
+					That's why larger samples give more precise estimates—the sampling distribution
+					becomes tighter around the true mean.
+				</p>
+				<div class="bg-amber-50 rounded-lg p-4">
+					<p class="text-amber-800">
+						<strong>The catch:</strong> Precision improves with √n, not n. To cut the standard error
+						in half, you must quadruple your sample size. Diminishing returns!
+					</p>
+				</div>
+			</div>
 		</div>
 	</section>
 
 	<!-- Interactive Demo -->
 	<section class="mb-8">
 		<h2 class="text-xl font-semibold text-gray-900 mb-4">Interactive Exploration</h2>
+		<p class="text-gray-600 mb-4">
+			Build a sampling distribution yourself! Each time you click "Draw Sample," a new random sample
+			is taken, and its mean is added to the histogram on the right. Watch how the sampling distribution
+			emerges as you collect more samples.
+		</p>
 
 		<!-- Controls -->
 		<div class="bg-white rounded-xl border border-gray-200 p-6 mb-4">
@@ -268,7 +420,6 @@
 				<h3 class="font-medium text-gray-900 mb-3">Current Sample (n = {sampleSize})</h3>
 				<svg {width} {height}>
 					<g transform="translate({margin.left},{margin.top})">
-						<!-- Bars -->
 						{#each sampleBins as bin}
 							<rect
 								x={sampleXScale(bin.x0 ?? 0) + 1}
@@ -279,7 +430,6 @@
 								rx="1"
 							/>
 						{/each}
-						<!-- Mean line -->
 						{#if currentSample.length > 0}
 							<line
 								x1={sampleXScale(currentSampleMean)}
@@ -291,7 +441,6 @@
 								stroke-dasharray="5,5"
 							/>
 						{/if}
-						<!-- X Axis -->
 						<g transform="translate(0,{innerHeight})">
 							{#each sampleXScale.ticks(5) as tick}
 								<g transform="translate({sampleXScale(tick)},0)">
@@ -304,7 +453,7 @@
 				</svg>
 				<div class="text-sm text-gray-600 mt-2">
 					{#if currentSample.length > 0}
-						<span class="text-red-600">Sample mean: {currentSampleMean.toFixed(2)}</span> |
+						<span class="text-red-600 font-medium">Sample mean: {currentSampleMean.toFixed(2)}</span> |
 						Sample SD: {currentSampleSd.toFixed(2)}
 					{:else}
 						<span class="text-gray-400">Draw a sample to see distribution</span>
@@ -315,11 +464,10 @@
 			<!-- Sampling Distribution -->
 			<div class="bg-white rounded-xl border border-gray-200 p-4">
 				<h3 class="font-medium text-gray-900 mb-3">
-					Sampling Distribution of Means ({allSampleMeans.length} samples)
+					Sampling Distribution ({allSampleMeans.length} samples)
 				</h3>
 				<svg {width} {height}>
 					<g transform="translate({margin.left},{margin.top})">
-						<!-- Bars -->
 						{#each samplingBins as bin}
 							<rect
 								x={samplingXScale(bin.x0 ?? 0) + 1}
@@ -330,7 +478,6 @@
 								rx="1"
 							/>
 						{/each}
-						<!-- Population mean line -->
 						<line
 							x1={samplingXScale(populationMean)}
 							x2={samplingXScale(populationMean)}
@@ -339,7 +486,6 @@
 							stroke="#10b981"
 							stroke-width="2"
 						/>
-						<!-- X Axis -->
 						<g transform="translate(0,{innerHeight})">
 							{#each samplingXScale.ticks(5) as tick}
 								<g transform="translate({samplingXScale(tick)},0)">
@@ -353,8 +499,8 @@
 				<div class="text-sm text-gray-600 mt-2">
 					{#if allSampleMeans.length > 0}
 						Mean of means: {observedMeanOfMeans.toFixed(2)} |
-						<span class="text-blue-600">Observed SE: {observedSE.toFixed(2)}</span> |
-						<span class="text-green-600">Theoretical SE: {theoreticalSE.toFixed(2)}</span>
+						<span class="text-blue-600 font-medium">Observed SE: {observedSE.toFixed(2)}</span> |
+						<span class="text-green-600 font-medium">Theory SE: {theoreticalSE.toFixed(2)}</span>
 					{:else}
 						<span class="text-gray-400">Draw samples to build the distribution</span>
 					{/if}
@@ -369,44 +515,120 @@
 				<p class="text-sm text-green-800">
 					The sampling distribution (right) is much narrower than individual samples (left).
 					The theoretical SE ({theoreticalSE.toFixed(2)}) closely matches the observed SE ({observedSE.toFixed(2)}).
-					This predictability is the foundation of statistical inference!
+					Try changing the sample size to see how this affects the spread!
 				</p>
 			</div>
 		{/if}
 	</section>
 
+	<!-- Worked Examples -->
+	<section class="mb-8">
+		<h2 class="text-xl font-semibold text-gray-900 mb-4">Worked Examples</h2>
+
+		<!-- Example 1 -->
+		<div class="bg-white rounded-xl border border-gray-200 p-6 mb-4">
+			<h3 class="font-semibold text-gray-900 mb-3">Example 1: Calculating Standard Error</h3>
+			<div class="bg-gray-50 rounded-lg p-4 mb-4">
+				<p class="text-gray-700">
+					IQ scores have a mean of 100 and standard deviation of 15. If you measure the IQ of
+					36 randomly selected people, what is the standard error of the sample mean?
+				</p>
+			</div>
+
+			<div class="space-y-3">
+				<div class="flex gap-3">
+					<span class="bg-blue-100 text-blue-800 px-3 py-1 rounded-full text-sm font-medium">Step 1</span>
+					<p class="text-gray-700">Identify the values: σ = 15, n = 36</p>
+				</div>
+				<div class="flex gap-3">
+					<span class="bg-blue-100 text-blue-800 px-3 py-1 rounded-full text-sm font-medium">Step 2</span>
+					<p class="text-gray-700">Apply the formula: SE = σ/√n = 15/√36 = 15/6 = <strong>2.5</strong></p>
+				</div>
+			</div>
+
+			<div class="bg-green-50 rounded-lg p-4 mt-4">
+				<p class="text-green-800">
+					<strong>Interpretation:</strong> Sample means will typically deviate from 100 by about 2.5 points.
+					About 68% of sample means will fall between 97.5 and 102.5.
+				</p>
+			</div>
+		</div>
+
+		<!-- Example 2 -->
+		<div class="bg-white rounded-xl border border-gray-200 p-6">
+			<h3 class="font-semibold text-gray-900 mb-3">Example 2: Finding Required Sample Size</h3>
+			<div class="bg-gray-50 rounded-lg p-4 mb-4">
+				<p class="text-gray-700">
+					You're estimating average customer wait times. Past data shows σ = 5 minutes.
+					How large a sample do you need if you want the standard error to be no more than 0.5 minutes?
+				</p>
+			</div>
+
+			<div class="space-y-3">
+				<div class="flex gap-3">
+					<span class="bg-blue-100 text-blue-800 px-3 py-1 rounded-full text-sm font-medium">Step 1</span>
+					<p class="text-gray-700">Set up: SE = σ/√n → 0.5 = 5/√n</p>
+				</div>
+				<div class="flex gap-3">
+					<span class="bg-blue-100 text-blue-800 px-3 py-1 rounded-full text-sm font-medium">Step 2</span>
+					<p class="text-gray-700">Solve for √n: √n = 5/0.5 = 10</p>
+				</div>
+				<div class="flex gap-3">
+					<span class="bg-blue-100 text-blue-800 px-3 py-1 rounded-full text-sm font-medium">Step 3</span>
+					<p class="text-gray-700">Square both sides: n = 10² = <strong>100</strong></p>
+				</div>
+			</div>
+
+			<div class="bg-amber-50 rounded-lg p-4 mt-4">
+				<p class="text-amber-800">
+					<strong>Key insight:</strong> To cut SE in half (from 1.0 to 0.5), you'd need to quadruple n,
+					not double it. This is the "square root rule" in action!
+				</p>
+			</div>
+		</div>
+	</section>
+
 	<!-- Key Comparison -->
 	<section class="mb-8">
-		<h2 class="text-xl font-semibold text-gray-900 mb-4">Sample vs Sampling Distribution</h2>
-		<div class="grid md:grid-cols-2 gap-6">
+		<h2 class="text-xl font-semibold text-gray-900 mb-4">Three Distributions to Remember</h2>
+		<div class="grid md:grid-cols-3 gap-4">
+			<div class="bg-purple-50 rounded-lg p-5 border border-purple-200">
+				<h3 class="font-semibold text-purple-900 mb-3">Population Distribution</h3>
+				<ul class="space-y-2 text-purple-800 text-sm">
+					<li>• Distribution of <strong>all individuals</strong></li>
+					<li>• Mean = μ, SD = σ</li>
+					<li>• Usually unknown</li>
+					<li>• Shape can be anything</li>
+				</ul>
+			</div>
 			<div class="bg-gray-50 rounded-lg p-5 border border-gray-200">
-				<h3 class="font-semibold text-gray-900 mb-3">A Sample</h3>
+				<h3 class="font-semibold text-gray-900 mb-3">Sample Distribution</h3>
 				<ul class="space-y-2 text-gray-700 text-sm">
-					<li>• Contains <strong>individual observations</strong></li>
-					<li>• Has the same spread as the population (roughly σ)</li>
-					<li>• Different each time you collect data</li>
-					<li>• Example: Heights of 30 randomly selected people</li>
+					<li>• Distribution of <strong>n observations</strong></li>
+					<li>• Mean ≈ μ, SD ≈ σ</li>
+					<li>• What you actually observe</li>
+					<li>• Different each sample</li>
 				</ul>
 			</div>
 			<div class="bg-blue-50 rounded-lg p-5 border border-blue-200">
 				<h3 class="font-semibold text-blue-900 mb-3">Sampling Distribution</h3>
 				<ul class="space-y-2 text-blue-800 text-sm">
-					<li>• Contains <strong>statistics from many samples</strong></li>
-					<li>• Narrower than population (spread = σ/√n)</li>
-					<li>• A theoretical construct we can predict mathematically</li>
-					<li>• Example: The means of 1000 different samples of 30 people</li>
+					<li>• Distribution of <strong>sample means</strong></li>
+					<li>• Mean = μ, SD = σ/√n</li>
+					<li>• Theoretical construct</li>
+					<li>• Approximately normal (CLT)</li>
 				</ul>
 			</div>
 		</div>
 	</section>
 
-	<!-- Standard Error -->
+	<!-- Standard Error Section -->
 	<section class="mb-8">
 		<h2 class="text-xl font-semibold text-gray-900 mb-4">The Standard Error</h2>
 		<div class="bg-white rounded-xl border border-gray-200 p-6">
 			<p class="text-gray-700 mb-4">
-				The <strong>standard error</strong> is the standard deviation of the sampling distribution.
-				It tells us how much sample means typically vary from the true population mean.
+				The <strong>standard error (SE)</strong> is the standard deviation of the sampling distribution.
+				It measures the typical "error" when using a sample mean to estimate the population mean.
 			</p>
 			<div class="bg-gray-50 rounded-lg p-4 mb-4">
 				<MathDisplay formula={seFormula} displayMode={true} />
@@ -428,9 +650,36 @@
 		</div>
 	</section>
 
+	<!-- Key Takeaways -->
+	<section class="mb-8">
+		<h2 class="text-xl font-semibold text-gray-900 mb-4">Key Takeaways</h2>
+		<div class="bg-blue-50 rounded-xl p-5">
+			<ul class="space-y-3 text-blue-900">
+				<li class="flex gap-3">
+					<span class="text-xl">📊</span>
+					<span><strong>Sampling distributions</strong> describe how statistics vary across repeated samples</span>
+				</li>
+				<li class="flex gap-3">
+					<span class="text-xl">🎯</span>
+					<span><strong>Sample means are unbiased</strong>—they center on the true population mean</span>
+				</li>
+				<li class="flex gap-3">
+					<span class="text-xl">📏</span>
+					<span><strong>Standard error = σ/√n</strong>—tells you how precise your sample mean is</span>
+				</li>
+				<li class="flex gap-3">
+					<span class="text-xl">📐</span>
+					<span><strong>Quadruple n to halve SE</strong>—the square root relationship</span>
+				</li>
+			</ul>
+		</div>
+	</section>
+
 	<!-- Exercises -->
 	<section class="mb-8">
-		<h2 class="text-xl font-semibold text-gray-900 mb-4">Practice Exercises</h2>
+		<h2 class="text-xl font-semibold text-gray-900 mb-2">Practice Exercises</h2>
+		<p class="text-gray-600 mb-4">Test your understanding with these {exercises.length} exercises.</p>
+
 		<div class="space-y-6">
 			{#each exercises as exercise, i}
 				{#if i === currentExerciseIndex}
@@ -445,7 +694,7 @@
 				{/if}
 			{/each}
 
-			<div class="flex items-center justify-between pt-4">
+			<div class="flex items-center justify-between pt-4 border-t border-gray-200">
 				<button
 					class="px-4 py-2 text-gray-600 hover:text-gray-900 disabled:opacity-50"
 					disabled={currentExerciseIndex === 0}
@@ -453,9 +702,15 @@
 				>
 					← Previous
 				</button>
-				<span class="text-sm text-gray-500">
-					Exercise {currentExerciseIndex + 1} of {exercises.length}
-				</span>
+				<div class="flex items-center gap-2">
+					{#each exercises as _, i}
+						<button
+							class="w-3 h-3 rounded-full transition-colors {i === currentExerciseIndex ? 'bg-blue-500' : 'bg-gray-300 hover:bg-gray-400'}"
+							onclick={() => currentExerciseIndex = i}
+							aria-label="Go to exercise {i + 1}"
+						></button>
+					{/each}
+				</div>
 				<button
 					class="px-4 py-2 text-gray-600 hover:text-gray-900 disabled:opacity-50"
 					disabled={currentExerciseIndex === exercises.length - 1}
@@ -465,6 +720,19 @@
 				</button>
 			</div>
 		</div>
+	</section>
+
+	<!-- What's Next -->
+	<section class="bg-gray-50 rounded-xl p-6 mb-8">
+		<h2 class="text-lg font-semibold text-gray-900 mb-3">What's Next?</h2>
+		<p class="text-gray-700 mb-4">
+			Now that you understand sampling distributions, you're ready to explore:
+		</p>
+		<ul class="text-gray-700 space-y-2">
+			<li>• <strong>Sample Size Effects:</strong> How sample size affects precision and power</li>
+			<li>• <strong>Standard Error:</strong> Deep dive into SE calculation and interpretation</li>
+			<li>• <strong>Confidence Intervals:</strong> Using the sampling distribution to quantify uncertainty</li>
+		</ul>
 	</section>
 
 	<!-- Navigation -->

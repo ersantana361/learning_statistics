@@ -145,6 +145,67 @@
 			],
 			explanation: 'False! A non-significant result could mean: (1) there\'s truly no effect, OR (2) there\'s an effect but the study lacked power to detect it. This is why reporting power/effect sizes matters.',
 			difficulty: 'easy'
+		},
+		{
+			id: 'power-6',
+			type: 'multiple-choice',
+			question: 'A study with n = 20 has 40% power for d = 0.5. How many participants are needed for 80% power?',
+			choices: [
+				{ id: 'a', text: 'About 40 (double)' },
+				{ id: 'b', text: 'About 64 (roughly triple)', isCorrect: true },
+				{ id: 'c', text: 'About 80 (quadruple)' },
+				{ id: 'd', text: 'Cannot determine without more information' }
+			],
+			explanation: 'For a medium effect (d=0.5), 80% power requires about 64 participants per group. Power doesn\'t scale linearly with n—going from 40% to 80% power requires more than doubling the sample.',
+			difficulty: 'hard'
+		},
+		{
+			id: 'power-7',
+			type: 'true-false',
+			question: 'One-tailed tests have higher power than two-tailed tests (for the same α).',
+			choices: [
+				{ id: 'true', text: 'True', isCorrect: true },
+				{ id: 'false', text: 'False' }
+			],
+			explanation: 'True! One-tailed tests concentrate all α in one tail, making it easier to reach significance in the predicted direction. But you sacrifice the ability to detect effects in the unexpected direction.',
+			difficulty: 'medium'
+		},
+		{
+			id: 'power-8',
+			type: 'multiple-choice',
+			question: 'To halve the minimum detectable effect size while keeping the same power, you need to:',
+			choices: [
+				{ id: 'a', text: 'Double the sample size' },
+				{ id: 'b', text: 'Quadruple the sample size', isCorrect: true },
+				{ id: 'c', text: 'Halve the sample size' },
+				{ id: 'd', text: 'Keep the same sample size' }
+			],
+			explanation: 'Because n ∝ 1/d², halving d requires 4× the sample size. This is why detecting small effects requires much larger samples than detecting large effects.',
+			difficulty: 'hard',
+			hint: 'Look at the sample size formula: n depends on d².'
+		},
+		{
+			id: 'power-9',
+			type: 'multiple-choice',
+			question: 'Which is NOT a legitimate way to increase power?',
+			choices: [
+				{ id: 'a', text: 'Increase sample size' },
+				{ id: 'b', text: 'Use more precise measurements (reduce σ)' },
+				{ id: 'c', text: 'Calculate power after getting a non-significant result', isCorrect: true },
+				{ id: 'd', text: 'Study a larger effect' }
+			],
+			explanation: 'Post-hoc power analysis is circular and meaningless—it just restates your p-value in a different form. Power should be calculated a priori (before data collection) to inform study design.',
+			difficulty: 'medium'
+		},
+		{
+			id: 'power-10',
+			type: 'numeric',
+			question: 'A study needs 90% power instead of 80% power for the same effect. If 64 participants were needed for 80% power, approximately how many are needed for 90% power?',
+			correctAnswer: 85,
+			tolerance: 5,
+			explanation: 'Going from 80% to 90% power requires about 33% more participants. 64 × 1.33 ≈ 85. The reference table shows 85 for d = 0.5 at 90% power.',
+			difficulty: 'hard',
+			hint: 'Check the sample size table in this lesson.'
 		}
 	];
 
@@ -164,6 +225,31 @@
 			Learn how to design studies that can actually detect the effects you're looking for.
 		</p>
 	</header>
+
+	<!-- Why This Matters -->
+	<section class="bg-gradient-to-r from-emerald-50 to-teal-50 rounded-xl p-6 mb-8 border border-emerald-200">
+		<h2 class="text-xl font-semibold text-emerald-900 mb-3">Why This Matters</h2>
+		<p class="text-emerald-800 mb-4">
+			Most published research is underpowered. Studies with low power are problematic in two ways: they fail
+			to detect real effects (wasting resources), and when they do find significance, the effects are often
+			exaggerated. A study with 50% power that finds a significant result is like flipping a coin—the result
+			doesn't tell you much.
+		</p>
+		<p class="text-emerald-800 mb-4">
+			Conducting a power analysis <strong>before</strong> collecting data ensures your study can actually
+			answer the question you're asking. It's one of the most important steps in experimental design, yet
+			it's frequently overlooked.
+		</p>
+		<div class="bg-white/60 rounded-lg p-4">
+			<h3 class="font-semibold text-emerald-900 mb-2">Learning Objectives</h3>
+			<ul class="text-sm text-emerald-800 space-y-1">
+				<li>• Define statistical power and understand its role in study design</li>
+				<li>• Identify the four factors that influence power</li>
+				<li>• Calculate required sample size for a given power level</li>
+				<li>• Avoid common pitfalls in power analysis</li>
+			</ul>
+		</div>
+	</section>
 
 	<!-- Key Concept -->
 	<section class="bg-emerald-50 rounded-xl p-6 mb-8">
@@ -556,6 +642,47 @@
 				</button>
 			</div>
 		</div>
+	</section>
+
+	<!-- Key Takeaways -->
+	<section class="mb-8">
+		<h2 class="text-xl font-semibold text-gray-900 mb-4">Key Takeaways</h2>
+		<div class="grid md:grid-cols-2 gap-4">
+			<div class="bg-green-50 rounded-lg p-4 border border-green-200">
+				<h3 class="font-semibold text-green-900 mb-2">✓ Power Boosters</h3>
+				<ul class="text-sm text-green-800 space-y-1">
+					<li>• Larger sample size (most controllable)</li>
+					<li>• Larger true effect size (often fixed)</li>
+					<li>• Higher α (tradeoff with Type I error)</li>
+					<li>• Lower variability (better measurements)</li>
+				</ul>
+			</div>
+			<div class="bg-amber-50 rounded-lg p-4 border border-amber-200">
+				<h3 class="font-semibold text-amber-900 mb-2">⚠ Power Rules</h3>
+				<ul class="text-sm text-amber-800 space-y-1">
+					<li>• Target 80% power as minimum</li>
+					<li>• Calculate power BEFORE collecting data</li>
+					<li>• Never do "post-hoc" power analysis</li>
+					<li>• Use realistic (not observed) effect sizes</li>
+				</ul>
+			</div>
+		</div>
+	</section>
+
+	<!-- What's Next -->
+	<section class="mb-8 bg-blue-50 rounded-xl p-6 border border-blue-200">
+		<h2 class="text-xl font-semibold text-blue-900 mb-3">What's Next?</h2>
+		<p class="text-blue-800 mb-4">
+			Power tells you IF you can detect an effect. But <strong>Effect Sizes</strong> tell you HOW BIG that
+			effect is. In the next lesson, you'll learn to go beyond "significant or not" and quantify the actual
+			magnitude of differences.
+		</p>
+		<ul class="text-blue-700 space-y-2">
+			<li>• Cohen's d and other effect size measures</li>
+			<li>• Interpreting small, medium, and large effects</li>
+			<li>• Why effect sizes matter more than p-values</li>
+			<li>• Converting between different effect size metrics</li>
+		</ul>
 	</section>
 
 	<!-- Navigation -->

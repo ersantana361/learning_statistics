@@ -96,7 +96,7 @@
 			],
 			explanation: 'Because the margin of error is proportional to 1/√n, to cut it in half you need to multiply n by 4 (since √4 = 2).',
 			explanationMath: String.raw`\text{If } ME = \frac{z\sigma}{\sqrt{n}}, \text{ then } \frac{ME}{2} = \frac{z\sigma}{\sqrt{4n}}`,
-			difficulty: 'medium',
+			difficulty: 'easy',
 			hint: 'Remember that standard error uses the square root of n in the denominator.'
 		},
 		{
@@ -147,6 +147,71 @@
 			],
 			explanation: 'True! More data always reduces the standard error (SE = σ/√n), which directly narrows the confidence interval. There\'s no upper limit where more data stops helping.',
 			difficulty: 'easy'
+		},
+		{
+			id: 'size-6',
+			type: 'numeric',
+			question: 'A researcher has n = 64 and gets a margin of error of 10. If they increase to n = 256, what will their new margin of error be?',
+			correctAnswer: 5,
+			tolerance: 0.1,
+			explanation: 'n increased by factor 4 (64 → 256), so √n increased by factor 2. Since MOE ∝ 1/√n, MOE decreases by factor 2: 10/2 = 5.',
+			difficulty: 'medium',
+			hint: 'How does √n change when n quadruples?'
+		},
+		{
+			id: 'size-7',
+			type: 'multiple-choice',
+			question: 'A clinical trial needs σ = 30, E = 5, and 99% confidence (z = 2.576). What sample size is required?',
+			choices: [
+				{ id: 'a', text: 'n ≈ 100' },
+				{ id: 'b', text: 'n ≈ 150' },
+				{ id: 'c', text: 'n ≈ 200' },
+				{ id: 'd', text: 'n ≈ 239', isCorrect: true }
+			],
+			explanation: 'n = (2.576 × 30 / 5)² = (15.456)² ≈ 238.9. Round up to 239.',
+			explanationMath: String.raw`n = \left(\frac{2.576 \times 30}{5}\right)^2 = 238.9 \approx 239`,
+			difficulty: 'hard',
+			hint: 'Apply the sample size formula with z = 2.576 for 99% confidence.'
+		},
+		{
+			id: 'size-8',
+			type: 'true-false',
+			question: 'If a 95% CI gives MOE = 6, switching to 90% confidence (z = 1.645) would give MOE ≈ 5.',
+			choices: [
+				{ id: 'true', text: 'True', isCorrect: true },
+				{ id: 'false', text: 'False' }
+			],
+			explanation: 'MOE scales with z. If 95% gives MOE = 6 using z = 1.96, then 90% gives MOE = 6 × (1.645/1.96) ≈ 5.04.',
+			explanationMath: String.raw`\text{New MOE} = 6 \times \frac{1.645}{1.96} \approx 5.04`,
+			difficulty: 'hard'
+		},
+		{
+			id: 'size-9',
+			type: 'multiple-choice',
+			question: 'A pilot study with n = 20 finds SD = 12. To estimate the required sample size for MOE = 2 at 95% confidence, you would calculate:',
+			choices: [
+				{ id: 'a', text: 'n = (1.96 × 12 / 2)² ≈ 139', isCorrect: true },
+				{ id: 'b', text: 'n = (1.96 × 12 / 20)² ≈ 1.4' },
+				{ id: 'c', text: 'n = (12 / 2)² = 36' },
+				{ id: 'd', text: 'n = 20 × (12/2) = 120' }
+			],
+			explanation: 'Use the pilot SD as your estimate of σ in the formula n = (zσ/E)². The pilot n = 20 is not used in the calculation.',
+			difficulty: 'medium',
+			hint: 'The pilot study provides an estimate of σ, not a sample size to multiply.'
+		},
+		{
+			id: 'size-10',
+			type: 'multiple-choice',
+			question: 'A survey company can afford n = 400. If σ = 20 and they use 95% confidence, their margin of error will be:',
+			choices: [
+				{ id: 'a', text: '±0.98' },
+				{ id: 'b', text: '±1.96', isCorrect: true },
+				{ id: 'c', text: '±3.92' },
+				{ id: 'd', text: '±20' }
+			],
+			explanation: 'MOE = 1.96 × σ/√n = 1.96 × 20/√400 = 1.96 × 20/20 = 1.96',
+			explanationMath: String.raw`\text{MOE} = 1.96 \times \frac{20}{\sqrt{400}} = 1.96 \times 1 = 1.96`,
+			difficulty: 'medium'
 		}
 	];
 
@@ -167,6 +232,33 @@
 		</p>
 	</header>
 
+	<!-- Why This Matters -->
+	<section class="bg-gradient-to-r from-amber-50 to-orange-50 rounded-xl p-6 mb-8 border border-amber-200">
+		<h2 class="text-xl font-semibold text-amber-900 mb-3">Why This Matters</h2>
+		<p class="text-amber-800 mb-4">
+			"How many participants do I need?" is one of the most common questions in research. Too few subjects and
+			your study lacks precision—your confidence intervals will be so wide they're meaningless. Too many and
+			you've wasted resources that could have gone to other research. A pharmaceutical company running a drug
+			trial might spend $10,000+ per participant; recruiting 500 people when 200 would suffice costs millions
+			in unnecessary spending.
+		</p>
+		<p class="text-amber-800 mb-4">
+			But here's the twist: doubling your sample size doesn't double your precision. The relationship follows
+			a <strong>square root rule</strong>, creating diminishing returns. Understanding this relationship helps
+			you make smart decisions about study design—balancing statistical precision against practical constraints
+			like time, money, and participant availability.
+		</p>
+		<div class="bg-white/60 rounded-lg p-4">
+			<h3 class="font-semibold text-amber-900 mb-2">Learning Objectives</h3>
+			<ul class="text-sm text-amber-800 space-y-1">
+				<li>• Understand the √n relationship between sample size and precision</li>
+				<li>• Calculate required sample size for a desired margin of error</li>
+				<li>• Recognize why diminishing returns make very large samples less cost-effective</li>
+				<li>• Make informed decisions about sample size for research designs</li>
+			</ul>
+		</div>
+	</section>
+
 	<!-- Key Concept -->
 	<section class="bg-amber-50 rounded-xl p-6 mb-8">
 		<h2 class="font-semibold text-amber-900 mb-3">The Core Relationship</h2>
@@ -182,6 +274,249 @@
 			<div>
 				<p class="text-sm text-gray-600 mb-2">Confidence Interval:</p>
 				<MathDisplay formula={ciFormula} displayMode={true} />
+			</div>
+		</div>
+	</section>
+
+	<!-- Understanding the Concept Step by Step -->
+	<section class="mb-8">
+		<h2 class="text-xl font-semibold text-gray-900 mb-4">Understanding Sample Size Step by Step</h2>
+
+		<div class="space-y-4">
+			<div class="bg-white rounded-xl border border-gray-200 p-6">
+				<div class="flex items-start gap-4">
+					<div class="bg-amber-100 text-amber-700 rounded-full w-8 h-8 flex items-center justify-center font-bold flex-shrink-0">1</div>
+					<div>
+						<h3 class="font-semibold text-gray-900 mb-2">The Square Root Relationship</h3>
+						<p class="text-gray-700 mb-3">
+							Standard error (SE) determines how precise your estimate is. The formula SE = σ/√n has a crucial
+							implication: precision improves with the <em>square root</em> of sample size, not linearly.
+						</p>
+						<div class="bg-gray-50 rounded-lg p-4">
+							<p class="text-sm text-gray-600 mb-2"><strong>What this means practically:</strong></p>
+							<ul class="text-sm text-gray-600 space-y-1">
+								<li>• n = 25 → SE = σ/5</li>
+								<li>• n = 100 → SE = σ/10 (4× the sample, only 2× more precise)</li>
+								<li>• n = 400 → SE = σ/20 (16× the sample, only 4× more precise)</li>
+							</ul>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<div class="bg-white rounded-xl border border-gray-200 p-6">
+				<div class="flex items-start gap-4">
+					<div class="bg-amber-100 text-amber-700 rounded-full w-8 h-8 flex items-center justify-center font-bold flex-shrink-0">2</div>
+					<div>
+						<h3 class="font-semibold text-gray-900 mb-2">From SE to Margin of Error</h3>
+						<p class="text-gray-700 mb-3">
+							The margin of error (MOE) equals the critical value times SE. For a 95% confidence interval,
+							the critical z-value is 1.96, so MOE = 1.96 × SE.
+						</p>
+						<div class="bg-blue-50 rounded-lg p-4">
+							<MathDisplay formula={marginFormula} displayMode={true} />
+							<p class="text-sm text-blue-800 mt-2">
+								<strong>In plain English:</strong> The margin of error is how far your sample estimate
+								might reasonably be from the true value. Smaller MOE = more useful estimate.
+							</p>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<div class="bg-white rounded-xl border border-gray-200 p-6">
+				<div class="flex items-start gap-4">
+					<div class="bg-amber-100 text-amber-700 rounded-full w-8 h-8 flex items-center justify-center font-bold flex-shrink-0">3</div>
+					<div>
+						<h3 class="font-semibold text-gray-900 mb-2">The 4× Rule</h3>
+						<p class="text-gray-700 mb-3">
+							Want to cut your margin of error in half? You need <strong>4 times</strong> the sample size.
+							This is because MOE depends on 1/√n, so halving MOE requires √n to double, meaning n must quadruple.
+						</p>
+						<div class="grid grid-cols-2 gap-4">
+							<div class="bg-green-50 rounded-lg p-3 text-center">
+								<div class="text-green-800 text-sm">Halve the MOE</div>
+								<div class="text-green-900 font-bold">Need 4× n</div>
+							</div>
+							<div class="bg-red-50 rounded-lg p-3 text-center">
+								<div class="text-red-800 text-sm">Quarter the MOE</div>
+								<div class="text-red-900 font-bold">Need 16× n</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<div class="bg-white rounded-xl border border-gray-200 p-6">
+				<div class="flex items-start gap-4">
+					<div class="bg-amber-100 text-amber-700 rounded-full w-8 h-8 flex items-center justify-center font-bold flex-shrink-0">4</div>
+					<div>
+						<h3 class="font-semibold text-gray-900 mb-2">Planning Sample Size in Advance</h3>
+						<p class="text-gray-700 mb-3">
+							Often you need to decide sample size <em>before</em> collecting data. Start with your desired
+							precision (margin of error E), then solve for n:
+						</p>
+						<div class="bg-gray-50 rounded-lg p-4 mb-3">
+							<MathDisplay formula={nFormulaForWidth} displayMode={true} />
+						</div>
+						<p class="text-sm text-gray-600">
+							This formula requires knowing σ (population SD). In practice, use a pilot study estimate,
+							published values from similar studies, or a conservative guess.
+						</p>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+
+	<!-- Worked Examples -->
+	<section class="mb-8">
+		<h2 class="text-xl font-semibold text-gray-900 mb-4">Worked Examples</h2>
+
+		<div class="space-y-6">
+			<!-- Example 1 -->
+			<div class="bg-white rounded-xl border border-gray-200 p-6">
+				<h3 class="font-semibold text-gray-900 mb-3">Example 1: Calculating Required Sample Size</h3>
+				<div class="bg-blue-50 rounded-lg p-4 mb-4">
+					<p class="text-blue-900">
+						<strong>Problem:</strong> You're designing a study to estimate average blood pressure.
+						From prior research, σ ≈ 15 mmHg. You want a 95% CI with margin of error no larger than 3 mmHg.
+						How many participants do you need?
+					</p>
+				</div>
+
+				<div class="space-y-3">
+					<div class="flex items-start gap-3">
+						<span class="bg-gray-200 text-gray-700 rounded-full w-6 h-6 flex items-center justify-center text-sm font-medium flex-shrink-0">1</span>
+						<div>
+							<p class="text-gray-700">Identify what you know:</p>
+							<ul class="text-sm text-gray-600 ml-4">
+								<li>• σ = 15 mmHg</li>
+								<li>• Desired E = 3 mmHg</li>
+								<li>• For 95% CI, z = 1.96</li>
+							</ul>
+						</div>
+					</div>
+
+					<div class="flex items-start gap-3">
+						<span class="bg-gray-200 text-gray-700 rounded-full w-6 h-6 flex items-center justify-center text-sm font-medium flex-shrink-0">2</span>
+						<div>
+							<p class="text-gray-700">Apply the sample size formula:</p>
+							<div class="bg-gray-50 rounded p-3 my-2">
+								<MathDisplay formula={String.raw`n = \left(\frac{z \times \sigma}{E}\right)^2 = \left(\frac{1.96 \times 15}{3}\right)^2`} displayMode={true} />
+							</div>
+						</div>
+					</div>
+
+					<div class="flex items-start gap-3">
+						<span class="bg-gray-200 text-gray-700 rounded-full w-6 h-6 flex items-center justify-center text-sm font-medium flex-shrink-0">3</span>
+						<div>
+							<p class="text-gray-700">Calculate step by step:</p>
+							<div class="bg-gray-50 rounded p-3 my-2">
+								<MathDisplay formula={String.raw`n = \left(\frac{29.4}{3}\right)^2 = (9.8)^2 = 96.04`} displayMode={true} />
+							</div>
+						</div>
+					</div>
+
+					<div class="flex items-start gap-3">
+						<span class="bg-green-200 text-green-700 rounded-full w-6 h-6 flex items-center justify-center text-sm font-medium flex-shrink-0">✓</span>
+						<div>
+							<p class="text-green-800 font-medium">Answer: Round up to n = 97 participants.</p>
+							<p class="text-sm text-gray-600">Always round up to ensure you meet or exceed your precision goal.</p>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<!-- Example 2 -->
+			<div class="bg-white rounded-xl border border-gray-200 p-6">
+				<h3 class="font-semibold text-gray-900 mb-3">Example 2: Understanding Diminishing Returns</h3>
+				<div class="bg-purple-50 rounded-lg p-4 mb-4">
+					<p class="text-purple-900">
+						<strong>Problem:</strong> A researcher has n = 100 participants and wants to reduce their
+						margin of error from 4 to 2 units. How many additional participants are needed?
+					</p>
+				</div>
+
+				<div class="space-y-3">
+					<div class="flex items-start gap-3">
+						<span class="bg-gray-200 text-gray-700 rounded-full w-6 h-6 flex items-center justify-center text-sm font-medium flex-shrink-0">1</span>
+						<div>
+							<p class="text-gray-700">Apply the 4× rule: halving MOE requires 4× the sample size</p>
+							<p class="text-sm text-gray-600">Current n = 100, so required n = 4 × 100 = 400</p>
+						</div>
+					</div>
+
+					<div class="flex items-start gap-3">
+						<span class="bg-gray-200 text-gray-700 rounded-full w-6 h-6 flex items-center justify-center text-sm font-medium flex-shrink-0">2</span>
+						<div>
+							<p class="text-gray-700">Calculate additional participants needed:</p>
+							<p class="text-sm text-gray-600">400 - 100 = 300 additional participants</p>
+						</div>
+					</div>
+
+					<div class="flex items-start gap-3">
+						<span class="bg-green-200 text-green-700 rounded-full w-6 h-6 flex items-center justify-center text-sm font-medium flex-shrink-0">✓</span>
+						<div>
+							<p class="text-green-800 font-medium">Answer: 300 additional participants needed.</p>
+							<p class="text-sm text-gray-600">
+								This illustrates diminishing returns: the first 100 participants gave MOE = 4, but
+								you need 300 more just to halve it to MOE = 2.
+							</p>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<!-- Example 3 -->
+			<div class="bg-white rounded-xl border border-gray-200 p-6">
+				<h3 class="font-semibold text-gray-900 mb-3">Example 3: Comparing CI Widths</h3>
+				<div class="bg-amber-50 rounded-lg p-4 mb-4">
+					<p class="text-amber-900">
+						<strong>Problem:</strong> Two studies estimate average response time (σ = 200ms).
+						Study A has n = 25, Study B has n = 100. Compare their 95% CI widths.
+					</p>
+				</div>
+
+				<div class="space-y-3">
+					<div class="flex items-start gap-3">
+						<span class="bg-gray-200 text-gray-700 rounded-full w-6 h-6 flex items-center justify-center text-sm font-medium flex-shrink-0">1</span>
+						<div>
+							<p class="text-gray-700">Calculate SE for each study:</p>
+							<div class="grid md:grid-cols-2 gap-3 mt-2">
+								<div class="bg-gray-50 rounded p-2 text-sm">
+									<p>Study A: SE = 200/√25 = 200/5 = 40ms</p>
+								</div>
+								<div class="bg-gray-50 rounded p-2 text-sm">
+									<p>Study B: SE = 200/√100 = 200/10 = 20ms</p>
+								</div>
+							</div>
+						</div>
+					</div>
+
+					<div class="flex items-start gap-3">
+						<span class="bg-gray-200 text-gray-700 rounded-full w-6 h-6 flex items-center justify-center text-sm font-medium flex-shrink-0">2</span>
+						<div>
+							<p class="text-gray-700">Calculate MOE (= 1.96 × SE) for each:</p>
+							<div class="grid md:grid-cols-2 gap-3 mt-2">
+								<div class="bg-gray-50 rounded p-2 text-sm">
+									<p>Study A: MOE = 1.96 × 40 = 78.4ms</p>
+								</div>
+								<div class="bg-gray-50 rounded p-2 text-sm">
+									<p>Study B: MOE = 1.96 × 20 = 39.2ms</p>
+								</div>
+							</div>
+						</div>
+					</div>
+
+					<div class="flex items-start gap-3">
+						<span class="bg-green-200 text-green-700 rounded-full w-6 h-6 flex items-center justify-center text-sm font-medium flex-shrink-0">✓</span>
+						<div>
+							<p class="text-green-800 font-medium">Study B's CI is half as wide despite 4× (not 2×) the participants.</p>
+							<p class="text-sm text-gray-600">CI widths: A ≈ ±78ms vs B ≈ ±39ms</p>
+						</div>
+					</div>
+				</div>
 			</div>
 		</div>
 	</section>
@@ -528,6 +863,61 @@
 				</button>
 			</div>
 		</div>
+	</section>
+
+	<!-- Common Mistakes -->
+	<section class="mb-8">
+		<h2 class="text-xl font-semibold text-gray-900 mb-4">Common Mistakes to Avoid</h2>
+
+		<div class="space-y-4">
+			<div class="bg-red-50 rounded-lg p-4 border border-red-200">
+				<h3 class="font-medium text-red-900 mb-2">❌ "I'll just double my sample size to double precision"</h3>
+				<p class="text-sm text-red-800">
+					Wrong! Because precision depends on √n, doubling n only improves precision by √2 ≈ 1.41 (41% improvement).
+					To double precision, you need to quadruple n.
+				</p>
+			</div>
+
+			<div class="bg-red-50 rounded-lg p-4 border border-red-200">
+				<h3 class="font-medium text-red-900 mb-2">❌ "A larger sample size will fix my biased sampling method"</h3>
+				<p class="text-sm text-red-800">
+					No amount of sample size can fix systematic bias. If your sampling method is flawed (e.g., only surveying
+					volunteers), you'll just get a more precise estimate of the wrong answer.
+				</p>
+			</div>
+
+			<div class="bg-red-50 rounded-lg p-4 border border-red-200">
+				<h3 class="font-medium text-red-900 mb-2">❌ "I don't know σ, so I can't plan my sample size"</h3>
+				<p class="text-sm text-red-800">
+					You can estimate σ from pilot studies, published research on similar populations, or use conservative
+					estimates. For proportions, using p = 0.5 gives the maximum required n (most conservative).
+				</p>
+			</div>
+
+			<div class="bg-green-50 rounded-lg p-4 border border-green-200">
+				<h3 class="font-medium text-green-900 mb-2">✓ Good practice</h3>
+				<p class="text-sm text-green-800">
+					Always do a power analysis or sample size calculation <em>before</em> collecting data. Consider the
+					trade-off between precision and cost. Sometimes "good enough" precision is better than perfect precision
+					at 10× the cost.
+				</p>
+			</div>
+		</div>
+	</section>
+
+	<!-- What's Next -->
+	<section class="mb-8 bg-blue-50 rounded-xl p-6 border border-blue-200">
+		<h2 class="text-xl font-semibold text-blue-900 mb-3">What's Next?</h2>
+		<p class="text-blue-800 mb-4">
+			Now that you understand how sample size affects precision, you're ready to learn about <strong>Standard Error</strong>
+			in more depth. You'll discover:
+		</p>
+		<ul class="text-blue-700 space-y-2">
+			<li>• The crucial difference between SD (data spread) and SE (estimate precision)</li>
+			<li>• Why research papers report SE for means but SD for describing data</li>
+			<li>• How to interpret error bars in scientific figures</li>
+			<li>• The connection between SE and confidence intervals</li>
+		</ul>
 	</section>
 
 	<!-- Navigation -->

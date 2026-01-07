@@ -125,57 +125,131 @@
 	// Exercises
 	const exercises: Exercise[] = [
 		{
-			question: "In Bayesian analysis, what does the prior represent?",
-			options: [
-				"The probability of the data",
-				"Our beliefs before seeing the data",
-				"The result of the experiment",
-				"The sample size"
+			id: 'bayes-1',
+			type: 'multiple-choice',
+			question: 'In Bayesian analysis, what does the prior represent?',
+			choices: [
+				{ id: 'a', text: 'The probability of the data' },
+				{ id: 'b', text: 'Our beliefs before seeing the data', isCorrect: true },
+				{ id: 'c', text: 'The result of the experiment' },
+				{ id: 'd', text: 'The sample size' }
 			],
-			correctAnswer: 1,
-			explanation: "The prior represents our beliefs or knowledge about a parameter before observing any data. It encodes what we know (or assume) before the experiment."
+			explanation: 'The prior represents our beliefs or knowledge about a parameter before observing any data. It encodes what we know (or assume) before the experiment.',
+			difficulty: 'easy'
 		},
 		{
-			question: "If you have a strong prior and observe a small amount of data, what will dominate the posterior?",
-			options: [
-				"The data (likelihood)",
-				"The prior",
-				"Neither - they contribute equally",
-				"The sample mean"
+			id: 'bayes-2',
+			type: 'multiple-choice',
+			question: 'If you have a strong prior and observe a small amount of data, what will dominate the posterior?',
+			choices: [
+				{ id: 'a', text: 'The data (likelihood)' },
+				{ id: 'b', text: 'The prior', isCorrect: true },
+				{ id: 'c', text: 'Neither — they contribute equally' },
+				{ id: 'd', text: 'The sample mean' }
 			],
-			correctAnswer: 1,
-			explanation: "With a strong prior and little data, the prior dominates. As more data is collected, the likelihood increasingly influences the posterior, eventually overwhelming even strong priors."
+			explanation: 'With a strong prior and little data, the prior dominates. As more data is collected, the likelihood increasingly influences the posterior.',
+			difficulty: 'medium'
 		},
 		{
-			question: "A Beta(1,1) prior is often called 'uninformative' because it represents:",
-			options: [
-				"Complete certainty that θ = 0.5",
-				"A uniform distribution - all values equally likely",
-				"Strong belief in extreme values",
-				"Zero prior knowledge about anything"
+			id: 'bayes-3',
+			type: 'multiple-choice',
+			question: 'A Beta(1,1) prior is often called "uninformative" because it represents:',
+			choices: [
+				{ id: 'a', text: 'Complete certainty that θ = 0.5' },
+				{ id: 'b', text: 'A uniform distribution — all values equally likely', isCorrect: true },
+				{ id: 'c', text: 'Strong belief in extreme values' },
+				{ id: 'd', text: 'Zero prior knowledge about anything' }
 			],
-			correctAnswer: 1,
-			explanation: "Beta(1,1) is the uniform distribution on [0,1], treating all probability values as equally likely a priori. It's called 'uninformative' because it doesn't favor any particular value."
+			explanation: 'Beta(1,1) is the uniform distribution on [0,1], treating all probability values as equally likely a priori.',
+			difficulty: 'medium'
 		},
 		{
-			question: "What is a key advantage of Bayesian inference over frequentist methods?",
-			options: [
-				"It always gives smaller p-values",
-				"It never requires assumptions",
-				"It provides probability statements about parameters",
-				"It needs less computational power"
+			id: 'bayes-4',
+			type: 'multiple-choice',
+			question: 'What is a key advantage of Bayesian inference over frequentist methods?',
+			choices: [
+				{ id: 'a', text: 'It always gives smaller p-values' },
+				{ id: 'b', text: 'It never requires assumptions' },
+				{ id: 'c', text: 'It provides probability statements about parameters', isCorrect: true },
+				{ id: 'd', text: 'It needs less computational power' }
 			],
-			correctAnswer: 2,
-			explanation: "Bayesian inference gives direct probability statements about parameters (e.g., 'There's a 95% probability θ is between 0.3 and 0.5'), while frequentist methods only describe long-run properties of procedures."
+			explanation: 'Bayesian inference gives direct probability statements about parameters (e.g., "There\'s a 95% probability θ is between 0.3 and 0.5").',
+			difficulty: 'medium'
 		},
 		{
-			question: "You observe 8 successes in 10 trials. With a Beta(1,1) prior, the posterior is Beta(9,3). What is the posterior mean?",
-			type: "numeric",
+			id: 'bayes-5',
+			type: 'numeric',
+			question: 'You observe 8 successes in 10 trials. With a Beta(1,1) prior, the posterior is Beta(9,3). What is the posterior mean?',
+			questionMath: String.raw`\text{Mean} = \frac{\alpha}{\alpha + \beta} = \frac{9}{9+3} = ?`,
 			correctAnswer: 0.75,
 			tolerance: 0.01,
-			explanation: "For a Beta(α,β) distribution, the mean is α/(α+β) = 9/(9+3) = 9/12 = 0.75. This is slightly pulled toward 0.5 from the MLE of 0.8."
+			explanation: 'For Beta(α,β), mean = α/(α+β) = 9/12 = 0.75. This is pulled slightly toward 0.5 from the MLE of 0.8.',
+			difficulty: 'medium'
+		},
+		{
+			id: 'bayes-6',
+			type: 'multiple-choice',
+			question: 'What is a 95% credible interval?',
+			choices: [
+				{ id: 'a', text: 'An interval that contains the parameter with 95% probability', isCorrect: true },
+				{ id: 'b', text: 'An interval where 95% of repeated intervals contain the true value' },
+				{ id: 'c', text: 'An interval containing 95% of the data' },
+				{ id: 'd', text: 'The same as a 95% confidence interval' }
+			],
+			explanation: 'A credible interval directly states: "There\'s a 95% probability the parameter lies in this range." This is the interpretation people often incorrectly give to confidence intervals.',
+			difficulty: 'medium'
+		},
+		{
+			id: 'bayes-7',
+			type: 'true-false',
+			question: 'With enough data, the posterior will eventually be dominated by the likelihood regardless of the prior.',
+			choices: [
+				{ id: 'true', text: 'True', isCorrect: true },
+				{ id: 'false', text: 'False' }
+			],
+			explanation: 'True! As n → ∞, the likelihood overwhelms any proper prior. The posterior concentrates around the true parameter value. This is why Bayesian and frequentist methods often agree with large samples.',
+			difficulty: 'medium'
+		},
+		{
+			id: 'bayes-8',
+			type: 'multiple-choice',
+			question: 'A Bayes factor of 15 in favor of H₁ over H₀ means:',
+			choices: [
+				{ id: 'a', text: 'H₁ is 15% more likely than H₀' },
+				{ id: 'b', text: 'The data are 15 times more likely under H₁ than H₀', isCorrect: true },
+				{ id: 'c', text: 'p-value = 1/15' },
+				{ id: 'd', text: 'The effect size is 15' }
+			],
+			explanation: 'A Bayes factor is the ratio of likelihoods under two hypotheses. BF = 15 means the observed data are 15 times more probable if H₁ is true than if H₀ is true.',
+			difficulty: 'hard'
+		},
+		{
+			id: 'bayes-9',
+			type: 'multiple-choice',
+			question: 'What makes the Beta distribution "conjugate" to the Binomial likelihood?',
+			choices: [
+				{ id: 'a', text: 'They have the same shape' },
+				{ id: 'b', text: 'The posterior is also a Beta distribution', isCorrect: true },
+				{ id: 'c', text: 'They are both discrete' },
+				{ id: 'd', text: 'They require the same sample size' }
+			],
+			explanation: 'Conjugacy means the posterior belongs to the same family as the prior. Beta prior + Binomial likelihood = Beta posterior. This makes computation simple.',
+			difficulty: 'hard'
+		},
+		{
+			id: 'bayes-10',
+			type: 'true-false',
+			question: 'A Bayesian analysis with an uninformative prior will always give the same answer as a frequentist analysis.',
+			choices: [
+				{ id: 'true', text: 'True' },
+				{ id: 'false', text: 'False', isCorrect: true }
+			],
+			explanation: 'False! While they often agree, differences can arise in small samples, with nuisance parameters, or depending on exactly which "uninformative" prior is chosen (there are many).',
+			difficulty: 'hard'
 		}
 	];
+
+	let currentExerciseIndex = $state(0);
 </script>
 
 <svelte:head>
@@ -487,9 +561,79 @@
 
 	<section class="exercises-section">
 		<h2>Practice Exercises</h2>
-		{#each exercises as exercise, i}
-			<ExerciseCard {exercise} index={i} />
-		{/each}
+		<div class="space-y-6">
+			{#each exercises as exercise, i}
+				{#if i === currentExerciseIndex}
+					<ExerciseCard
+						{exercise}
+						on:completed={() => {
+							if (currentExerciseIndex < exercises.length - 1) {
+								setTimeout(() => currentExerciseIndex++, 1500);
+							}
+						}}
+					/>
+				{/if}
+			{/each}
+
+			<div class="flex items-center justify-between pt-4">
+				<button
+					class="px-4 py-2 text-gray-600 hover:text-gray-900 disabled:opacity-50"
+					disabled={currentExerciseIndex === 0}
+					onclick={() => currentExerciseIndex--}
+				>
+					← Previous
+				</button>
+				<span class="text-sm text-gray-500">
+					Exercise {currentExerciseIndex + 1} of {exercises.length}
+				</span>
+				<button
+					class="px-4 py-2 text-gray-600 hover:text-gray-900 disabled:opacity-50"
+					disabled={currentExerciseIndex === exercises.length - 1}
+					onclick={() => currentExerciseIndex++}
+				>
+					Next →
+				</button>
+			</div>
+		</div>
+	</section>
+
+	<!-- Key Takeaways -->
+	<section class="content-section" style="margin-top: 2rem;">
+		<h2>Key Takeaways</h2>
+		<div class="insight-grid">
+			<div class="insight-card">
+				<h3>1. Prior + Data = Posterior</h3>
+				<p>Bayes' theorem mathematically combines your prior beliefs with observed data to produce updated beliefs.</p>
+			</div>
+			<div class="insight-card">
+				<h3>2. Data Eventually Wins</h3>
+				<p>With enough data, even extreme priors are overwhelmed. Large samples make Bayesian and frequentist results similar.</p>
+			</div>
+			<div class="insight-card">
+				<h3>3. Direct Probability Statements</h3>
+				<p>Credible intervals give "95% probability parameter is here"—the intuitive interpretation people want.</p>
+			</div>
+			<div class="insight-card">
+				<h3>4. Prior Choice Matters</h3>
+				<p>Be transparent about priors. Sensitivity analysis shows how results change with different priors.</p>
+			</div>
+		</div>
+	</section>
+
+	<!-- What's Next -->
+	<section class="use-cases" style="margin-top: 2rem; display: block;">
+		<div class="use-case good" style="background: #f3e8ff; border-color: #8b5cf6;">
+			<h4 style="color: #6b21a8;">What's Next?</h4>
+			<p style="margin-bottom: 0.75rem; color: #555;">
+				Our final lesson brings everything together: <strong>Choosing the Right Test</strong>.
+				You'll learn a decision framework for selecting appropriate statistical methods.
+			</p>
+			<ul>
+				<li>Decision trees for test selection</li>
+				<li>Matching tests to data types and questions</li>
+				<li>Common mistakes and how to avoid them</li>
+			</ul>
+		</div>
 	</section>
 
 	<nav class="lesson-nav">

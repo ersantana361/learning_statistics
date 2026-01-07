@@ -232,6 +232,66 @@
 			],
 			explanation: 'False! Correlation measures LINEAR relationships only. Variables can have perfect non-linear relationships (like quadratic or circular) and still have r = 0. Always plot your data!',
 			difficulty: 'hard'
+		},
+		{
+			id: 'corr-6',
+			type: 'multiple-choice',
+			question: 'Height and weight have r = 0.70 in the general population. In a sample of NBA players only, you would expect:',
+			choices: [
+				{ id: 'a', text: 'A higher correlation because NBA players are more athletic' },
+				{ id: 'b', text: 'A lower correlation due to restriction of range', isCorrect: true },
+				{ id: 'c', text: 'The same correlation (r = 0.70)' },
+				{ id: 'd', text: 'A negative correlation' }
+			],
+			explanation: 'NBA players are pre-selected for height—all are tall. This "restriction of range" reduces variance in height, which typically weakens the correlation. With less variation to explain, r drops.',
+			difficulty: 'hard'
+		},
+		{
+			id: 'corr-7',
+			type: 'numeric',
+			question: 'Two variables have r = -0.7. What is r²?',
+			correctAnswer: 0.49,
+			tolerance: 0.01,
+			explanation: 'r² = (-0.7)² = 0.49. Note that r² is always positive regardless of whether r is positive or negative. The sign only indicates direction, not the proportion of variance explained.',
+			difficulty: 'easy'
+		},
+		{
+			id: 'corr-8',
+			type: 'multiple-choice',
+			question: 'What\'s the best interpretation of r² = 0.64?',
+			choices: [
+				{ id: 'a', text: '64% of X values match Y values' },
+				{ id: 'b', text: '64% of the variation in Y is accounted for by X', isCorrect: true },
+				{ id: 'c', text: 'X causes 64% of Y' },
+				{ id: 'd', text: '64% of the data points lie on the regression line' }
+			],
+			explanation: 'r² = 0.64 means 64% of the variance in Y can be "explained" (predicted) by knowing X. The remaining 36% is unexplained variance from other factors or noise.',
+			difficulty: 'medium'
+		},
+		{
+			id: 'corr-9',
+			type: 'multiple-choice',
+			question: 'You have data with one extreme outlier that follows the general trend but is far from other points. Removing it would:',
+			choices: [
+				{ id: 'a', text: 'Decrease |r| because the outlier supports the trend' },
+				{ id: 'b', text: 'Increase |r| because the outlier is far from the regression line' },
+				{ id: 'c', text: 'Decrease |r| because outliers that follow the trend can inflate r', isCorrect: true },
+				{ id: 'd', text: 'Have no effect on r' }
+			],
+			explanation: 'An outlier along the trend line can artificially inflate r by extending the range. This is exactly what happens in Anscombe\'s Set 4—one extreme point creates a seemingly strong correlation.',
+			difficulty: 'hard',
+			hint: 'Think about Anscombe\'s Quartet Set 4'
+		},
+		{
+			id: 'corr-10',
+			type: 'true-false',
+			question: 'If r = 0.8 between X and Y, then r = 0.8 between Y and X as well.',
+			choices: [
+				{ id: 'true', text: 'True', isCorrect: true },
+				{ id: 'false', text: 'False' }
+			],
+			explanation: 'True! Correlation is symmetric—r(X,Y) = r(Y,X). This is different from regression, where the slope of Y on X differs from the slope of X on Y.',
+			difficulty: 'easy'
 		}
 	];
 
@@ -251,6 +311,30 @@
 			Explore how correlation measures the strength and direction of linear relationships.
 		</p>
 	</header>
+
+	<!-- Why This Matters -->
+	<section class="bg-gradient-to-r from-amber-50 to-orange-50 rounded-xl p-6 mb-8 border border-amber-200">
+		<h2 class="text-xl font-semibold text-amber-900 mb-3">Why This Matters</h2>
+		<p class="text-amber-800 mb-4">
+			"Are taller people heavier?" "Do happier employees perform better?" "Is there a link between
+			exercise and cholesterol?" These questions all ask about <strong>relationships between variables</strong>.
+			Correlation is the fundamental tool for quantifying these relationships.
+		</p>
+		<p class="text-amber-800 mb-4">
+			But correlation is also the source of one of the most abused claims in data analysis.
+			Understanding what correlation can and cannot tell you is essential for being a critical
+			consumer of research and data-driven claims.
+		</p>
+		<div class="bg-white/60 rounded-lg p-4">
+			<h3 class="font-semibold text-amber-900 mb-2">Learning Objectives</h3>
+			<ul class="text-sm text-amber-800 space-y-1">
+				<li>• Calculate and interpret the correlation coefficient (r)</li>
+				<li>• Understand what r² (coefficient of determination) means</li>
+				<li>• Recognize why correlation does not imply causation</li>
+				<li>• Know the limitations: non-linear relationships, outliers, restriction of range</li>
+			</ul>
+		</div>
+	</section>
 
 	<!-- Key Concept -->
 	<section class="bg-amber-50 rounded-xl p-6 mb-8">
@@ -657,6 +741,54 @@
 					Next →
 				</button>
 			</div>
+		</div>
+	</section>
+
+	<!-- Key Takeaways -->
+	<section class="bg-gradient-to-r from-green-50 to-emerald-50 rounded-xl p-6 mb-8 border border-green-200">
+		<h2 class="text-xl font-semibold text-green-900 mb-4">Key Takeaways</h2>
+		<div class="grid md:grid-cols-2 gap-4">
+			<div class="space-y-3">
+				<div class="flex items-start gap-3">
+					<div class="w-6 h-6 bg-green-500 text-white rounded-full flex items-center justify-center text-sm font-bold shrink-0">1</div>
+					<p class="text-green-800 text-sm"><strong>r measures linear strength and direction</strong> — ranges from -1 (perfect negative) through 0 (no linear relationship) to +1 (perfect positive).</p>
+				</div>
+				<div class="flex items-start gap-3">
+					<div class="w-6 h-6 bg-green-500 text-white rounded-full flex items-center justify-center text-sm font-bold shrink-0">2</div>
+					<p class="text-green-800 text-sm"><strong>r² is the variance explained</strong> — the proportion of Y's variability that can be predicted from X.</p>
+				</div>
+				<div class="flex items-start gap-3">
+					<div class="w-6 h-6 bg-green-500 text-white rounded-full flex items-center justify-center text-sm font-bold shrink-0">3</div>
+					<p class="text-green-800 text-sm"><strong>Correlation ≠ causation</strong> — even strong correlations can arise from confounding, reverse causation, or coincidence.</p>
+				</div>
+			</div>
+			<div class="space-y-3">
+				<div class="flex items-start gap-3">
+					<div class="w-6 h-6 bg-green-500 text-white rounded-full flex items-center justify-center text-sm font-bold shrink-0">4</div>
+					<p class="text-green-800 text-sm"><strong>Always visualize</strong> — Anscombe's Quartet shows how different patterns can produce identical correlations.</p>
+				</div>
+				<div class="flex items-start gap-3">
+					<div class="w-6 h-6 bg-green-500 text-white rounded-full flex items-center justify-center text-sm font-bold shrink-0">5</div>
+					<p class="text-green-800 text-sm"><strong>Watch for artifacts</strong> — outliers, restriction of range, and non-linear relationships can all distort r.</p>
+				</div>
+			</div>
+		</div>
+	</section>
+
+	<!-- What's Next -->
+	<section class="bg-amber-50 rounded-xl p-6 mb-8 border border-amber-200">
+		<h2 class="text-xl font-semibold text-amber-900 mb-3">What's Next?</h2>
+		<p class="text-amber-800 mb-3">
+			Correlation tells us relationships exist, but <strong>regression</strong> takes it further—it lets us make predictions.
+			Next, we'll learn how to build predictive models using simple linear regression.
+		</p>
+		<div class="bg-white/60 rounded-lg p-4">
+			<h3 class="font-medium text-amber-900 mb-2">Preview: Simple Regression</h3>
+			<ul class="text-sm text-amber-700 space-y-1">
+				<li>• The regression equation: ŷ = b₀ + b₁x</li>
+				<li>• Least squares estimation—minimizing prediction error</li>
+				<li>• Interpreting slope and intercept in context</li>
+			</ul>
 		</div>
 	</section>
 

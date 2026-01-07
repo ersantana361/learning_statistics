@@ -165,6 +165,66 @@
 			],
 			explanation: 'True! The slope and correlation always have the same sign. b₁ = r × (sᵧ/sₓ), and since standard deviations are always positive, slope and r must have the same sign.',
 			difficulty: 'easy'
+		},
+		{
+			id: 'reg-6',
+			type: 'numeric',
+			question: 'A regression model predicts house price (in $1000s) from square footage: Price = 50 + 0.15 × SqFt. What is the predicted price for a 2000 sq ft house?',
+			correctAnswer: 350,
+			tolerance: 1,
+			explanation: 'Price = 50 + 0.15 × 2000 = 50 + 300 = 350 ($350,000). Each additional square foot adds $150 to the predicted price.',
+			difficulty: 'easy'
+		},
+		{
+			id: 'reg-7',
+			type: 'multiple-choice',
+			question: 'Why do we minimize SQUARED residuals instead of just residuals?',
+			choices: [
+				{ id: 'a', text: 'Squared residuals are easier to calculate' },
+				{ id: 'b', text: 'Squaring prevents positive and negative errors from canceling', isCorrect: true },
+				{ id: 'c', text: 'It makes the math harder to ensure accuracy' },
+				{ id: 'd', text: 'Squared residuals are always smaller' }
+			],
+			explanation: 'If we just summed residuals, positive errors (above line) and negative errors (below line) would cancel out. Squaring makes all errors positive and also penalizes large errors more heavily.',
+			difficulty: 'medium'
+		},
+		{
+			id: 'reg-8',
+			type: 'multiple-choice',
+			question: 'You fit a regression with data from x = 10 to x = 50. Predicting y when x = 100 is called:',
+			choices: [
+				{ id: 'a', text: 'Interpolation' },
+				{ id: 'b', text: 'Extrapolation', isCorrect: true },
+				{ id: 'c', text: 'Transformation' },
+				{ id: 'd', text: 'Standardization' }
+			],
+			explanation: 'Extrapolation means predicting beyond the range of your data. It\'s risky because the linear relationship may not hold outside the observed range.',
+			difficulty: 'medium',
+			hint: 'Inter- means within, extra- means beyond'
+		},
+		{
+			id: 'reg-9',
+			type: 'multiple-choice',
+			question: 'In Salary = 30000 + 2500 × YearsExp, what does "30000" represent?',
+			choices: [
+				{ id: 'a', text: 'The predicted starting salary for someone with 0 years experience', isCorrect: true },
+				{ id: 'b', text: 'The average salary' },
+				{ id: 'c', text: 'The increase in salary per year of experience' },
+				{ id: 'd', text: 'The R² value' }
+			],
+			explanation: 'The intercept (30000) is the predicted Y when X = 0. Here, it represents the predicted starting salary for someone with no experience.',
+			difficulty: 'easy'
+		},
+		{
+			id: 'reg-10',
+			type: 'true-false',
+			question: 'If the residuals show a curved pattern when plotted against X, the linear model is appropriate.',
+			choices: [
+				{ id: 'true', text: 'True' },
+				{ id: 'false', text: 'False', isCorrect: true }
+			],
+			explanation: 'False! A curved pattern in residuals indicates the relationship is non-linear. The linear model is missing something—consider adding polynomial terms or transforming variables.',
+			difficulty: 'medium'
 		}
 	];
 
@@ -184,6 +244,30 @@
 			Learn to fit a line that best predicts Y from X.
 		</p>
 	</header>
+
+	<!-- Why This Matters -->
+	<section class="bg-gradient-to-r from-rose-50 to-pink-50 rounded-xl p-6 mb-8 border border-rose-200">
+		<h2 class="text-xl font-semibold text-rose-900 mb-3">Why This Matters</h2>
+		<p class="text-rose-800 mb-4">
+			"How much will sales increase if we spend $1,000 more on advertising?" "What salary should
+			we expect for someone with 10 years of experience?" These aren't just correlation
+			questions—they require <strong>prediction</strong>. Regression gives us a formula.
+		</p>
+		<p class="text-rose-800 mb-4">
+			Simple linear regression is the foundation of predictive modeling. Understanding it deeply
+			prepares you for multiple regression, machine learning, and causal inference. Every
+			data scientist needs to master these concepts.
+		</p>
+		<div class="bg-white/60 rounded-lg p-4">
+			<h3 class="font-semibold text-rose-900 mb-2">Learning Objectives</h3>
+			<ul class="text-sm text-rose-800 space-y-1">
+				<li>• Fit a least squares regression line and interpret the equation</li>
+				<li>• Understand slope and intercept in context</li>
+				<li>• Calculate and interpret R² (coefficient of determination)</li>
+				<li>• Make predictions and understand their limitations</li>
+			</ul>
+		</div>
+	</section>
 
 	<!-- Key Concept -->
 	<section class="bg-rose-50 rounded-xl p-6 mb-8">
@@ -488,6 +572,77 @@
 					Next →
 				</button>
 			</div>
+		</div>
+	</section>
+
+	<!-- Key Takeaways -->
+	<section class="bg-gradient-to-r from-green-50 to-emerald-50 rounded-xl p-6 mb-8 border border-green-200">
+		<h2 class="text-xl font-semibold text-green-900 mb-4">Key Takeaways</h2>
+		<div class="grid md:grid-cols-2 gap-4">
+			<div class="space-y-3">
+				<div class="flex items-start gap-3">
+					<div class="w-6 h-6 bg-green-500 text-white rounded-full flex items-center justify-center text-sm font-bold shrink-0">1</div>
+					<p class="text-green-800 text-sm"><strong>The regression line minimizes squared errors</strong> — OLS finds the line where Σ(y - ŷ)² is smallest.</p>
+				</div>
+				<div class="flex items-start gap-3">
+					<div class="w-6 h-6 bg-green-500 text-white rounded-full flex items-center justify-center text-sm font-bold shrink-0">2</div>
+					<p class="text-green-800 text-sm"><strong>Slope = change in Y per unit X</strong> — the interpretation depends on context and units.</p>
+				</div>
+				<div class="flex items-start gap-3">
+					<div class="w-6 h-6 bg-green-500 text-white rounded-full flex items-center justify-center text-sm font-bold shrink-0">3</div>
+					<p class="text-green-800 text-sm"><strong>The line passes through (x̄, ȳ)</strong> — a mathematical property of least squares estimation.</p>
+				</div>
+			</div>
+			<div class="space-y-3">
+				<div class="flex items-start gap-3">
+					<div class="w-6 h-6 bg-green-500 text-white rounded-full flex items-center justify-center text-sm font-bold shrink-0">4</div>
+					<p class="text-green-800 text-sm"><strong>R² = proportion of variance explained</strong> — same as r² from correlation.</p>
+				</div>
+				<div class="flex items-start gap-3">
+					<div class="w-6 h-6 bg-green-500 text-white rounded-full flex items-center justify-center text-sm font-bold shrink-0">5</div>
+					<p class="text-green-800 text-sm"><strong>Beware extrapolation</strong> — predictions outside your data range are risky.</p>
+				</div>
+			</div>
+		</div>
+	</section>
+
+	<!-- Common Mistakes -->
+	<section class="bg-amber-50 rounded-xl p-6 mb-8 border border-amber-200">
+		<h2 class="text-xl font-semibold text-amber-900 mb-3">Common Mistakes to Avoid</h2>
+		<div class="grid md:grid-cols-2 gap-4 text-sm">
+			<div class="flex items-start gap-2">
+				<span class="text-amber-600">⚠</span>
+				<p class="text-amber-800"><strong>Interpreting intercept literally:</strong> If X = 0 isn't in your data, the intercept is just a mathematical anchor.</p>
+			</div>
+			<div class="flex items-start gap-2">
+				<span class="text-amber-600">⚠</span>
+				<p class="text-amber-800"><strong>Assuming causation:</strong> Regression shows prediction, not causation. Salary ~ Experience doesn't prove experience causes higher pay.</p>
+			</div>
+			<div class="flex items-start gap-2">
+				<span class="text-amber-600">⚠</span>
+				<p class="text-amber-800"><strong>Ignoring residual plots:</strong> Always check residuals for patterns—they reveal model violations.</p>
+			</div>
+			<div class="flex items-start gap-2">
+				<span class="text-amber-600">⚠</span>
+				<p class="text-amber-800"><strong>Extrapolating wildly:</strong> Your model is only valid within (or near) the observed X range.</p>
+			</div>
+		</div>
+	</section>
+
+	<!-- What's Next -->
+	<section class="bg-rose-50 rounded-xl p-6 mb-8 border border-rose-200">
+		<h2 class="text-xl font-semibold text-rose-900 mb-3">What's Next?</h2>
+		<p class="text-rose-800 mb-3">
+			How do you know if your regression model is valid? The answer lies in the <strong>residuals</strong>.
+			Next, we'll learn diagnostic techniques to check model assumptions.
+		</p>
+		<div class="bg-white/60 rounded-lg p-4">
+			<h3 class="font-medium text-rose-900 mb-2">Preview: Residual Diagnostics</h3>
+			<ul class="text-sm text-rose-700 space-y-1">
+				<li>• Residual plots and what patterns to look for</li>
+				<li>• Checking linearity, homoscedasticity, and normality</li>
+				<li>• Identifying influential outliers</li>
+			</ul>
 		</div>
 	</section>
 

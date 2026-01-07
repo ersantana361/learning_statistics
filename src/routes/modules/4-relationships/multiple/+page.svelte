@@ -190,6 +190,66 @@
 			],
 			explanation: 'True! When predictors are uncorrelated, there\'s no shared variance to partial out. Each predictor\'s coefficient is the same whether or not other predictors are in the model.',
 			difficulty: 'hard'
+		},
+		{
+			id: 'mult-6',
+			type: 'numeric',
+			question: 'A model has R² = 0.60, n = 100, and k = 4 predictors. What is the adjusted R²?',
+			questionMath: String.raw`R^2_{adj} = 1 - \frac{(1-0.60)(100-1)}{100-4-1} = 1 - \frac{0.40 \times 99}{95} = ?`,
+			correctAnswer: 0.58,
+			tolerance: 0.01,
+			explanation: 'Adj R² = 1 - (0.40 × 99)/95 = 1 - 39.6/95 = 1 - 0.417 = 0.583 ≈ 0.58. The penalty is small here because n is large relative to k.',
+			difficulty: 'medium'
+		},
+		{
+			id: 'mult-7',
+			type: 'multiple-choice',
+			question: 'In salary = 30000 + 5000×Education + 2000×Experience - 3000×Female, what does -3000 mean?',
+			choices: [
+				{ id: 'a', text: 'Women earn $3000 less on average' },
+				{ id: 'b', text: 'Women earn $3000 less controlling for education and experience', isCorrect: true },
+				{ id: 'c', text: 'Each year reduces salary by $3000' },
+				{ id: 'd', text: 'The model is biased against women' }
+			],
+			explanation: 'The coefficient represents the difference between groups (Female=1 vs Female=0) while holding education and experience constant. This is the "adjusted" gender gap.',
+			difficulty: 'medium'
+		},
+		{
+			id: 'mult-8',
+			type: 'multiple-choice',
+			question: 'VIF (Variance Inflation Factor) for X₁ is 8.5. What should you do?',
+			choices: [
+				{ id: 'a', text: 'Nothing — this is acceptable' },
+				{ id: 'b', text: 'Consider removing X₁ or a correlated predictor', isCorrect: true },
+				{ id: 'c', text: 'Automatically reject the model' },
+				{ id: 'd', text: 'Transform X₁' }
+			],
+			explanation: 'VIF > 5-10 suggests problematic multicollinearity. The coefficient for X₁ is unstable. Options: remove a predictor, combine them, or use regularization (ridge regression).',
+			difficulty: 'hard'
+		},
+		{
+			id: 'mult-9',
+			type: 'true-false',
+			question: 'Adding more predictors will never decrease R².',
+			choices: [
+				{ id: 'true', text: 'True', isCorrect: true },
+				{ id: 'false', text: 'False' }
+			],
+			explanation: 'True! R² can only stay the same or increase when predictors are added. That\'s why adjusted R² exists — it penalizes complexity and CAN decrease with useless predictors.',
+			difficulty: 'easy'
+		},
+		{
+			id: 'mult-10',
+			type: 'multiple-choice',
+			question: 'A confounder is a variable that:',
+			choices: [
+				{ id: 'a', text: 'Is caused by the outcome' },
+				{ id: 'b', text: 'Is correlated with both the predictor and outcome, potentially causing spurious association', isCorrect: true },
+				{ id: 'c', text: 'Has the largest coefficient' },
+				{ id: 'd', text: 'Makes the model harder to interpret' }
+			],
+			explanation: 'A confounder affects both X and Y, creating correlation that looks like X→Y but isn\'t causal. Including confounders in multiple regression helps control for this bias.',
+			difficulty: 'medium'
 		}
 	];
 
@@ -209,6 +269,30 @@
 			Extend regression to include multiple predictors and understand their unique contributions.
 		</p>
 	</header>
+
+	<!-- Why This Matters -->
+	<section class="bg-gradient-to-r from-rose-50 to-pink-50 rounded-xl p-6 mb-8 border border-rose-200">
+		<h2 class="text-xl font-semibold text-rose-900 mb-3">Why This Matters</h2>
+		<p class="text-rose-800 mb-4">
+			In the real world, outcomes rarely depend on just one factor. House prices depend on size, location,
+			age, and more. Patient outcomes depend on treatment, age, severity, and comorbidities.
+			<strong>Multiple regression lets you untangle these intertwined effects.</strong>
+		</p>
+		<p class="text-rose-800 mb-4">
+			This is also where statistics starts to approach causal inference. By "controlling for" other variables,
+			you can get closer to isolating the effect of the variable you care about—though true causal claims
+			still require careful experimental design or advanced methods.
+		</p>
+		<div class="bg-white/60 rounded-lg p-4">
+			<h3 class="font-semibold text-rose-900 mb-2">Learning Objectives</h3>
+			<ul class="text-sm text-rose-800 space-y-1">
+				<li>• Understand "holding other variables constant" (partial effects)</li>
+				<li>• See how coefficients change when predictors are added</li>
+				<li>• Recognize multicollinearity and its consequences</li>
+				<li>• Use adjusted R² to compare models of different complexity</li>
+			</ul>
+		</div>
+	</section>
 
 	<!-- Key Concept -->
 	<section class="bg-rose-50 rounded-xl p-6 mb-8">
@@ -465,6 +549,60 @@
 				>
 					Next →
 				</button>
+			</div>
+		</div>
+	</section>
+
+	<!-- Key Takeaways -->
+	<section class="bg-gradient-to-r from-green-50 to-emerald-50 rounded-xl p-6 mb-8 border border-green-200">
+		<h2 class="text-xl font-semibold text-green-900 mb-4">Key Takeaways</h2>
+		<div class="grid md:grid-cols-2 gap-4">
+			<div class="space-y-3">
+				<div class="flex items-start gap-3">
+					<div class="w-6 h-6 bg-green-500 text-white rounded-full flex items-center justify-center text-sm font-bold shrink-0">1</div>
+					<p class="text-green-800 text-sm"><strong>Coefficients are partial effects</strong> — each coefficient shows the effect of that predictor while holding others constant.</p>
+				</div>
+				<div class="flex items-start gap-3">
+					<div class="w-6 h-6 bg-green-500 text-white rounded-full flex items-center justify-center text-sm font-bold shrink-0">2</div>
+					<p class="text-green-800 text-sm"><strong>Coefficients change when predictors are added</strong> — this reveals confounding and shared variance.</p>
+				</div>
+				<div class="flex items-start gap-3">
+					<div class="w-6 h-6 bg-green-500 text-white rounded-full flex items-center justify-center text-sm font-bold shrink-0">3</div>
+					<p class="text-green-800 text-sm"><strong>Use adjusted R² to compare models</strong> — regular R² always increases with more predictors.</p>
+				</div>
+			</div>
+			<div class="space-y-3">
+				<div class="flex items-start gap-3">
+					<div class="w-6 h-6 bg-green-500 text-white rounded-full flex items-center justify-center text-sm font-bold shrink-0">4</div>
+					<p class="text-green-800 text-sm"><strong>Watch for multicollinearity</strong> — highly correlated predictors make individual coefficients unreliable.</p>
+				</div>
+				<div class="flex items-start gap-3">
+					<div class="w-6 h-6 bg-green-500 text-white rounded-full flex items-center justify-center text-sm font-bold shrink-0">5</div>
+					<p class="text-green-800 text-sm"><strong>Parsimony matters</strong> — simpler models are often more interpretable and generalizable.</p>
+				</div>
+			</div>
+		</div>
+	</section>
+
+	<!-- Common Pitfalls -->
+	<section class="bg-amber-50 rounded-xl p-6 mb-8 border border-amber-200">
+		<h2 class="text-xl font-semibold text-amber-900 mb-3">Common Pitfalls in Multiple Regression</h2>
+		<div class="grid md:grid-cols-2 gap-4 text-sm">
+			<div class="flex items-start gap-2">
+				<span class="text-amber-600">⚠</span>
+				<p class="text-amber-800"><strong>Kitchen sink models:</strong> Throwing in every variable doesn't help—it adds noise and multicollinearity.</p>
+			</div>
+			<div class="flex items-start gap-2">
+				<span class="text-amber-600">⚠</span>
+				<p class="text-amber-800"><strong>Controlling for mediators:</strong> Don't control for variables that are part of the causal pathway you're studying.</p>
+			</div>
+			<div class="flex items-start gap-2">
+				<span class="text-amber-600">⚠</span>
+				<p class="text-amber-800"><strong>Overfitting:</strong> With too many predictors relative to n, your model captures noise instead of signal.</p>
+			</div>
+			<div class="flex items-start gap-2">
+				<span class="text-amber-600">⚠</span>
+				<p class="text-amber-800"><strong>Assuming causation:</strong> Statistical control ≠ experimental control. Confounders you didn't measure still exist.</p>
 			</div>
 		</div>
 	</section>

@@ -109,7 +109,7 @@
 				{ id: 'd', text: 'The result is likely a Type I error' }
 			],
 			explanation: 'With large samples, even tiny effects can be statistically significant. d = 0.15 is negligible by Cohen\'s guidelines, meaning the effect is real but too small to matter in practice.',
-			difficulty: 'medium'
+			difficulty: 'easy'
 		},
 		{
 			id: 'effect-2',
@@ -159,6 +159,66 @@
 			],
 			explanation: 'False! A CI not including 0 means statistical significance (the effect is non-zero). Practical significance depends on whether the effect size is large enough to matter, regardless of whether the CI includes 0.',
 			difficulty: 'medium'
+		},
+		{
+			id: 'effect-6',
+			type: 'numeric',
+			question: 'Group 1: mean = 100, SD = 15. Group 2: mean = 112, SD = 15. What is Cohen\'s d?',
+			correctAnswer: 0.8,
+			tolerance: 0.01,
+			explanation: 'd = (112 - 100) / 15 = 12 / 15 = 0.8, a "large" effect by Cohen\'s guidelines.',
+			difficulty: 'medium'
+		},
+		{
+			id: 'effect-7',
+			type: 'multiple-choice',
+			question: 'A study with d = 0.5 has distributions that overlap by about:',
+			choices: [
+				{ id: 'a', text: '90%' },
+				{ id: 'b', text: '80%', isCorrect: true },
+				{ id: 'c', text: '67%' },
+				{ id: 'd', text: '50%' }
+			],
+			explanation: 'For d = 0.5, about 80% of the two distributions overlap. The overlap formula is 2Φ(-|d|/2). Larger effects mean less overlap.',
+			difficulty: 'medium',
+			hint: 'Use the interactive visualization to check.'
+		},
+		{
+			id: 'effect-8',
+			type: 'multiple-choice',
+			question: 'Which effect size measure is most appropriate for ANOVA?',
+			choices: [
+				{ id: 'a', text: 'Cohen\'s d' },
+				{ id: 'b', text: 'Pearson r' },
+				{ id: 'c', text: 'Eta squared (η²)', isCorrect: true },
+				{ id: 'd', text: 'Odds ratio' }
+			],
+			explanation: 'Eta squared (η²) measures the proportion of variance explained by the independent variable in ANOVA. Cohen\'s d is for two groups; η² works for multiple groups.',
+			difficulty: 'hard'
+		},
+		{
+			id: 'effect-9',
+			type: 'numeric',
+			question: 'Convert d = 1.0 to correlation r using r = d/√(d² + 4). What is r?',
+			correctAnswer: 0.447,
+			tolerance: 0.01,
+			explanation: 'r = 1.0 / √(1.0² + 4) = 1.0 / √5 = 1.0 / 2.236 ≈ 0.447',
+			explanationMath: String.raw`r = \frac{1.0}{\sqrt{1.0^2 + 4}} = \frac{1.0}{\sqrt{5}} \approx 0.447`,
+			difficulty: 'medium',
+			hint: 'Plug d = 1.0 into the formula and calculate.'
+		},
+		{
+			id: 'effect-10',
+			type: 'multiple-choice',
+			question: 'Two studies find d = 0.5. Study A: n = 20, p = 0.12. Study B: n = 200, p < 0.001. Which effect is larger?',
+			choices: [
+				{ id: 'a', text: 'Study B has a larger effect' },
+				{ id: 'b', text: 'Study A has a larger effect' },
+				{ id: 'c', text: 'The effects are the same size', isCorrect: true },
+				{ id: 'd', text: 'Cannot compare without more information' }
+			],
+			explanation: 'Both studies found d = 0.5—the same effect size! Study B\'s smaller p-value is due to larger n, not a larger effect. This illustrates why effect sizes are essential for comparing studies.',
+			difficulty: 'medium'
 		}
 	];
 
@@ -178,6 +238,30 @@
 			Go beyond "significant or not" — learn to quantify how big an effect actually is.
 		</p>
 	</header>
+
+	<!-- Why This Matters -->
+	<section class="bg-gradient-to-r from-emerald-50 to-teal-50 rounded-xl p-6 mb-8 border border-emerald-200">
+		<h2 class="text-xl font-semibold text-emerald-900 mb-3">Why This Matters</h2>
+		<p class="text-emerald-800 mb-4">
+			"Statistically significant" doesn't mean "important." A drug that lowers blood pressure by 0.1 mmHg
+			could be statistically significant with enough patients—but that effect is clinically meaningless.
+			Meanwhile, a treatment with a huge effect might fail to reach significance in a small study.
+		</p>
+		<p class="text-emerald-800 mb-4">
+			Effect sizes bridge the gap between statistical significance and practical significance. They answer
+			the question: <strong>"Is this effect big enough to matter?"</strong> This makes research findings
+			comparable across studies and helps you make informed decisions about what's actually important.
+		</p>
+		<div class="bg-white/60 rounded-lg p-4">
+			<h3 class="font-semibold text-emerald-900 mb-2">Learning Objectives</h3>
+			<ul class="text-sm text-emerald-800 space-y-1">
+				<li>• Calculate and interpret Cohen's d</li>
+				<li>• Distinguish between small, medium, and large effects</li>
+				<li>• Understand why effect sizes complement p-values</li>
+				<li>• Translate effect sizes into meaningful comparisons</li>
+			</ul>
+		</div>
+	</section>
 
 	<!-- Key Concept -->
 	<section class="bg-emerald-50 rounded-xl p-6 mb-8">
@@ -464,30 +548,61 @@
 		</div>
 	</section>
 
+	<!-- Key Takeaways -->
+	<section class="mb-8">
+		<h2 class="text-xl font-semibold text-gray-900 mb-4">Key Takeaways</h2>
+		<div class="grid md:grid-cols-2 gap-4">
+			<div class="bg-green-50 rounded-lg p-4 border border-green-200">
+				<h3 class="font-semibold text-green-900 mb-2">✓ Cohen's Benchmarks</h3>
+				<ul class="text-sm text-green-800 space-y-1">
+					<li>• Small: d = 0.2 (subtle, often hard to see)</li>
+					<li>• Medium: d = 0.5 (noticeable with attention)</li>
+					<li>• Large: d = 0.8 (obvious to casual observation)</li>
+					<li>• Context matters more than benchmarks!</li>
+				</ul>
+			</div>
+			<div class="bg-amber-50 rounded-lg p-4 border border-amber-200">
+				<h3 class="font-semibold text-amber-900 mb-2">⚠ Remember</h3>
+				<ul class="text-sm text-amber-800 space-y-1">
+					<li>• Statistical significance ≠ practical significance</li>
+					<li>• Large n can make tiny effects "significant"</li>
+					<li>• Always report both p-values AND effect sizes</li>
+					<li>• Effect sizes enable meta-analysis</li>
+				</ul>
+			</div>
+		</div>
+	</section>
+
 	<!-- Module Summary -->
 	<section class="mb-8 bg-emerald-50 rounded-xl p-6">
 		<h2 class="text-xl font-semibold text-emerald-900 mb-4">Module 2 Complete!</h2>
 		<p class="text-emerald-800 mb-4">
-			You now understand the logic of hypothesis testing:
+			Congratulations! You now understand the complete logic of hypothesis testing:
 		</p>
 		<ul class="space-y-2 text-emerald-700">
 			<li class="flex items-start gap-2">
 				<span class="text-emerald-500">✓</span>
-				<span><strong>P-values:</strong> Probability of data given H₀ is true</span>
+				<span><strong>P-values:</strong> Probability of data this extreme, given H₀ is true (NOT probability H₀ is true)</span>
 			</li>
 			<li class="flex items-start gap-2">
 				<span class="text-emerald-500">✓</span>
-				<span><strong>Type I & II Errors:</strong> The tradeoff between false positives and negatives</span>
+				<span><strong>Type I & II Errors:</strong> The inherent tradeoff between false positives (α) and false negatives (β)</span>
 			</li>
 			<li class="flex items-start gap-2">
 				<span class="text-emerald-500">✓</span>
-				<span><strong>Statistical Power:</strong> Designing studies that can detect effects</span>
+				<span><strong>Statistical Power:</strong> Plan studies that can actually detect real effects (target 80%+)</span>
 			</li>
 			<li class="flex items-start gap-2">
 				<span class="text-emerald-500">✓</span>
-				<span><strong>Effect Sizes:</strong> Quantifying how big effects actually are</span>
+				<span><strong>Effect Sizes:</strong> Quantify how big effects are—the missing piece for practical significance</span>
 			</li>
 		</ul>
+		<div class="mt-4 p-3 bg-white/60 rounded-lg">
+			<p class="text-sm text-emerald-800">
+				<strong>Next up:</strong> You'll apply these concepts to real statistical tests—t-tests for
+				comparing group means, and understanding when and how to use them correctly.
+			</p>
+		</div>
 	</section>
 
 	<!-- Navigation -->

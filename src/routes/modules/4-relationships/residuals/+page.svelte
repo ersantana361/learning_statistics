@@ -186,6 +186,69 @@
 			],
 			explanation: 'False! Normal residuals is just one assumption. You also need linearity, independence, and constant variance. All four assumptions (LINE) must be checked.',
 			difficulty: 'easy'
+		},
+		{
+			id: 'resid-6',
+			type: 'multiple-choice',
+			question: 'The Q-Q plot shows points curving away from the diagonal at both ends (S-shaped). What does this suggest?',
+			choices: [
+				{ id: 'a', text: 'The model is nonlinear' },
+				{ id: 'b', text: 'Residuals have heavier tails than normal (more extreme values)', isCorrect: true },
+				{ id: 'c', text: 'Perfect normality' },
+				{ id: 'd', text: 'There is no relationship in the data' }
+			],
+			explanation: 'An S-shape in the Q-Q plot indicates heavy tails (leptokurtosis)—more extreme values than expected from a normal distribution. Consider robust regression methods.',
+			difficulty: 'hard'
+		},
+		{
+			id: 'resid-7',
+			type: 'multiple-choice',
+			question: 'Which LINE assumption is MOST serious when violated?',
+			choices: [
+				{ id: 'a', text: 'Normality' },
+				{ id: 'b', text: 'Linearity', isCorrect: true },
+				{ id: 'c', text: 'Equal variance' },
+				{ id: 'd', text: 'They are all equally serious' }
+			],
+			explanation: 'Linearity is most critical—if the true relationship is nonlinear, your entire model is wrong. Normality and equal variance affect inference (p-values, CIs) but the model itself may still be useful.',
+			difficulty: 'medium'
+		},
+		{
+			id: 'resid-8',
+			type: 'multiple-choice',
+			question: 'What\'s the best way to detect non-independence in time series data?',
+			choices: [
+				{ id: 'a', text: 'Q-Q plot' },
+				{ id: 'b', text: 'Residuals vs. fitted plot' },
+				{ id: 'c', text: 'Plot residuals against time/order of collection', isCorrect: true },
+				{ id: 'd', text: 'Histogram of residuals' }
+			],
+			explanation: 'Serial correlation (autocorrelation) is detected by plotting residuals in order. Patterns over time suggest that errors are correlated, violating independence.',
+			difficulty: 'hard'
+		},
+		{
+			id: 'resid-9',
+			type: 'true-false',
+			question: 'Log-transforming Y is a common fix for heteroscedasticity (funnel-shaped residuals).',
+			choices: [
+				{ id: 'true', text: 'True', isCorrect: true },
+				{ id: 'false', text: 'False' }
+			],
+			explanation: 'True! When variance increases with Y (common in positive, right-skewed data), log(Y) often stabilizes variance. This is because log compresses large values more than small ones.',
+			difficulty: 'medium'
+		},
+		{
+			id: 'resid-10',
+			type: 'multiple-choice',
+			question: 'An influential point is defined as one that:',
+			choices: [
+				{ id: 'a', text: 'Has the largest residual' },
+				{ id: 'b', text: 'Substantially changes the regression line when removed', isCorrect: true },
+				{ id: 'c', text: 'Is always an error and should be deleted' },
+				{ id: 'd', text: 'Falls exactly on the regression line' }
+			],
+			explanation: 'Influential points pull the regression line toward themselves. They may have small residuals (because the line passes near them!) but high leverage. Cook\'s distance measures influence.',
+			difficulty: 'medium'
 		}
 	];
 
@@ -205,6 +268,30 @@
 			Learn to diagnose problems with your regression model using residual plots.
 		</p>
 	</header>
+
+	<!-- Why This Matters -->
+	<section class="bg-gradient-to-r from-rose-50 to-pink-50 rounded-xl p-6 mb-8 border border-rose-200">
+		<h2 class="text-xl font-semibold text-rose-900 mb-3">Why This Matters</h2>
+		<p class="text-rose-800 mb-4">
+			A regression equation can look perfectly reasonable but be completely misleading. The coefficients,
+			R², and p-values are meaningless if the model assumptions are violated. <strong>Residual analysis
+			is your quality control</strong>—it reveals whether you can trust your results.
+		</p>
+		<p class="text-rose-800 mb-4">
+			This is arguably the most undervalued skill in applied statistics. Many published research papers
+			contain regressions that fail basic diagnostic checks. Learning to read residual plots makes you
+			a more critical analyst and consumer of research.
+		</p>
+		<div class="bg-white/60 rounded-lg p-4">
+			<h3 class="font-semibold text-rose-900 mb-2">Learning Objectives</h3>
+			<ul class="text-sm text-rose-800 space-y-1">
+				<li>• Understand the LINE assumptions and why they matter</li>
+				<li>• Read residual vs. fitted plots to detect problems</li>
+				<li>• Use Q-Q plots to assess normality of residuals</li>
+				<li>• Know what remedies to apply when assumptions fail</li>
+			</ul>
+		</div>
+	</section>
 
 	<!-- Key Concept -->
 	<section class="bg-rose-50 rounded-xl p-6 mb-8">
@@ -504,6 +591,92 @@
 					Next →
 				</button>
 			</div>
+		</div>
+	</section>
+
+	<!-- Key Takeaways -->
+	<section class="bg-gradient-to-r from-green-50 to-emerald-50 rounded-xl p-6 mb-8 border border-green-200">
+		<h2 class="text-xl font-semibold text-green-900 mb-4">Key Takeaways</h2>
+		<div class="grid md:grid-cols-2 gap-4">
+			<div class="space-y-3">
+				<div class="flex items-start gap-3">
+					<div class="w-6 h-6 bg-green-500 text-white rounded-full flex items-center justify-center text-sm font-bold shrink-0">1</div>
+					<p class="text-green-800 text-sm"><strong>Always check residual plots</strong> — good R² doesn't mean good model. Residuals reveal hidden problems.</p>
+				</div>
+				<div class="flex items-start gap-3">
+					<div class="w-6 h-6 bg-green-500 text-white rounded-full flex items-center justify-center text-sm font-bold shrink-0">2</div>
+					<p class="text-green-800 text-sm"><strong>LINE = Linearity, Independence, Normality, Equal variance</strong> — memorize this checklist.</p>
+				</div>
+				<div class="flex items-start gap-3">
+					<div class="w-6 h-6 bg-green-500 text-white rounded-full flex items-center justify-center text-sm font-bold shrink-0">3</div>
+					<p class="text-green-800 text-sm"><strong>Linearity is most critical</strong> — nonlinearity means your whole model is wrong.</p>
+				</div>
+			</div>
+			<div class="space-y-3">
+				<div class="flex items-start gap-3">
+					<div class="w-6 h-6 bg-green-500 text-white rounded-full flex items-center justify-center text-sm font-bold shrink-0">4</div>
+					<p class="text-green-800 text-sm"><strong>Q-Q plots assess normality</strong> — points should fall on the diagonal line.</p>
+				</div>
+				<div class="flex items-start gap-3">
+					<div class="w-6 h-6 bg-green-500 text-white rounded-full flex items-center justify-center text-sm font-bold shrink-0">5</div>
+					<p class="text-green-800 text-sm"><strong>Outliers need investigation, not deletion</strong> — understand why before removing them.</p>
+				</div>
+			</div>
+		</div>
+	</section>
+
+	<!-- Remedies Table -->
+	<section class="bg-blue-50 rounded-xl p-6 mb-8 border border-blue-200">
+		<h2 class="text-xl font-semibold text-blue-900 mb-4">Quick Remedies Reference</h2>
+		<div class="overflow-x-auto">
+			<table class="w-full text-sm">
+				<thead class="bg-blue-100">
+					<tr>
+						<th class="py-2 px-3 text-left font-semibold text-blue-900">Problem</th>
+						<th class="py-2 px-3 text-left font-semibold text-blue-900">Pattern in Residual Plot</th>
+						<th class="py-2 px-3 text-left font-semibold text-blue-900">Remedies</th>
+					</tr>
+				</thead>
+				<tbody class="divide-y divide-blue-100">
+					<tr>
+						<td class="py-2 px-3 text-blue-800">Nonlinearity</td>
+						<td class="py-2 px-3 text-blue-700">Curved pattern</td>
+						<td class="py-2 px-3 text-blue-700">Add polynomial terms, transform X or Y</td>
+					</tr>
+					<tr>
+						<td class="py-2 px-3 text-blue-800">Heteroscedasticity</td>
+						<td class="py-2 px-3 text-blue-700">Funnel shape</td>
+						<td class="py-2 px-3 text-blue-700">Log transform Y, weighted least squares</td>
+					</tr>
+					<tr>
+						<td class="py-2 px-3 text-blue-800">Non-normality</td>
+						<td class="py-2 px-3 text-blue-700">Curved Q-Q plot</td>
+						<td class="py-2 px-3 text-blue-700">Transform Y, bootstrap CIs, larger sample</td>
+					</tr>
+					<tr>
+						<td class="py-2 px-3 text-blue-800">Outliers</td>
+						<td class="py-2 px-3 text-blue-700">Extreme residuals</td>
+						<td class="py-2 px-3 text-blue-700">Investigate, robust regression, report both</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+	</section>
+
+	<!-- What's Next -->
+	<section class="bg-rose-50 rounded-xl p-6 mb-8 border border-rose-200">
+		<h2 class="text-xl font-semibold text-rose-900 mb-3">What's Next?</h2>
+		<p class="text-rose-800 mb-3">
+			So far we've used one predictor. But in practice, outcomes depend on multiple factors.
+			Next, we'll explore <strong>multiple regression</strong>—adding more predictors to explain more variance.
+		</p>
+		<div class="bg-white/60 rounded-lg p-4">
+			<h3 class="font-medium text-rose-900 mb-2">Preview: Multiple Predictors</h3>
+			<ul class="text-sm text-rose-700 space-y-1">
+				<li>• Interpreting coefficients with multiple variables</li>
+				<li>• Controlling for confounders</li>
+				<li>• Adjusted R² and model comparison</li>
+			</ul>
 		</div>
 	</section>
 

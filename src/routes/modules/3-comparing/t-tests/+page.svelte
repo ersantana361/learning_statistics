@@ -174,6 +174,66 @@
 			],
 			explanation: 'False! Unequal sample sizes are fine. The pooled standard error formula accounts for different n values. However, very unequal sizes can reduce power and make the test more sensitive to variance inequality.',
 			difficulty: 'easy'
+		},
+		{
+			id: 't-6',
+			type: 'numeric',
+			question: 'Treatment group: n=25, mean=78, SD=12. Control group: n=25, mean=72, SD=12. What is the t-statistic?',
+			questionMath: String.raw`t = \frac{78 - 72}{12\sqrt{\frac{1}{25} + \frac{1}{25}}} = \frac{6}{12 \times 0.283} = ?`,
+			correctAnswer: 1.77,
+			tolerance: 0.1,
+			explanation: 'SE = 12 × √(0.04 + 0.04) = 12 × 0.283 = 3.39. t = 6 / 3.39 ≈ 1.77. This is below the critical value of ~2.01 (df=48, α=0.05), so not significant.',
+			difficulty: 'medium'
+		},
+		{
+			id: 't-7',
+			type: 'multiple-choice',
+			question: 'A researcher finds t = 2.15, p = 0.038 with n₁ = n₂ = 20. What should they conclude at α = 0.05?',
+			choices: [
+				{ id: 'a', text: 'Reject H₀ - there is sufficient evidence of a difference', isCorrect: true },
+				{ id: 'b', text: 'Fail to reject H₀ - no significant difference' },
+				{ id: 'c', text: 'The test is inconclusive' },
+				{ id: 'd', text: 'Need more information to decide' }
+			],
+			explanation: 'Since p = 0.038 < α = 0.05, we reject the null hypothesis. There is statistically significant evidence that the population means differ.',
+			difficulty: 'easy'
+		},
+		{
+			id: 't-8',
+			type: 'multiple-choice',
+			question: 'Why does increasing sample size make the t-test more powerful?',
+			choices: [
+				{ id: 'a', text: 'It increases the effect size' },
+				{ id: 'b', text: 'It decreases the standard error, making real differences easier to detect', isCorrect: true },
+				{ id: 'c', text: 'It changes the significance level' },
+				{ id: 'd', text: 'It makes the data more normally distributed' }
+			],
+			explanation: 'Standard error decreases as n increases (SE ∝ 1/√n). A smaller SE means the same difference produces a larger t-statistic, making it easier to reach significance.',
+			difficulty: 'medium',
+			hint: 'Think about what happens to SE = s/√n as n increases'
+		},
+		{
+			id: 't-9',
+			type: 'numeric',
+			question: 'With n₁ = 15 and n₂ = 25, what are the degrees of freedom for the pooled t-test?',
+			correctAnswer: 38,
+			tolerance: 0,
+			explanation: 'df = n₁ + n₂ - 2 = 15 + 25 - 2 = 38. We lose 2 degrees of freedom because we estimate two means (one for each group).',
+			difficulty: 'easy'
+		},
+		{
+			id: 't-10',
+			type: 'multiple-choice',
+			question: 'Group A (drug): mean = 120 mmHg, SD = 15. Group B (placebo): mean = 125 mmHg, SD = 15. Cohen\'s d = 0.33. How would you describe this effect?',
+			choices: [
+				{ id: 'a', text: 'No effect' },
+				{ id: 'b', text: 'Small effect (d ≈ 0.2)', isCorrect: true },
+				{ id: 'c', text: 'Medium effect (d ≈ 0.5)' },
+				{ id: 'd', text: 'Large effect (d ≈ 0.8)' }
+			],
+			explanation: 'Cohen\'s d = 0.33 falls between small (0.2) and medium (0.5), so we\'d describe this as a small-to-medium effect. The 5 mmHg blood pressure difference is about 1/3 of a standard deviation.',
+			difficulty: 'medium',
+			hint: 'Cohen\'s benchmarks: 0.2 = small, 0.5 = medium, 0.8 = large'
 		}
 	];
 
@@ -193,6 +253,30 @@
 			Compare means between two independent groups with proper uncertainty quantification.
 		</p>
 	</header>
+
+	<!-- Why This Matters -->
+	<section class="bg-gradient-to-r from-indigo-50 to-purple-50 rounded-xl p-6 mb-8 border border-indigo-200">
+		<h2 class="text-xl font-semibold text-indigo-900 mb-3">Why This Matters</h2>
+		<p class="text-indigo-800 mb-4">
+			"Is the drug effective?" "Do students learn better with method A or B?" "Are salaries different between
+			departments?" These questions all reduce to the same statistical problem: <strong>comparing means between
+			two groups</strong>. The two-sample t-test is one of the most commonly used statistical procedures in science.
+		</p>
+		<p class="text-indigo-800 mb-4">
+			Understanding the t-test deeply—not just how to run it, but what it assumes and when it might mislead you—is
+			essential for any data analyst. This lesson shows you the mechanics and helps you build intuition about
+			what makes a difference "statistically significant."
+		</p>
+		<div class="bg-white/60 rounded-lg p-4">
+			<h3 class="font-semibold text-indigo-900 mb-2">Learning Objectives</h3>
+			<ul class="text-sm text-indigo-800 space-y-1">
+				<li>• Understand when to use a two-sample t-test</li>
+				<li>• Calculate and interpret the t-statistic and p-value</li>
+				<li>• Know the assumptions and what to do when they're violated</li>
+				<li>• Connect t-tests to effect sizes and practical significance</li>
+			</ul>
+		</div>
+	</section>
 
 	<!-- Key Concept -->
 	<section class="bg-indigo-50 rounded-xl p-6 mb-8">
@@ -537,6 +621,76 @@
 					Next →
 				</button>
 			</div>
+		</div>
+	</section>
+
+	<!-- Key Takeaways -->
+	<section class="bg-gradient-to-r from-green-50 to-emerald-50 rounded-xl p-6 mb-8 border border-green-200">
+		<h2 class="text-xl font-semibold text-green-900 mb-4">Key Takeaways</h2>
+		<div class="grid md:grid-cols-2 gap-4">
+			<div class="space-y-3">
+				<div class="flex items-start gap-3">
+					<div class="w-6 h-6 bg-green-500 text-white rounded-full flex items-center justify-center text-sm font-bold shrink-0">1</div>
+					<p class="text-green-800 text-sm"><strong>The t-statistic measures distance in SE units</strong> — how far the observed difference is from zero in standard error units.</p>
+				</div>
+				<div class="flex items-start gap-3">
+					<div class="w-6 h-6 bg-green-500 text-white rounded-full flex items-center justify-center text-sm font-bold shrink-0">2</div>
+					<p class="text-green-800 text-sm"><strong>Larger samples = more power</strong> — as n increases, SE decreases, making it easier to detect real differences.</p>
+				</div>
+				<div class="flex items-start gap-3">
+					<div class="w-6 h-6 bg-green-500 text-white rounded-full flex items-center justify-center text-sm font-bold shrink-0">3</div>
+					<p class="text-green-800 text-sm"><strong>Welch's t-test is often the safer default</strong> — it doesn't assume equal variances and works well even when variances are equal.</p>
+				</div>
+			</div>
+			<div class="space-y-3">
+				<div class="flex items-start gap-3">
+					<div class="w-6 h-6 bg-green-500 text-white rounded-full flex items-center justify-center text-sm font-bold shrink-0">4</div>
+					<p class="text-green-800 text-sm"><strong>Statistical ≠ practical significance</strong> — always report effect sizes (Cohen's d) alongside p-values.</p>
+				</div>
+				<div class="flex items-start gap-3">
+					<div class="w-6 h-6 bg-green-500 text-white rounded-full flex items-center justify-center text-sm font-bold shrink-0">5</div>
+					<p class="text-green-800 text-sm"><strong>Check assumptions before testing</strong> — independence is critical; normality matters less with large samples.</p>
+				</div>
+			</div>
+		</div>
+	</section>
+
+	<!-- Common Mistakes -->
+	<section class="bg-amber-50 rounded-xl p-6 mb-8 border border-amber-200">
+		<h2 class="text-xl font-semibold text-amber-900 mb-3">Common Mistakes to Avoid</h2>
+		<div class="grid md:grid-cols-2 gap-4 text-sm">
+			<div class="flex items-start gap-2">
+				<span class="text-amber-600">⚠</span>
+				<p class="text-amber-800"><strong>Using t-test for paired data:</strong> If the same subjects are measured twice (before/after), use a paired t-test instead.</p>
+			</div>
+			<div class="flex items-start gap-2">
+				<span class="text-amber-600">⚠</span>
+				<p class="text-amber-800"><strong>Ignoring non-independence:</strong> Clustered data (students in classrooms, patients in hospitals) violates independence assumptions.</p>
+			</div>
+			<div class="flex items-start gap-2">
+				<span class="text-amber-600">⚠</span>
+				<p class="text-amber-800"><strong>P-hacking:</strong> Running multiple t-tests and only reporting significant ones inflates false positive rates.</p>
+			</div>
+			<div class="flex items-start gap-2">
+				<span class="text-amber-600">⚠</span>
+				<p class="text-amber-800"><strong>Confusing p-value with effect size:</strong> A tiny effect can be "significant" with large n; always report Cohen's d.</p>
+			</div>
+		</div>
+	</section>
+
+	<!-- What's Next -->
+	<section class="bg-indigo-50 rounded-xl p-6 mb-8 border border-indigo-200">
+		<h2 class="text-xl font-semibold text-indigo-900 mb-3">What's Next?</h2>
+		<p class="text-indigo-800 mb-3">
+			In the next lesson, we'll explore <strong>Paired vs. Independent Tests</strong> — when to use each approach and why the distinction matters for statistical power and validity.
+		</p>
+		<div class="bg-white/60 rounded-lg p-4">
+			<h3 class="font-medium text-indigo-900 mb-2">Preview: Paired Tests</h3>
+			<ul class="text-sm text-indigo-700 space-y-1">
+				<li>• Why paired designs are more powerful (when appropriate)</li>
+				<li>• Before/after measurements, matched pairs, and crossover designs</li>
+				<li>• How to convert paired data into difference scores</li>
+			</ul>
 		</div>
 	</section>
 

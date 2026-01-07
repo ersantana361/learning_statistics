@@ -159,6 +159,70 @@
 			],
 			explanation: 'False! Large samples help with normality (CLT) and power with unequal variances, but independence violations persist regardless of sample size. Always check for clustering or dependencies in your data.',
 			difficulty: 'medium'
+		},
+		{
+			id: 'assume-6',
+			type: 'multiple-choice',
+			question: 'A Shapiro-Wilk test gives p = 0.03. Your sample is n = 200. What should you do?',
+			choices: [
+				{ id: 'a', text: 'Immediately switch to a non-parametric test' },
+				{ id: 'b', text: 'Proceed with the t-test—CLT makes normality less critical', isCorrect: true },
+				{ id: 'c', text: 'Remove outliers until the test passes' },
+				{ id: 'd', text: 'The t-test is definitely invalid' }
+			],
+			explanation: 'With n = 200, the CLT ensures the sampling distribution of the mean is approximately normal regardless of population shape. Also, Shapiro-Wilk is overly sensitive with large samples—it rejects for trivial deviations.',
+			difficulty: 'medium',
+			hint: 'Think about what the Central Limit Theorem tells us'
+		},
+		{
+			id: 'assume-7',
+			type: 'multiple-choice',
+			question: 'You\'re comparing test scores of students, but students are clustered in classrooms. What\'s the main problem?',
+			choices: [
+				{ id: 'a', text: 'Data won\'t be normally distributed' },
+				{ id: 'b', text: 'Variances will be unequal' },
+				{ id: 'c', text: 'Independence assumption is violated', isCorrect: true },
+				{ id: 'd', text: 'You need a larger sample size' }
+			],
+			explanation: 'Students in the same classroom share a teacher, environment, and social dynamics. Their scores are correlated, violating independence. The effective sample size is closer to the number of classrooms than students.',
+			difficulty: 'medium'
+		},
+		{
+			id: 'assume-8',
+			type: 'multiple-choice',
+			question: 'Group A has SD = 5, Group B has SD = 15. What\'s the variance ratio?',
+			choices: [
+				{ id: 'a', text: '3:1' },
+				{ id: 'b', text: '9:1', isCorrect: true },
+				{ id: 'c', text: '1:3' },
+				{ id: 'd', text: '1:9' }
+			],
+			explanation: 'Variance = SD². So variance ratio = 15²/5² = 225/25 = 9. This exceeds the typical rule-of-thumb of 4:1, so Welch\'s t-test is definitely recommended.',
+			difficulty: 'easy'
+		},
+		{
+			id: 'assume-9',
+			type: 'true-false',
+			question: 'It\'s good practice to test all assumptions before running a t-test (e.g., Shapiro-Wilk, then Levene\'s, then t-test).',
+			choices: [
+				{ id: 'true', text: 'True' },
+				{ id: 'false', text: 'False', isCorrect: true }
+			],
+			explanation: 'False! This "test-then-test" approach inflates overall error rates. Modern advice: Just use Welch\'s t-test by default (handles variance), and only worry about normality with small samples or obvious outliers.',
+			difficulty: 'hard'
+		},
+		{
+			id: 'assume-10',
+			type: 'multiple-choice',
+			question: 'Your data has one extreme outlier. What\'s the BEST first step?',
+			choices: [
+				{ id: 'a', text: 'Delete the outlier and run the t-test' },
+				{ id: 'b', text: 'Investigate whether it\'s a data error or genuine extreme value', isCorrect: true },
+				{ id: 'c', text: 'Switch to the Mann-Whitney U test' },
+				{ id: 'd', text: 'Log-transform the data' }
+			],
+			explanation: 'Before any statistical fix, understand WHY the outlier exists. Is it a typo? Measurement error? Or a valid extreme observation? The answer determines whether to correct, remove, or accommodate it.',
+			difficulty: 'medium'
 		}
 	];
 
@@ -178,6 +242,30 @@
 			Understand when assumptions matter, when they don't, and what to do when they're violated.
 		</p>
 	</header>
+
+	<!-- Why This Matters -->
+	<section class="bg-gradient-to-r from-indigo-50 to-purple-50 rounded-xl p-6 mb-8 border border-indigo-200">
+		<h2 class="text-xl font-semibold text-indigo-900 mb-3">Why This Matters</h2>
+		<p class="text-indigo-800 mb-4">
+			Every statistics textbook lists assumptions for the t-test. But which ones really matter?
+			Researchers often worry excessively about normality while ignoring the truly critical assumption:
+			<strong>independence</strong>. This lesson helps you prioritize and make practical decisions.
+		</p>
+		<p class="text-indigo-800 mb-4">
+			Understanding when assumptions matter (and when they don't) prevents two mistakes:
+			(1) rejecting valid t-tests unnecessarily, and (2) trusting invalid t-tests blindly.
+			You'll learn what violations actually break the test versus what the test is robust to.
+		</p>
+		<div class="bg-white/60 rounded-lg p-4">
+			<h3 class="font-semibold text-indigo-900 mb-2">Learning Objectives</h3>
+			<ul class="text-sm text-indigo-800 space-y-1">
+				<li>• Rank assumptions by importance (independence > normality > equal variance)</li>
+				<li>• Know when the t-test is "robust" to violations</li>
+				<li>• Choose appropriate alternatives when assumptions fail</li>
+				<li>• Avoid over-testing assumptions (it's often counterproductive)</li>
+			</ul>
+		</div>
+	</section>
 
 	<!-- Key Concept -->
 	<section class="bg-indigo-50 rounded-xl p-6 mb-8">
@@ -484,6 +572,76 @@
 					Next →
 				</button>
 			</div>
+		</div>
+	</section>
+
+	<!-- Key Takeaways -->
+	<section class="bg-gradient-to-r from-green-50 to-emerald-50 rounded-xl p-6 mb-8 border border-green-200">
+		<h2 class="text-xl font-semibold text-green-900 mb-4">Key Takeaways</h2>
+		<div class="grid md:grid-cols-2 gap-4">
+			<div class="space-y-3">
+				<div class="flex items-start gap-3">
+					<div class="w-6 h-6 bg-green-500 text-white rounded-full flex items-center justify-center text-sm font-bold shrink-0">1</div>
+					<p class="text-green-800 text-sm"><strong>Independence is non-negotiable</strong> — no sample size or statistical trick fixes violated independence. Design for it.</p>
+				</div>
+				<div class="flex items-start gap-3">
+					<div class="w-6 h-6 bg-green-500 text-white rounded-full flex items-center justify-center text-sm font-bold shrink-0">2</div>
+					<p class="text-green-800 text-sm"><strong>Normality matters less than you think</strong> — with n ≥ 30, the CLT protects you. Only worry with small samples or extreme skew.</p>
+				</div>
+				<div class="flex items-start gap-3">
+					<div class="w-6 h-6 bg-green-500 text-white rounded-full flex items-center justify-center text-sm font-bold shrink-0">3</div>
+					<p class="text-green-800 text-sm"><strong>Just use Welch's t-test</strong> — it handles unequal variances and performs well even when variances are equal.</p>
+				</div>
+			</div>
+			<div class="space-y-3">
+				<div class="flex items-start gap-3">
+					<div class="w-6 h-6 bg-green-500 text-white rounded-full flex items-center justify-center text-sm font-bold shrink-0">4</div>
+					<p class="text-green-800 text-sm"><strong>Don't over-test assumptions</strong> — preliminary tests (Shapiro-Wilk, Levene's) inflate error rates and are often too sensitive.</p>
+				</div>
+				<div class="flex items-start gap-3">
+					<div class="w-6 h-6 bg-green-500 text-white rounded-full flex items-center justify-center text-sm font-bold shrink-0">5</div>
+					<p class="text-green-800 text-sm"><strong>Know your alternatives</strong> — Mann-Whitney for non-normal, bootstrap for confidence intervals, mixed models for clustered data.</p>
+				</div>
+			</div>
+		</div>
+	</section>
+
+	<!-- Decision Flowchart -->
+	<section class="bg-blue-50 rounded-xl p-6 mb-8 border border-blue-200">
+		<h2 class="text-xl font-semibold text-blue-900 mb-4">Quick Decision Guide</h2>
+		<div class="grid md:grid-cols-3 gap-4 text-sm">
+			<div class="bg-white rounded-lg p-4">
+				<h3 class="font-semibold text-blue-900 mb-2">Is data independent?</h3>
+				<p class="text-blue-800"><strong>No:</strong> Don't use t-test. Use paired t-test, mixed model, or clustered SE.</p>
+				<p class="text-blue-800"><strong>Yes:</strong> Proceed ↓</p>
+			</div>
+			<div class="bg-white rounded-lg p-4">
+				<h3 class="font-semibold text-blue-900 mb-2">Is n ≥ 30 per group?</h3>
+				<p class="text-blue-800"><strong>Yes:</strong> Use Welch's t-test (CLT protects you)</p>
+				<p class="text-blue-800"><strong>No:</strong> Check for severe non-normality ↓</p>
+			</div>
+			<div class="bg-white rounded-lg p-4">
+				<h3 class="font-semibold text-blue-900 mb-2">Is data severely skewed?</h3>
+				<p class="text-blue-800"><strong>No:</strong> Welch's t-test is fine</p>
+				<p class="text-blue-800"><strong>Yes:</strong> Consider Mann-Whitney U or bootstrap</p>
+			</div>
+		</div>
+	</section>
+
+	<!-- What's Next -->
+	<section class="bg-indigo-50 rounded-xl p-6 mb-8 border border-indigo-200">
+		<h2 class="text-xl font-semibold text-indigo-900 mb-3">What's Next?</h2>
+		<p class="text-indigo-800 mb-3">
+			Now that you understand assumptions, the final lesson addresses a crucial question:
+			<strong>Practical Significance</strong> — when is a statistically significant difference actually meaningful?
+		</p>
+		<div class="bg-white/60 rounded-lg p-4">
+			<h3 class="font-medium text-indigo-900 mb-2">Preview: Beyond P-Values</h3>
+			<ul class="text-sm text-indigo-700 space-y-1">
+				<li>• Why p &lt; 0.05 doesn't mean the effect matters</li>
+				<li>• Confidence intervals for practical interpretation</li>
+				<li>• Minimum clinically important differences (MCID)</li>
+			</ul>
 		</div>
 	</section>
 

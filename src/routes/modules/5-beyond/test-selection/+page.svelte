@@ -257,61 +257,136 @@
 	// Exercises
 	const exercises: Exercise[] = [
 		{
-			question: "A researcher measures blood pressure before and after taking a medication for 30 patients. Which test is most appropriate?",
-			options: [
-				"Independent samples t-test",
-				"Paired t-test",
-				"One-way ANOVA",
-				"Chi-square test"
+			id: 'select-1',
+			type: 'multiple-choice',
+			question: 'A researcher measures blood pressure before and after taking a medication for 30 patients. Which test is most appropriate?',
+			choices: [
+				{ id: 'a', text: 'Independent samples t-test' },
+				{ id: 'b', text: 'Paired t-test', isCorrect: true },
+				{ id: 'c', text: 'One-way ANOVA' },
+				{ id: 'd', text: 'Chi-square test' }
 			],
-			correctAnswer: 1,
-			explanation: "This is paired data - the same patients measured at two time points. Use a paired t-test to compare the means of the differences."
+			explanation: 'This is paired data—the same patients measured at two time points. Use a paired t-test to compare the means of the differences.',
+			difficulty: 'easy'
 		},
 		{
-			question: "You want to know if there's a relationship between years of education and annual income. Both variables are continuous but income is heavily right-skewed. What test should you use?",
-			options: [
-				"Pearson correlation",
-				"Spearman correlation",
-				"Chi-square test",
-				"Independent t-test"
+			id: 'select-2',
+			type: 'multiple-choice',
+			question: 'You want to know if there\'s a relationship between years of education and annual income. Both variables are continuous but income is heavily right-skewed. What test should you use?',
+			choices: [
+				{ id: 'a', text: 'Pearson correlation' },
+				{ id: 'b', text: 'Spearman correlation', isCorrect: true },
+				{ id: 'c', text: 'Chi-square test' },
+				{ id: 'd', text: 'Independent t-test' }
 			],
-			correctAnswer: 1,
-			explanation: "Spearman correlation is appropriate because it's robust to skewness and outliers. It measures monotonic (not necessarily linear) relationships using ranks."
+			explanation: 'Spearman correlation is appropriate because it\'s robust to skewness and outliers. It measures monotonic relationships using ranks.',
+			difficulty: 'medium'
 		},
 		{
-			question: "A study compares test scores among students taught by 4 different methods, with different students in each group. Which test applies?",
-			options: [
-				"Paired t-test",
-				"Repeated measures ANOVA",
-				"One-way ANOVA",
-				"Pearson correlation"
+			id: 'select-3',
+			type: 'multiple-choice',
+			question: 'A study compares test scores among students taught by 4 different methods, with different students in each group. Which test applies?',
+			choices: [
+				{ id: 'a', text: 'Paired t-test' },
+				{ id: 'b', text: 'Repeated measures ANOVA' },
+				{ id: 'c', text: 'One-way ANOVA', isCorrect: true },
+				{ id: 'd', text: 'Pearson correlation' }
 			],
-			correctAnswer: 2,
-			explanation: "One-way ANOVA compares means across 3+ independent groups. Since different students are in each group (independent samples) and there are 4 groups, this is the correct choice."
+			explanation: 'One-way ANOVA compares means across 3+ independent groups. Since different students are in each group (independent samples) and there are 4 groups, this is the correct choice.',
+			difficulty: 'easy'
 		},
 		{
-			question: "A survey asks 500 people their political party (Democrat, Republican, Independent) and whether they support a policy (Yes/No). What test examines if party affiliation and policy support are related?",
-			options: [
-				"Two-sample t-test",
-				"Pearson correlation",
-				"Chi-square test of independence",
-				"One-way ANOVA"
+			id: 'select-4',
+			type: 'multiple-choice',
+			question: 'A survey asks 500 people their political party and whether they support a policy (Yes/No). What test examines if party and policy support are related?',
+			choices: [
+				{ id: 'a', text: 'Two-sample t-test' },
+				{ id: 'b', text: 'Pearson correlation' },
+				{ id: 'c', text: 'Chi-square test of independence', isCorrect: true },
+				{ id: 'd', text: 'One-way ANOVA' }
 			],
-			correctAnswer: 2,
-			explanation: "Both variables are categorical (party = 3 categories, support = 2 categories). Chi-square test of independence tests whether these categorical variables are associated."
+			explanation: 'Both variables are categorical. Chi-square test of independence tests whether these categorical variables are associated.',
+			difficulty: 'easy'
 		},
 		{
-			question: "Which is NOT an assumption of the independent samples t-test?",
-			options: [
-				"Normal distributions (or large sample size)",
-				"Independent observations",
-				"Equal sample sizes in both groups",
-				"Similar variances (or use Welch's correction)"
+			id: 'select-5',
+			type: 'multiple-choice',
+			question: 'Which is NOT an assumption of the independent samples t-test?',
+			choices: [
+				{ id: 'a', text: 'Normal distributions (or large sample size)' },
+				{ id: 'b', text: 'Independent observations' },
+				{ id: 'c', text: 'Equal sample sizes in both groups', isCorrect: true },
+				{ id: 'd', text: 'Similar variances (or use Welch\'s correction)' }
 			],
-			correctAnswer: 2,
-			explanation: "Equal sample sizes are NOT required for the t-test. The test works with unequal n's. The key assumptions are normality (or n>30), independence, and equal variances (though Welch's t-test relaxes this)."
+			explanation: 'Equal sample sizes are NOT required. The test works with unequal n\'s. Key assumptions are normality (or n>30), independence, and equal variances.',
+			difficulty: 'medium'
+		},
+		{
+			id: 'select-6',
+			type: 'multiple-choice',
+			question: 'A researcher has 3 groups take the same 4 tests (everyone takes all tests). What analysis is appropriate?',
+			choices: [
+				{ id: 'a', text: 'One-way ANOVA' },
+				{ id: 'b', text: 'Repeated measures ANOVA', isCorrect: true },
+				{ id: 'c', text: 'Independent t-tests' },
+				{ id: 'd', text: 'Chi-square test' }
+			],
+			explanation: 'When the same subjects are measured multiple times (repeated measures), use repeated measures ANOVA to account for the correlation between measurements.',
+			difficulty: 'medium'
+		},
+		{
+			id: 'select-7',
+			type: 'multiple-choice',
+			question: 'You want to predict house prices from square footage, bedrooms, and location. Which method is most appropriate?',
+			choices: [
+				{ id: 'a', text: 'Multiple correlation' },
+				{ id: 'b', text: 'Multiple regression', isCorrect: true },
+				{ id: 'c', text: 'One-way ANOVA' },
+				{ id: 'd', text: 'Paired t-test' }
+			],
+			explanation: 'Multiple regression predicts a continuous outcome from multiple predictors. It\'s the standard choice for prediction with multiple variables.',
+			difficulty: 'easy'
+		},
+		{
+			id: 'select-8',
+			type: 'true-false',
+			question: 'If your sample size is n=50 per group, you don\'t need to worry about normality for a t-test.',
+			choices: [
+				{ id: 'true', text: 'True', isCorrect: true },
+				{ id: 'false', text: 'False' }
+			],
+			explanation: 'True! With n≥30 per group, the Central Limit Theorem ensures the sampling distribution of means is approximately normal, making the t-test robust to non-normality.',
+			difficulty: 'medium'
+		},
+		{
+			id: 'select-9',
+			type: 'multiple-choice',
+			question: 'What is the non-parametric alternative to one-way ANOVA?',
+			choices: [
+				{ id: 'a', text: 'Mann-Whitney U' },
+				{ id: 'b', text: 'Wilcoxon signed-rank' },
+				{ id: 'c', text: 'Kruskal-Wallis', isCorrect: true },
+				{ id: 'd', text: 'Friedman test' }
+			],
+			explanation: 'Kruskal-Wallis is the non-parametric equivalent of one-way ANOVA for comparing 3+ independent groups. It uses ranks instead of raw values.',
+			difficulty: 'medium'
+		},
+		{
+			id: 'select-10',
+			type: 'multiple-choice',
+			question: 'You run a t-test comparing Group A to B, A to C, and B to C (3 comparisons). What\'s the problem?',
+			choices: [
+				{ id: 'a', text: 'Paired data analyzed as independent' },
+				{ id: 'b', text: 'Inflated Type I error from multiple comparisons', isCorrect: true },
+				{ id: 'c', text: 'Violation of normality' },
+				{ id: 'd', text: 'Unequal sample sizes' }
+			],
+			explanation: 'Multiple t-tests inflate the family-wise error rate. With 3 tests at α=0.05, the overall error rate is ~14%, not 5%. Use ANOVA with post-hoc tests instead.',
+			difficulty: 'medium'
 		}
 	];
+
+	let currentExerciseIndex = $state(0);
 </script>
 
 <svelte:head>
@@ -559,9 +634,100 @@
 
 	<section class="exercises-section">
 		<h2>Practice Exercises</h2>
-		{#each exercises as exercise, i}
-			<ExerciseCard {exercise} index={i} />
-		{/each}
+		<div class="space-y-6">
+			{#each exercises as exercise, i}
+				{#if i === currentExerciseIndex}
+					<ExerciseCard
+						{exercise}
+						on:completed={() => {
+							if (currentExerciseIndex < exercises.length - 1) {
+								setTimeout(() => currentExerciseIndex++, 1500);
+							}
+						}}
+					/>
+				{/if}
+			{/each}
+
+			<div class="flex items-center justify-between pt-4">
+				<button
+					class="px-4 py-2 text-gray-600 hover:text-gray-900 disabled:opacity-50"
+					disabled={currentExerciseIndex === 0}
+					onclick={() => currentExerciseIndex--}
+				>
+					← Previous
+				</button>
+				<span class="text-sm text-gray-500">
+					Exercise {currentExerciseIndex + 1} of {exercises.length}
+				</span>
+				<button
+					class="px-4 py-2 text-gray-600 hover:text-gray-900 disabled:opacity-50"
+					disabled={currentExerciseIndex === exercises.length - 1}
+					onclick={() => currentExerciseIndex++}
+				>
+					Next →
+				</button>
+			</div>
+		</div>
+	</section>
+
+	<!-- Course Completion -->
+	<section class="content-section" style="margin-top: 3rem;">
+		<div class="completion-card">
+			<h2>Congratulations! You've Completed the Course</h2>
+			<p style="color: #555; margin-bottom: 1.5rem;">
+				You've learned the foundations of statistical thinking, from sampling distributions
+				to Bayesian inference. Here's what you've mastered:
+			</p>
+
+			<div class="completion-grid">
+				<div class="module-recap">
+					<h4>Module 1: Foundations</h4>
+					<ul>
+						<li>Distributions and the Central Limit Theorem</li>
+						<li>Sampling, sample size, and standard error</li>
+					</ul>
+				</div>
+				<div class="module-recap">
+					<h4>Module 2: Hypothesis Testing</h4>
+					<ul>
+						<li>P-values, Type I/II errors, power</li>
+						<li>Effect sizes and practical significance</li>
+					</ul>
+				</div>
+				<div class="module-recap">
+					<h4>Module 3: Comparing Groups</h4>
+					<ul>
+						<li>T-tests (independent and paired)</li>
+						<li>Assumptions and practical significance</li>
+					</ul>
+				</div>
+				<div class="module-recap">
+					<h4>Module 4: Relationships</h4>
+					<ul>
+						<li>Correlation and simple regression</li>
+						<li>Residual diagnostics and multiple regression</li>
+					</ul>
+				</div>
+				<div class="module-recap">
+					<h4>Module 5: Beyond Basics</h4>
+					<ul>
+						<li>Robust methods and multiple testing</li>
+						<li>Bayesian thinking and test selection</li>
+					</ul>
+				</div>
+			</div>
+
+			<div class="next-steps">
+				<h4>Continue Learning</h4>
+				<p>This course covered the fundamentals. To go deeper, explore:</p>
+				<ul style="margin-top: 0.5rem; padding-left: 1.5rem;">
+					<li>Experimental design and causal inference</li>
+					<li>Generalized linear models (logistic, Poisson regression)</li>
+					<li>Mixed effects / multilevel models</li>
+					<li>Machine learning and predictive modeling</li>
+				</ul>
+			</div>
+		</div>
 	</section>
 
 	<nav class="lesson-nav">
@@ -999,6 +1165,73 @@
 		border-left: 3px solid #22c55e;
 		font-size: 0.95rem;
 		color: #166534;
+	}
+
+	.completion-card {
+		background: linear-gradient(135deg, #ecfdf5 0%, #d1fae5 100%);
+		padding: 2rem;
+		border-radius: 16px;
+		border: 2px solid #10b981;
+	}
+
+	.completion-card h2 {
+		color: #047857;
+		margin: 0 0 0.5rem 0;
+		font-size: 1.5rem;
+	}
+
+	.completion-grid {
+		display: grid;
+		grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+		gap: 1rem;
+		margin-bottom: 1.5rem;
+	}
+
+	.module-recap {
+		background: white;
+		padding: 1rem;
+		border-radius: 8px;
+	}
+
+	.module-recap h4 {
+		margin: 0 0 0.5rem 0;
+		color: #0f766e;
+		font-size: 0.9rem;
+	}
+
+	.module-recap ul {
+		margin: 0;
+		padding-left: 1rem;
+		font-size: 0.8rem;
+		color: #555;
+	}
+
+	.module-recap li {
+		margin-bottom: 0.25rem;
+	}
+
+	.next-steps {
+		background: white;
+		padding: 1.25rem;
+		border-radius: 8px;
+		border-left: 3px solid #14b8a6;
+	}
+
+	.next-steps h4 {
+		margin: 0 0 0.5rem 0;
+		color: #0f766e;
+	}
+
+	.next-steps p {
+		margin: 0;
+		font-size: 0.9rem;
+		color: #555;
+	}
+
+	.next-steps li {
+		font-size: 0.9rem;
+		color: #555;
+		margin-bottom: 0.25rem;
 	}
 
 	.exercises-section {

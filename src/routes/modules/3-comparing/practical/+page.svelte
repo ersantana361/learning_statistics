@@ -133,6 +133,67 @@
 			],
 			explanation: 'False! A non-significant result could mean: (1) truly no effect, (2) the study was underpowered to detect a real effect. Check the confidence interval — if it includes meaningful effect sizes, you can\'t rule them out.',
 			difficulty: 'easy'
+		},
+		{
+			id: 'prac-6',
+			type: 'multiple-choice',
+			question: 'A weight loss drug shows a 0.5 kg reduction (p = 0.002) over 12 months. What\'s the best interpretation?',
+			choices: [
+				{ id: 'a', text: 'The drug is highly effective (p < 0.01)' },
+				{ id: 'b', text: 'The drug works, but 0.5 kg over 12 months is clinically meaningless', isCorrect: true },
+				{ id: 'c', text: 'Need more participants to confirm the effect' },
+				{ id: 'd', text: 'The p-value is too small to be believable' }
+			],
+			explanation: 'Half a kilogram over a year is negligible for health outcomes. This is a classic case of "statistically significant but clinically irrelevant." Meaningful weight loss interventions typically target 5%+ of body weight.',
+			difficulty: 'medium'
+		},
+		{
+			id: 'prac-7',
+			type: 'multiple-choice',
+			question: 'How should you determine the MID (Minimally Important Difference) for your study?',
+			choices: [
+				{ id: 'a', text: 'Use Cohen\'s d = 0.2 as a universal small effect' },
+				{ id: 'b', text: 'Consult domain experts, prior research, or patient-centered anchor methods', isCorrect: true },
+				{ id: 'c', text: 'Set it equal to the expected standard error' },
+				{ id: 'd', text: 'Calculate it from your pilot data p-values' }
+			],
+			explanation: 'MID is context-specific. In medicine, it might be defined by patient quality of life improvements. In education, by grade improvements that matter. Cohen\'s benchmarks are only starting points.',
+			difficulty: 'medium'
+		},
+		{
+			id: 'prac-8',
+			type: 'numeric',
+			question: 'Effect = 8 points, SE = 2, MID = 5. The 95% CI is approximately [4, 12]. Is the effect practically significant?',
+			questionMath: String.raw`\text{CI: } 8 \pm 1.96 \times 2 = [4, 12]`,
+			correctAnswer: 1,
+			tolerance: 0,
+			explanation: 'Yes (1)! The point estimate (8) exceeds the MID (5), and even the lower bound of the CI (4) is close to it. We\'re confident the effect is meaningful. Enter 1 for Yes, 0 for No.',
+			difficulty: 'medium',
+			hint: 'Compare both the point estimate and the CI to the MID'
+		},
+		{
+			id: 'prac-9',
+			type: 'multiple-choice',
+			question: 'What is an "equivalence test" and when would you use it?',
+			choices: [
+				{ id: 'a', text: 'Testing if two groups have equal variance' },
+				{ id: 'b', text: 'Testing if an effect is small enough to be considered "no effect"', isCorrect: true },
+				{ id: 'c', text: 'Testing if p-values from two studies are equivalent' },
+				{ id: 'd', text: 'Testing if confidence intervals overlap' }
+			],
+			explanation: 'Equivalence testing (like TOST) establishes that an effect is practically zero—within some small MID bounds. This is the correct way to claim "no meaningful effect" rather than relying on a non-significant p-value.',
+			difficulty: 'hard'
+		},
+		{
+			id: 'prac-10',
+			type: 'true-false',
+			question: 'If a 95% CI is [0.1, 0.3] and MID = 0.5, we can confidently say the effect is too small to matter.',
+			choices: [
+				{ id: 'true', text: 'True', isCorrect: true },
+				{ id: 'false', text: 'False' }
+			],
+			explanation: 'True! The entire CI falls below the MID, meaning even in the best case, the effect is smaller than what we consider meaningful. This is strong evidence of practical insignificance.',
+			difficulty: 'medium'
 		}
 	];
 
@@ -152,6 +213,30 @@
 			Learn to distinguish between "real" effects and "important" effects.
 		</p>
 	</header>
+
+	<!-- Why This Matters -->
+	<section class="bg-gradient-to-r from-indigo-50 to-purple-50 rounded-xl p-6 mb-8 border border-indigo-200">
+		<h2 class="text-xl font-semibold text-indigo-900 mb-3">Why This Matters</h2>
+		<p class="text-indigo-800 mb-4">
+			A pharmaceutical company spends $100 million on a study with 50,000 patients. They find their drug reduces
+			headache duration by 2 minutes (p &lt; 0.0001). Is this worth celebrating? Probably not—the effect is
+			statistically real but practically meaningless.
+		</p>
+		<p class="text-indigo-800 mb-4">
+			This is the difference between <strong>statistical significance</strong> (is it real?) and
+			<strong>practical significance</strong> (does it matter?). Understanding this distinction is crucial
+			for making good decisions based on data. P-values alone can be deeply misleading.
+		</p>
+		<div class="bg-white/60 rounded-lg p-4">
+			<h3 class="font-semibold text-indigo-900 mb-2">Learning Objectives</h3>
+			<ul class="text-sm text-indigo-800 space-y-1">
+				<li>• Distinguish statistical from practical significance</li>
+				<li>• Use confidence intervals for practical interpretation</li>
+				<li>• Understand Minimally Important Differences (MID)</li>
+				<li>• Avoid the trap of "significant but trivial" findings</li>
+			</ul>
+		</div>
+	</section>
 
 	<!-- Key Concept -->
 	<section class="bg-indigo-50 rounded-xl p-6 mb-8">
@@ -437,6 +522,37 @@
 				>
 					Next →
 				</button>
+			</div>
+		</div>
+	</section>
+
+	<!-- Key Takeaways -->
+	<section class="bg-gradient-to-r from-green-50 to-emerald-50 rounded-xl p-6 mb-8 border border-green-200">
+		<h2 class="text-xl font-semibold text-green-900 mb-4">Key Takeaways</h2>
+		<div class="grid md:grid-cols-2 gap-4">
+			<div class="space-y-3">
+				<div class="flex items-start gap-3">
+					<div class="w-6 h-6 bg-green-500 text-white rounded-full flex items-center justify-center text-sm font-bold shrink-0">1</div>
+					<p class="text-green-800 text-sm"><strong>Significant ≠ important</strong> — with large samples, even trivial effects become "significant."</p>
+				</div>
+				<div class="flex items-start gap-3">
+					<div class="w-6 h-6 bg-green-500 text-white rounded-full flex items-center justify-center text-sm font-bold shrink-0">2</div>
+					<p class="text-green-800 text-sm"><strong>Always report effect sizes</strong> — Cohen's d, mean differences, and CIs convey practical meaning that p-values cannot.</p>
+				</div>
+				<div class="flex items-start gap-3">
+					<div class="w-6 h-6 bg-green-500 text-white rounded-full flex items-center justify-center text-sm font-bold shrink-0">3</div>
+					<p class="text-green-800 text-sm"><strong>Define MID before data collection</strong> — decide what effect size would be meaningful for your context.</p>
+				</div>
+			</div>
+			<div class="space-y-3">
+				<div class="flex items-start gap-3">
+					<div class="w-6 h-6 bg-green-500 text-white rounded-full flex items-center justify-center text-sm font-bold shrink-0">4</div>
+					<p class="text-green-800 text-sm"><strong>Use CIs for interpretation</strong> — they tell you the range of plausible effect sizes, not just whether it's "significant."</p>
+				</div>
+				<div class="flex items-start gap-3">
+					<div class="w-6 h-6 bg-green-500 text-white rounded-full flex items-center justify-center text-sm font-bold shrink-0">5</div>
+					<p class="text-green-800 text-sm"><strong>Non-significant ≠ no effect</strong> — check whether the CI rules out meaningful effects or is just too wide (underpowered).</p>
+				</div>
 			</div>
 		</div>
 	</section>

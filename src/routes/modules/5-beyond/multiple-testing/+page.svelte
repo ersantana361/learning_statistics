@@ -177,6 +177,65 @@
 			],
 			explanation: 'True! What matters is how many tests you actually did, not how many you planned. Post-hoc additions to analysis inflate error rates and should be corrected.',
 			difficulty: 'easy'
+		},
+		{
+			id: 'mult-6',
+			type: 'numeric',
+			question: 'You run 10 tests at α = 0.05 with Bonferroni correction. What is the adjusted alpha per test?',
+			correctAnswer: 0.005,
+			tolerance: 0.0001,
+			explanation: 'Bonferroni: α_adj = α/m = 0.05/10 = 0.005. Each individual test must have p < 0.005 to be significant.',
+			difficulty: 'easy'
+		},
+		{
+			id: 'mult-7',
+			type: 'multiple-choice',
+			question: 'Why is Holm\'s method preferred over Bonferroni?',
+			choices: [
+				{ id: 'a', text: 'It\'s easier to calculate' },
+				{ id: 'b', text: 'It controls FDR instead of FWER' },
+				{ id: 'c', text: 'It\'s uniformly more powerful while still controlling FWER', isCorrect: true },
+				{ id: 'd', text: 'It doesn\'t require sorting p-values' }
+			],
+			explanation: 'Holm is a step-down procedure that is uniformly more powerful than Bonferroni—it will never reject fewer hypotheses—while still controlling FWER at α.',
+			difficulty: 'hard'
+		},
+		{
+			id: 'mult-8',
+			type: 'multiple-choice',
+			question: 'In a genomics study testing 10,000 genes, which correction would you typically use?',
+			choices: [
+				{ id: 'a', text: 'No correction — too many tests' },
+				{ id: 'b', text: 'Bonferroni — must avoid any false positives' },
+				{ id: 'c', text: 'Benjamini-Hochberg (FDR) — some false positives are acceptable', isCorrect: true },
+				{ id: 'd', text: 'Only test genes you expect to be significant' }
+			],
+			explanation: 'With 10,000 tests, Bonferroni (α = 0.000005) is too conservative. FDR allows a controlled proportion of false discoveries among significant results, which is more practical for discovery research.',
+			difficulty: 'medium'
+		},
+		{
+			id: 'mult-9',
+			type: 'true-false',
+			question: 'If tests are not independent (e.g., correlated outcomes), Bonferroni becomes too conservative.',
+			choices: [
+				{ id: 'true', text: 'True', isCorrect: true },
+				{ id: 'false', text: 'False' }
+			],
+			explanation: 'True! Bonferroni assumes independent tests. With positive correlation, the effective number of tests is lower than the actual number, making Bonferroni overly strict.',
+			difficulty: 'hard'
+		},
+		{
+			id: 'mult-10',
+			type: 'multiple-choice',
+			question: 'When is it acceptable NOT to correct for multiple testing?',
+			choices: [
+				{ id: 'a', text: 'When all tests are pre-registered and confirmatory' },
+				{ id: 'b', text: 'When testing a single pre-specified primary hypothesis with secondary outcomes', isCorrect: true },
+				{ id: 'c', text: 'When you expect most nulls to be false' },
+				{ id: 'd', text: 'When the sample size is very large' }
+			],
+			explanation: 'Pre-registered primary analyses may not need correction if the study was designed around that single test. However, exploratory analyses should still be corrected or labeled as hypothesis-generating.',
+			difficulty: 'hard'
 		}
 	];
 
@@ -196,6 +255,29 @@
 			Understand why testing many hypotheses inflates false positive rates and how to correct for it.
 		</p>
 	</header>
+
+	<!-- Why This Matters -->
+	<section class="bg-gradient-to-r from-violet-50 to-purple-50 rounded-xl p-6 mb-8 border border-violet-200">
+		<h2 class="text-xl font-semibold text-violet-900 mb-3">Why This Matters</h2>
+		<p class="text-violet-800 mb-4">
+			Imagine testing 20 different gene expressions for association with a disease. Even if
+			<em>none</em> of them are truly related, you'd expect about one "significant" finding just by chance.
+			<strong>This is how false discoveries get published as real findings.</strong>
+		</p>
+		<p class="text-violet-800 mb-4">
+			The multiple testing problem is at the heart of the replication crisis in science. Understanding
+			how to correct for it (and when) is essential for producing—and evaluating—trustworthy research.
+		</p>
+		<div class="bg-white/60 rounded-lg p-4">
+			<h3 class="font-semibold text-violet-900 mb-2">Learning Objectives</h3>
+			<ul class="text-sm text-violet-800 space-y-1">
+				<li>• Understand why testing many hypotheses inflates false positive rates</li>
+				<li>• Calculate family-wise error rate (FWER)</li>
+				<li>• Apply Bonferroni, Holm, and Benjamini-Hochberg corrections</li>
+				<li>• Know when to correct and which method to choose</li>
+			</ul>
+		</div>
+	</section>
 
 	<!-- Key Concept -->
 	<section class="bg-violet-50 rounded-xl p-6 mb-8">
@@ -468,6 +550,77 @@
 					Next →
 				</button>
 			</div>
+		</div>
+	</section>
+
+	<!-- Key Takeaways -->
+	<section class="bg-gradient-to-r from-green-50 to-emerald-50 rounded-xl p-6 mb-8 border border-green-200">
+		<h2 class="text-xl font-semibold text-green-900 mb-4">Key Takeaways</h2>
+		<div class="grid md:grid-cols-2 gap-4">
+			<div class="space-y-3">
+				<div class="flex items-start gap-3">
+					<div class="w-6 h-6 bg-green-500 text-white rounded-full flex items-center justify-center text-sm font-bold shrink-0">1</div>
+					<p class="text-green-800 text-sm"><strong>Multiple tests inflate false positives</strong> — 20 tests at α=0.05 gives 64% chance of at least one false positive.</p>
+				</div>
+				<div class="flex items-start gap-3">
+					<div class="w-6 h-6 bg-green-500 text-white rounded-full flex items-center justify-center text-sm font-bold shrink-0">2</div>
+					<p class="text-green-800 text-sm"><strong>Bonferroni divides α by m</strong> — simple but conservative. Use Holm for more power.</p>
+				</div>
+				<div class="flex items-start gap-3">
+					<div class="w-6 h-6 bg-green-500 text-white rounded-full flex items-center justify-center text-sm font-bold shrink-0">3</div>
+					<p class="text-green-800 text-sm"><strong>FDR controls proportion of false discoveries</strong> — more lenient, better for exploratory research.</p>
+				</div>
+			</div>
+			<div class="space-y-3">
+				<div class="flex items-start gap-3">
+					<div class="w-6 h-6 bg-green-500 text-white rounded-full flex items-center justify-center text-sm font-bold shrink-0">4</div>
+					<p class="text-green-800 text-sm"><strong>Pre-registration helps</strong> — planned primary analyses may not need correction; exploratory analyses always should.</p>
+				</div>
+				<div class="flex items-start gap-3">
+					<div class="w-6 h-6 bg-green-500 text-white rounded-full flex items-center justify-center text-sm font-bold shrink-0">5</div>
+					<p class="text-green-800 text-sm"><strong>Report all tests</strong> — selective reporting of significant results is a form of p-hacking.</p>
+				</div>
+			</div>
+		</div>
+	</section>
+
+	<!-- Decision Guide -->
+	<section class="bg-blue-50 rounded-xl p-6 mb-8 border border-blue-200">
+		<h2 class="text-xl font-semibold text-blue-900 mb-4">Which Correction Should I Use?</h2>
+		<div class="space-y-4 text-sm">
+			<div class="bg-white rounded-lg p-4">
+				<h3 class="font-semibold text-blue-900 mb-2">Use Bonferroni/Holm when...</h3>
+				<ul class="text-blue-800 space-y-1">
+					<li>• You have few tests (≤10)</li>
+					<li>• Any false positive is costly (clinical decisions, regulatory submissions)</li>
+					<li>• You want to strongly claim "no false positives"</li>
+				</ul>
+			</div>
+			<div class="bg-white rounded-lg p-4">
+				<h3 class="font-semibold text-blue-900 mb-2">Use FDR (Benjamini-Hochberg) when...</h3>
+				<ul class="text-blue-800 space-y-1">
+					<li>• You have many tests (genomics, brain imaging)</li>
+					<li>• Some false positives are acceptable for discovery</li>
+					<li>• You'll validate findings in follow-up studies</li>
+				</ul>
+			</div>
+		</div>
+	</section>
+
+	<!-- What's Next -->
+	<section class="bg-violet-50 rounded-xl p-6 mb-8 border border-violet-200">
+		<h2 class="text-xl font-semibold text-violet-900 mb-3">What's Next?</h2>
+		<p class="text-violet-800 mb-3">
+			All we've learned so far is "frequentist" statistics. Next, we'll introduce <strong>Bayesian thinking</strong>—
+			a different framework that directly answers "What is the probability my hypothesis is true?"
+		</p>
+		<div class="bg-white/60 rounded-lg p-4">
+			<h3 class="font-medium text-violet-900 mb-2">Preview: Bayesian Statistics</h3>
+			<ul class="text-sm text-violet-700 space-y-1">
+				<li>• Prior beliefs + data = posterior beliefs</li>
+				<li>• Bayes factors vs. p-values</li>
+				<li>• When Bayesian methods make sense</li>
+			</ul>
 		</div>
 	</section>
 

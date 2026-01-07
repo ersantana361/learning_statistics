@@ -137,7 +137,7 @@
 				{ id: 'd', text: 'There\'s a 97% chance the alternative is true' }
 			],
 			explanation: 'The p-value is the probability of observing data as extreme (or more extreme) as what we got, assuming the null hypothesis is true. It is NOT the probability that H₀ is true.',
-			difficulty: 'medium'
+			difficulty: 'easy'
 		},
 		{
 			id: 'pval-2',
@@ -186,6 +186,67 @@
 			],
 			explanation: 'False! P-values are influenced by sample size. With a huge sample, you can get a tiny p-value for a trivial effect. Effect size and statistical significance are separate concepts.',
 			difficulty: 'medium'
+		},
+		{
+			id: 'pval-6',
+			type: 'numeric',
+			question: 'For a one-tailed (right) z-test, z = 1.645. What is the p-value?',
+			correctAnswer: 0.05,
+			tolerance: 0.005,
+			explanation: 'For a right-tailed test with z = 1.645, p = 1 - Φ(1.645) = 1 - 0.95 = 0.05. This is why z = 1.645 is the critical value for α = 0.05 one-tailed.',
+			difficulty: 'medium',
+			hint: 'For a right-tailed test, p = P(Z > z) = 1 - Φ(z)'
+		},
+		{
+			id: 'pval-7',
+			type: 'multiple-choice',
+			question: 'Two studies test the same hypothesis. Study A (n=100): p = 0.04. Study B (n=1000): p = 0.001. Which has the larger effect?',
+			choices: [
+				{ id: 'a', text: 'Study B has the larger effect' },
+				{ id: 'b', text: 'Study A has the larger effect' },
+				{ id: 'c', text: 'Cannot tell from p-values alone', isCorrect: true },
+				{ id: 'd', text: 'They have the same effect size' }
+			],
+			explanation: 'P-values don\'t tell you effect size! Study B\'s smaller p could be due to larger n, not larger effect. You need effect size measures (d, r, etc.) to compare magnitudes.',
+			difficulty: 'hard'
+		},
+		{
+			id: 'pval-8',
+			type: 'true-false',
+			question: 'If p = 0.049, the result is "more significant" than if p = 0.051.',
+			choices: [
+				{ id: 'true', text: 'True' },
+				{ id: 'false', text: 'False', isCorrect: true }
+			],
+			explanation: 'While 0.049 crosses the arbitrary 0.05 threshold and 0.051 doesn\'t, the two p-values are practically identical. The difference is not meaningful—there\'s no magic discontinuity at 0.05.',
+			difficulty: 'medium'
+		},
+		{
+			id: 'pval-9',
+			type: 'multiple-choice',
+			question: 'What z-score corresponds to p = 0.01 (two-tailed)?',
+			choices: [
+				{ id: 'a', text: 'z ≈ 1.96' },
+				{ id: 'b', text: 'z ≈ 2.33' },
+				{ id: 'c', text: 'z ≈ 2.58', isCorrect: true },
+				{ id: 'd', text: 'z ≈ 3.29' }
+			],
+			explanation: 'For two-tailed p = 0.01, each tail has 0.005. Looking up Φ⁻¹(0.995) ≈ 2.576 ≈ 2.58.',
+			difficulty: 'hard',
+			hint: 'Split the α between two tails, then find the z-score for the remaining area.'
+		},
+		{
+			id: 'pval-10',
+			type: 'multiple-choice',
+			question: 'A researcher reports "p < 0.001" instead of an exact p-value. This likely means:',
+			choices: [
+				{ id: 'a', text: 'The result is not significant' },
+				{ id: 'b', text: 'The test statistic was very extreme', isCorrect: true },
+				{ id: 'c', text: 'The effect size is very large' },
+				{ id: 'd', text: 'The sample size was small' }
+			],
+			explanation: 'p < 0.001 means the test statistic was so extreme that the calculated p-value was less than 0.001. It says nothing about effect size—could be a tiny effect with huge n.',
+			difficulty: 'medium'
 		}
 	];
 
@@ -206,6 +267,30 @@
 		</p>
 	</header>
 
+	<!-- Why This Matters -->
+	<section class="bg-gradient-to-r from-emerald-50 to-teal-50 rounded-xl p-6 mb-8 border border-emerald-200">
+		<h2 class="text-xl font-semibold text-emerald-900 mb-3">Why This Matters</h2>
+		<p class="text-emerald-800 mb-4">
+			The p-value might be the most misunderstood concept in all of statistics. Papers have been retracted,
+			careers damaged, and scientific conclusions overturned because researchers misinterpreted what their
+			p-values actually meant. Even many trained scientists get it wrong.
+		</p>
+		<p class="text-emerald-800 mb-4">
+			A p-value is <strong>not</strong> the probability that your hypothesis is true. It's not the probability
+			that your results are due to chance. Understanding what it <em>actually</em> means—and what it doesn't—is
+			essential for reading research critically and conducting your own analyses properly.
+		</p>
+		<div class="bg-white/60 rounded-lg p-4">
+			<h3 class="font-semibold text-emerald-900 mb-2">Learning Objectives</h3>
+			<ul class="text-sm text-emerald-800 space-y-1">
+				<li>• Correctly interpret what a p-value represents</li>
+				<li>• Identify common misconceptions about p-values</li>
+				<li>• Calculate p-values from test statistics</li>
+				<li>• Understand the relationship between p-values and effect sizes</li>
+			</ul>
+		</div>
+	</section>
+
 	<!-- Key Concept -->
 	<section class="bg-emerald-50 rounded-xl p-6 mb-8">
 		<h2 class="font-semibold text-emerald-900 mb-3">What Is a P-Value?</h2>
@@ -219,6 +304,189 @@
 			It is NOT the probability that H₀ is true. It's the probability of seeing data this extreme
 			<em>given that</em> H₀ is true.
 		</p>
+	</section>
+
+	<!-- Understanding Step by Step -->
+	<section class="mb-8">
+		<h2 class="text-xl font-semibold text-gray-900 mb-4">Understanding P-Values Step by Step</h2>
+
+		<div class="space-y-4">
+			<div class="bg-white rounded-xl border border-gray-200 p-6">
+				<div class="flex items-start gap-4">
+					<div class="bg-emerald-100 text-emerald-700 rounded-full w-8 h-8 flex items-center justify-center font-bold flex-shrink-0">1</div>
+					<div>
+						<h3 class="font-semibold text-gray-900 mb-2">Start with the Null Hypothesis</h3>
+						<p class="text-gray-700 mb-3">
+							The p-value is calculated <em>assuming the null hypothesis is true</em>. We ask: "If there's
+							really no effect, what's the probability of getting data at least this extreme?"
+						</p>
+						<div class="bg-emerald-50 rounded-lg p-4">
+							<p class="text-sm text-emerald-800">
+								<strong>Key insight:</strong> The p-value is a probability about the DATA, not about the hypothesis.
+								It's P(data | H₀), not P(H₀ | data).
+							</p>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<div class="bg-white rounded-xl border border-gray-200 p-6">
+				<div class="flex items-start gap-4">
+					<div class="bg-emerald-100 text-emerald-700 rounded-full w-8 h-8 flex items-center justify-center font-bold flex-shrink-0">2</div>
+					<div>
+						<h3 class="font-semibold text-gray-900 mb-2">Calculate the Test Statistic</h3>
+						<p class="text-gray-700 mb-3">
+							Convert your sample result into a standardized score (z or t) that measures how far your
+							result is from what's expected under the null hypothesis, in standard error units.
+						</p>
+						<div class="bg-gray-50 rounded-lg p-4">
+							<MathDisplay formula={zScoreFormula} displayMode={true} />
+							<p class="text-sm text-gray-600 mt-2">
+								A larger absolute z-score means your data is farther from what H₀ predicts.
+							</p>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<div class="bg-white rounded-xl border border-gray-200 p-6">
+				<div class="flex items-start gap-4">
+					<div class="bg-emerald-100 text-emerald-700 rounded-full w-8 h-8 flex items-center justify-center font-bold flex-shrink-0">3</div>
+					<div>
+						<h3 class="font-semibold text-gray-900 mb-2">Find the Tail Area</h3>
+						<p class="text-gray-700 mb-3">
+							The p-value is the area under the distribution curve in the "extreme" region—values
+							at least as far from the null as your observed statistic.
+						</p>
+						<div class="grid md:grid-cols-3 gap-3 mt-3">
+							<div class="bg-gray-50 rounded-lg p-3 text-center text-sm">
+								<div class="font-medium text-gray-700">Two-tailed</div>
+								<div class="text-gray-600">Both extremes</div>
+							</div>
+							<div class="bg-gray-50 rounded-lg p-3 text-center text-sm">
+								<div class="font-medium text-gray-700">Right-tailed</div>
+								<div class="text-gray-600">Upper extreme</div>
+							</div>
+							<div class="bg-gray-50 rounded-lg p-3 text-center text-sm">
+								<div class="font-medium text-gray-700">Left-tailed</div>
+								<div class="text-gray-600">Lower extreme</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<div class="bg-white rounded-xl border border-gray-200 p-6">
+				<div class="flex items-start gap-4">
+					<div class="bg-emerald-100 text-emerald-700 rounded-full w-8 h-8 flex items-center justify-center font-bold flex-shrink-0">4</div>
+					<div>
+						<h3 class="font-semibold text-gray-900 mb-2">Compare to α</h3>
+						<p class="text-gray-700 mb-3">
+							If p ≤ α, reject H₀. If p &gt; α, fail to reject H₀. The threshold α (often 0.05)
+							is set <em>before</em> seeing the data.
+						</p>
+						<div class="grid md:grid-cols-2 gap-4 mt-3">
+							<div class="bg-red-50 rounded-lg p-3">
+								<div class="font-medium text-red-700">p ≤ α: Reject H₀</div>
+								<div class="text-sm text-red-600">"Statistically significant"</div>
+							</div>
+							<div class="bg-gray-50 rounded-lg p-3">
+								<div class="font-medium text-gray-700">p &gt; α: Fail to reject H₀</div>
+								<div class="text-sm text-gray-600">"Not statistically significant"</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+
+	<!-- Worked Examples -->
+	<section class="mb-8">
+		<h2 class="text-xl font-semibold text-gray-900 mb-4">Worked Examples</h2>
+
+		<div class="space-y-6">
+			<!-- Example 1 -->
+			<div class="bg-white rounded-xl border border-gray-200 p-6">
+				<h3 class="font-semibold text-gray-900 mb-3">Example 1: Calculating a P-Value</h3>
+				<div class="bg-blue-50 rounded-lg p-4 mb-4">
+					<p class="text-blue-900">
+						<strong>Problem:</strong> A sample of n = 64 has mean x̄ = 52. We're testing H₀: μ = 50
+						with known σ = 8. Find the two-tailed p-value.
+					</p>
+				</div>
+
+				<div class="space-y-3">
+					<div class="flex items-start gap-3">
+						<span class="bg-gray-200 text-gray-700 rounded-full w-6 h-6 flex items-center justify-center text-sm font-medium flex-shrink-0">1</span>
+						<div>
+							<p class="text-gray-700">Calculate SE:</p>
+							<div class="bg-gray-50 rounded p-3 my-2">
+								<MathDisplay formula={String.raw`SE = \frac{\sigma}{\sqrt{n}} = \frac{8}{\sqrt{64}} = \frac{8}{8} = 1`} displayMode={true} />
+							</div>
+						</div>
+					</div>
+
+					<div class="flex items-start gap-3">
+						<span class="bg-gray-200 text-gray-700 rounded-full w-6 h-6 flex items-center justify-center text-sm font-medium flex-shrink-0">2</span>
+						<div>
+							<p class="text-gray-700">Calculate z-score:</p>
+							<div class="bg-gray-50 rounded p-3 my-2">
+								<MathDisplay formula={String.raw`z = \frac{\bar{x} - \mu_0}{SE} = \frac{52 - 50}{1} = 2.0`} displayMode={true} />
+							</div>
+						</div>
+					</div>
+
+					<div class="flex items-start gap-3">
+						<span class="bg-gray-200 text-gray-700 rounded-full w-6 h-6 flex items-center justify-center text-sm font-medium flex-shrink-0">3</span>
+						<div>
+							<p class="text-gray-700">Find two-tailed p-value:</p>
+							<div class="bg-gray-50 rounded p-3 my-2">
+								<MathDisplay formula={String.raw`p = 2 \times P(Z > 2.0) = 2 \times 0.0228 = 0.0456`} displayMode={true} />
+							</div>
+						</div>
+					</div>
+
+					<div class="flex items-start gap-3">
+						<span class="bg-green-200 text-green-700 rounded-full w-6 h-6 flex items-center justify-center text-sm font-medium flex-shrink-0">✓</span>
+						<div>
+							<p class="text-green-800 font-medium">p = 0.0456, which is less than α = 0.05</p>
+							<p class="text-sm text-gray-600">We reject H₀. The result is statistically significant.</p>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<!-- Example 2 -->
+			<div class="bg-white rounded-xl border border-gray-200 p-6">
+				<h3 class="font-semibold text-gray-900 mb-3">Example 2: Interpreting a P-Value Correctly</h3>
+				<div class="bg-purple-50 rounded-lg p-4 mb-4">
+					<p class="text-purple-900">
+						<strong>Scenario:</strong> A study finds p = 0.03 when testing whether a new teaching method
+						improves test scores. Which interpretations are correct?
+					</p>
+				</div>
+
+				<div class="space-y-3">
+					<div class="p-3 bg-red-50 rounded-lg">
+						<p class="text-sm text-red-800">❌ "There's a 3% chance the teaching method doesn't work"</p>
+						<p class="text-xs text-red-700 mt-1">Wrong! P-value is not P(H₀ is true).</p>
+					</div>
+					<div class="p-3 bg-red-50 rounded-lg">
+						<p class="text-sm text-red-800">❌ "There's a 97% chance the teaching method works"</p>
+						<p class="text-xs text-red-700 mt-1">Wrong! P-value doesn't give probability of H₁.</p>
+					</div>
+					<div class="p-3 bg-red-50 rounded-lg">
+						<p class="text-sm text-red-800">❌ "The effect is large and important"</p>
+						<p class="text-xs text-red-700 mt-1">Wrong! P-value says nothing about effect size.</p>
+					</div>
+					<div class="p-3 bg-green-50 rounded-lg">
+						<p class="text-sm text-green-800">✓ "If the teaching method had no effect, we'd see results this extreme only 3% of the time"</p>
+						<p class="text-xs text-green-700 mt-1">Correct! This is what p-value actually means.</p>
+					</div>
+				</div>
+			</div>
+		</div>
 	</section>
 
 	<!-- Interactive P-Value Visualization -->
@@ -594,6 +862,47 @@
 				</button>
 			</div>
 		</div>
+	</section>
+
+	<!-- Key Takeaways -->
+	<section class="mb-8">
+		<h2 class="text-xl font-semibold text-gray-900 mb-4">Key Takeaways</h2>
+		<div class="grid md:grid-cols-2 gap-4">
+			<div class="bg-green-50 rounded-lg p-4 border border-green-200">
+				<h3 class="font-semibold text-green-900 mb-2">✓ P-Value IS</h3>
+				<ul class="text-sm text-green-800 space-y-1">
+					<li>• P(data this extreme | H₀ true)</li>
+					<li>• A measure of evidence against H₀</li>
+					<li>• Compared to α to make decisions</li>
+					<li>• Affected by both effect size AND sample size</li>
+				</ul>
+			</div>
+			<div class="bg-red-50 rounded-lg p-4 border border-red-200">
+				<h3 class="font-semibold text-red-900 mb-2">✗ P-Value is NOT</h3>
+				<ul class="text-sm text-red-800 space-y-1">
+					<li>• Probability that H₀ is true</li>
+					<li>• Probability of Type I error</li>
+					<li>• Effect size or practical importance</li>
+					<li>• Proof that an effect exists or doesn't</li>
+				</ul>
+			</div>
+		</div>
+	</section>
+
+	<!-- What's Next -->
+	<section class="mb-8 bg-blue-50 rounded-xl p-6 border border-blue-200">
+		<h2 class="text-xl font-semibold text-blue-900 mb-3">What's Next?</h2>
+		<p class="text-blue-800 mb-4">
+			Now that you understand p-values, you're ready to learn about <strong>Type I and Type II Errors</strong>.
+			These are the two ways hypothesis tests can go wrong, and understanding them is crucial for interpreting
+			statistical results.
+		</p>
+		<ul class="text-blue-700 space-y-2">
+			<li>• Type I Error (α): False positives - rejecting H₀ when it's true</li>
+			<li>• Type II Error (β): False negatives - failing to reject H₀ when it's false</li>
+			<li>• The inherent tradeoff between these two error types</li>
+			<li>• How to choose appropriate error rates for different contexts</li>
+		</ul>
 	</section>
 
 	<!-- Navigation -->

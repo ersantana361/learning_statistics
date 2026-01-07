@@ -142,6 +142,67 @@
 			],
 			explanation: 'True! Ignoring the pairing treats each measurement as independent, inflating the standard error by including between-subject variability that should be controlled. This makes it harder to detect real effects.',
 			difficulty: 'medium'
+		},
+		{
+			id: 'paired-6',
+			type: 'numeric',
+			question: 'A study measures 15 patients before and after treatment. Mean difference = 8, SD of differences = 12. What is the t-statistic?',
+			questionMath: String.raw`t = \frac{8}{12/\sqrt{15}} = \frac{8}{3.10} = ?`,
+			correctAnswer: 2.58,
+			tolerance: 0.1,
+			explanation: 'SE = 12/√15 = 12/3.87 = 3.10. t = 8/3.10 = 2.58. With df = 14, this is significant at α = 0.05 (critical t ≈ 2.14).',
+			difficulty: 'medium'
+		},
+		{
+			id: 'paired-7',
+			type: 'multiple-choice',
+			question: 'A crossover drug trial tests Drug A then Drug B on the same patients (with washout). What test should you use?',
+			choices: [
+				{ id: 'a', text: 'Two-sample t-test' },
+				{ id: 'b', text: 'Paired t-test', isCorrect: true },
+				{ id: 'c', text: 'One-sample t-test' },
+				{ id: 'd', text: 'Chi-square test' }
+			],
+			explanation: 'Crossover designs create natural pairs—each patient receives both treatments. The paired t-test on (Drug A - Drug B) differences is appropriate.',
+			difficulty: 'medium'
+		},
+		{
+			id: 'paired-8',
+			type: 'multiple-choice',
+			question: 'What does a high pre-post correlation (r = 0.9) mean for the paired t-test?',
+			choices: [
+				{ id: 'a', text: 'The test becomes less powerful' },
+				{ id: 'b', text: 'The test becomes more powerful', isCorrect: true },
+				{ id: 'c', text: 'Power is unaffected by correlation' },
+				{ id: 'd', text: 'The test is invalid' }
+			],
+			explanation: 'High correlation means individual differences are stable (high scorers stay high). This makes the within-subject changes more consistent, reducing the SD of differences and increasing power.',
+			difficulty: 'hard',
+			hint: 'SD_diff = SD × √(2(1-r)) — what happens as r increases?'
+		},
+		{
+			id: 'paired-9',
+			type: 'true-false',
+			question: 'In a paired t-test, we only need to assume the differences are normally distributed, not the original measurements.',
+			choices: [
+				{ id: 'true', text: 'True', isCorrect: true },
+				{ id: 'false', text: 'False' }
+			],
+			explanation: 'True! The paired t-test is a one-sample t-test on the differences. Only the distribution of D = After - Before matters. The original scores can have any distribution.',
+			difficulty: 'medium'
+		},
+		{
+			id: 'paired-10',
+			type: 'multiple-choice',
+			question: 'Study A: 50 twins (one gets treatment, one gets control). Study B: 100 unrelated people (50 treatment, 50 control). Which has more power?',
+			choices: [
+				{ id: 'a', text: 'Study A (twins, paired design)', isCorrect: true },
+				{ id: 'b', text: 'Study B (more total people)' },
+				{ id: 'c', text: 'Both have equal power' },
+				{ id: 'd', text: 'Cannot determine without knowing effect size' }
+			],
+			explanation: 'Study A uses a paired design (twins share genetics/environment), which controls for individual differences. Even with fewer "independent units," the reduced variability typically provides more power.',
+			difficulty: 'hard'
 		}
 	];
 
@@ -161,6 +222,30 @@
 			Learn when to use paired designs and why they're often more powerful.
 		</p>
 	</header>
+
+	<!-- Why This Matters -->
+	<section class="bg-gradient-to-r from-indigo-50 to-purple-50 rounded-xl p-6 mb-8 border border-indigo-200">
+		<h2 class="text-xl font-semibold text-indigo-900 mb-3">Why This Matters</h2>
+		<p class="text-indigo-800 mb-4">
+			Imagine you want to test whether a new teaching method improves test scores. You could randomly assign students to
+			two groups (independent design), or you could test the same students before and after training (paired design).
+			<strong>The choice dramatically affects your power to detect real effects.</strong>
+		</p>
+		<p class="text-indigo-800 mb-4">
+			People vary enormously in their baseline abilities. Some students naturally score 90+, others struggle to hit 60.
+			This between-person variability is "noise" that obscures the treatment effect. By measuring the same person twice,
+			we eliminate this noise and focus purely on change—often making the difference between a failed and successful study.
+		</p>
+		<div class="bg-white/60 rounded-lg p-4">
+			<h3 class="font-semibold text-indigo-900 mb-2">Learning Objectives</h3>
+			<ul class="text-sm text-indigo-800 space-y-1">
+				<li>• Recognize when data has a paired structure</li>
+				<li>• Understand why paired designs are often more powerful</li>
+				<li>• Calculate and interpret paired t-tests using difference scores</li>
+				<li>• Know what happens when you ignore pairing (hint: you lose power)</li>
+			</ul>
+		</div>
+	</section>
 
 	<!-- Key Concept -->
 	<section class="bg-indigo-50 rounded-xl p-6 mb-8">
@@ -478,6 +563,76 @@
 					Next →
 				</button>
 			</div>
+		</div>
+	</section>
+
+	<!-- Key Takeaways -->
+	<section class="bg-gradient-to-r from-green-50 to-emerald-50 rounded-xl p-6 mb-8 border border-green-200">
+		<h2 class="text-xl font-semibold text-green-900 mb-4">Key Takeaways</h2>
+		<div class="grid md:grid-cols-2 gap-4">
+			<div class="space-y-3">
+				<div class="flex items-start gap-3">
+					<div class="w-6 h-6 bg-green-500 text-white rounded-full flex items-center justify-center text-sm font-bold shrink-0">1</div>
+					<p class="text-green-800 text-sm"><strong>Paired designs control for individual differences</strong> — by measuring change within subjects, we eliminate between-subject noise.</p>
+				</div>
+				<div class="flex items-start gap-3">
+					<div class="w-6 h-6 bg-green-500 text-white rounded-full flex items-center justify-center text-sm font-bold shrink-0">2</div>
+					<p class="text-green-800 text-sm"><strong>The paired t-test analyzes differences</strong> — compute D = After - Before for each pair, then do a one-sample t-test on the differences.</p>
+				</div>
+				<div class="flex items-start gap-3">
+					<div class="w-6 h-6 bg-green-500 text-white rounded-full flex items-center justify-center text-sm font-bold shrink-0">3</div>
+					<p class="text-green-800 text-sm"><strong>df = n - 1</strong> — where n is the number of pairs, not the total number of observations.</p>
+				</div>
+			</div>
+			<div class="space-y-3">
+				<div class="flex items-start gap-3">
+					<div class="w-6 h-6 bg-green-500 text-white rounded-full flex items-center justify-center text-sm font-bold shrink-0">4</div>
+					<p class="text-green-800 text-sm"><strong>Higher correlation = more power</strong> — when pre-post scores are highly correlated, the SD of differences is smaller.</p>
+				</div>
+				<div class="flex items-start gap-3">
+					<div class="w-6 h-6 bg-green-500 text-white rounded-full flex items-center justify-center text-sm font-bold shrink-0">5</div>
+					<p class="text-green-800 text-sm"><strong>Wrong test = lost power</strong> — using an independent t-test on paired data ignores the pairing and inflates the standard error.</p>
+				</div>
+			</div>
+		</div>
+	</section>
+
+	<!-- Common Mistakes -->
+	<section class="bg-amber-50 rounded-xl p-6 mb-8 border border-amber-200">
+		<h2 class="text-xl font-semibold text-amber-900 mb-3">Common Mistakes to Avoid</h2>
+		<div class="grid md:grid-cols-2 gap-4 text-sm">
+			<div class="flex items-start gap-2">
+				<span class="text-amber-600">⚠</span>
+				<p class="text-amber-800"><strong>Ignoring pairing structure:</strong> If data is naturally paired, always use a paired test. The power gain is often substantial.</p>
+			</div>
+			<div class="flex items-start gap-2">
+				<span class="text-amber-600">⚠</span>
+				<p class="text-amber-800"><strong>Forcing pairing on independent data:</strong> If groups are truly independent, don't try to match them post-hoc—use an independent t-test.</p>
+			</div>
+			<div class="flex items-start gap-2">
+				<span class="text-amber-600">⚠</span>
+				<p class="text-amber-800"><strong>Ignoring carryover effects:</strong> In crossover designs, the first treatment might affect response to the second. Adequate washout periods are crucial.</p>
+			</div>
+			<div class="flex items-start gap-2">
+				<span class="text-amber-600">⚠</span>
+				<p class="text-amber-800"><strong>Incorrect degrees of freedom:</strong> Paired t-test has df = n-1 (pairs), not df = 2n-2. Using the wrong df affects your p-value.</p>
+			</div>
+		</div>
+	</section>
+
+	<!-- What's Next -->
+	<section class="bg-indigo-50 rounded-xl p-6 mb-8 border border-indigo-200">
+		<h2 class="text-xl font-semibold text-indigo-900 mb-3">What's Next?</h2>
+		<p class="text-indigo-800 mb-3">
+			Next, we'll dive into <strong>The Assumption Game</strong> — understanding when t-test assumptions matter, how to check them, and what alternatives exist when they're violated.
+		</p>
+		<div class="bg-white/60 rounded-lg p-4">
+			<h3 class="font-medium text-indigo-900 mb-2">Preview: Testing Assumptions</h3>
+			<ul class="text-sm text-indigo-700 space-y-1">
+				<li>• How to check normality (Q-Q plots, Shapiro-Wilk)</li>
+				<li>• When normality violations matter (and when they don't)</li>
+				<li>• Robust alternatives: Welch's t-test, Mann-Whitney U, permutation tests</li>
+			</ul>
 		</div>
 	</section>
 

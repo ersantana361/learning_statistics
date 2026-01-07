@@ -169,6 +169,65 @@
 			],
 			explanation: 'False! Bootstrapping is distribution-free. It resamples from the observed data to estimate sampling variability, making no assumptions about the underlying distribution.',
 			difficulty: 'medium'
+		},
+		{
+			id: 'robust-6',
+			type: 'multiple-choice',
+			question: 'What is the breakdown point of the median?',
+			choices: [
+				{ id: 'a', text: '0% — it breaks with any outlier' },
+				{ id: 'b', text: '50% — it can tolerate up to half the data being outliers', isCorrect: true },
+				{ id: 'c', text: '25% — it tolerates one quartile of outliers' },
+				{ id: 'd', text: '100% — it never breaks' }
+			],
+			explanation: 'The median has a 50% breakdown point—the highest possible. You need to corrupt more than half the data before the median becomes arbitrarily bad. The mean has 0% breakdown—one infinite outlier destroys it.',
+			difficulty: 'hard'
+		},
+		{
+			id: 'robust-7',
+			type: 'multiple-choice',
+			question: 'Which is the non-parametric alternative to a paired t-test?',
+			choices: [
+				{ id: 'a', text: 'Mann-Whitney U' },
+				{ id: 'b', text: 'Wilcoxon signed-rank test', isCorrect: true },
+				{ id: 'c', text: 'Kruskal-Wallis' },
+				{ id: 'd', text: 'Chi-square test' }
+			],
+			explanation: 'Wilcoxon signed-rank tests paired differences using ranks. Mann-Whitney is for independent samples. Kruskal-Wallis is for 3+ groups (ANOVA alternative).',
+			difficulty: 'medium'
+		},
+		{
+			id: 'robust-8',
+			type: 'numeric',
+			question: 'Data: 2, 4, 5, 6, 8, 100. What is the median?',
+			correctAnswer: 5.5,
+			tolerance: 0.1,
+			explanation: 'Sorted: 2, 4, 5, 6, 8, 100. Median = (5 + 6)/2 = 5.5. Notice the outlier (100) has zero effect on the median!',
+			difficulty: 'easy'
+		},
+		{
+			id: 'robust-9',
+			type: 'multiple-choice',
+			question: 'Why might you prefer the median over a trimmed mean?',
+			choices: [
+				{ id: 'a', text: 'Trimmed mean is harder to calculate' },
+				{ id: 'b', text: 'Median has the highest breakdown point', isCorrect: true },
+				{ id: 'c', text: 'Trimmed mean requires normal data' },
+				{ id: 'd', text: 'Median is more efficient' }
+			],
+			explanation: 'The median can resist up to 50% outliers, while a 10% trimmed mean only resists 10%. However, trimmed means are more efficient (lower variance) when outliers are rare.',
+			difficulty: 'hard'
+		},
+		{
+			id: 'robust-10',
+			type: 'true-false',
+			question: 'Permutation tests can be used even when you don\'t know the underlying distribution.',
+			choices: [
+				{ id: 'true', text: 'True', isCorrect: true },
+				{ id: 'false', text: 'False' }
+			],
+			explanation: 'True! Permutation tests work by shuffling group labels and computing the test statistic many times. They derive the null distribution from the data itself, making no distributional assumptions.',
+			difficulty: 'medium'
 		}
 	];
 
@@ -188,6 +247,30 @@
 			Learn methods that work well even when standard assumptions are violated.
 		</p>
 	</header>
+
+	<!-- Why This Matters -->
+	<section class="bg-gradient-to-r from-violet-50 to-purple-50 rounded-xl p-6 mb-8 border border-violet-200">
+		<h2 class="text-xl font-semibold text-violet-900 mb-3">Why This Matters</h2>
+		<p class="text-violet-800 mb-4">
+			Real data is messy. A single data entry error, an unusual subject, or a skewed distribution
+			can wreck your analysis if you're using methods that assume "well-behaved" data.
+			<strong>Robust methods are your insurance policy</strong>—they give valid results even when assumptions fail.
+		</p>
+		<p class="text-violet-800 mb-4">
+			The classic mean can be destroyed by a single outlier. A t-test assumes normality that rarely
+			exists perfectly. Robust methods sacrifice a little efficiency in ideal conditions to gain
+			protection against the real-world messiness that breaks standard approaches.
+		</p>
+		<div class="bg-white/60 rounded-lg p-4">
+			<h3 class="font-semibold text-violet-900 mb-2">Learning Objectives</h3>
+			<ul class="text-sm text-violet-800 space-y-1">
+				<li>• Understand why outliers break standard statistics</li>
+				<li>• Know robust alternatives for location (median, trimmed mean) and spread (MAD, IQR)</li>
+				<li>• Use non-parametric tests when assumptions fail</li>
+				<li>• Apply bootstrap methods for distribution-free inference</li>
+			</ul>
+		</div>
+	</section>
 
 	<!-- Key Concept -->
 	<section class="bg-violet-50 rounded-xl p-6 mb-8">
@@ -449,6 +532,97 @@
 					Next →
 				</button>
 			</div>
+		</div>
+	</section>
+
+	<!-- Key Takeaways -->
+	<section class="bg-gradient-to-r from-green-50 to-emerald-50 rounded-xl p-6 mb-8 border border-green-200">
+		<h2 class="text-xl font-semibold text-green-900 mb-4">Key Takeaways</h2>
+		<div class="grid md:grid-cols-2 gap-4">
+			<div class="space-y-3">
+				<div class="flex items-start gap-3">
+					<div class="w-6 h-6 bg-green-500 text-white rounded-full flex items-center justify-center text-sm font-bold shrink-0">1</div>
+					<p class="text-green-800 text-sm"><strong>The mean is fragile</strong> — a single outlier can destroy it. The median has 50% breakdown point.</p>
+				</div>
+				<div class="flex items-start gap-3">
+					<div class="w-6 h-6 bg-green-500 text-white rounded-full flex items-center justify-center text-sm font-bold shrink-0">2</div>
+					<p class="text-green-800 text-sm"><strong>Trimmed means are a good compromise</strong> — more robust than means, more efficient than medians.</p>
+				</div>
+				<div class="flex items-start gap-3">
+					<div class="w-6 h-6 bg-green-500 text-white rounded-full flex items-center justify-center text-sm font-bold shrink-0">3</div>
+					<p class="text-green-800 text-sm"><strong>MAD and IQR are robust spread measures</strong> — use them when SD is inflated by outliers.</p>
+				</div>
+			</div>
+			<div class="space-y-3">
+				<div class="flex items-start gap-3">
+					<div class="w-6 h-6 bg-green-500 text-white rounded-full flex items-center justify-center text-sm font-bold shrink-0">4</div>
+					<p class="text-green-800 text-sm"><strong>Non-parametric tests use ranks</strong> — Mann-Whitney, Wilcoxon, Kruskal-Wallis don't assume normality.</p>
+				</div>
+				<div class="flex items-start gap-3">
+					<div class="w-6 h-6 bg-green-500 text-white rounded-full flex items-center justify-center text-sm font-bold shrink-0">5</div>
+					<p class="text-green-800 text-sm"><strong>Bootstrap is distribution-free</strong> — resample your data to estimate SEs and CIs without assumptions.</p>
+				</div>
+			</div>
+		</div>
+	</section>
+
+	<!-- Quick Reference -->
+	<section class="bg-blue-50 rounded-xl p-6 mb-8 border border-blue-200">
+		<h2 class="text-xl font-semibold text-blue-900 mb-4">Quick Reference: When to Use What</h2>
+		<div class="overflow-x-auto">
+			<table class="w-full text-sm">
+				<thead class="bg-blue-100">
+					<tr>
+						<th class="py-2 px-3 text-left font-semibold text-blue-900">Standard Method</th>
+						<th class="py-2 px-3 text-left font-semibold text-blue-900">Robust Alternative</th>
+						<th class="py-2 px-3 text-left font-semibold text-blue-900">When to Switch</th>
+					</tr>
+				</thead>
+				<tbody class="divide-y divide-blue-100">
+					<tr>
+						<td class="py-2 px-3 text-blue-800">Mean</td>
+						<td class="py-2 px-3 text-blue-700">Median, Trimmed Mean</td>
+						<td class="py-2 px-3 text-blue-700">Outliers, skewed data</td>
+					</tr>
+					<tr>
+						<td class="py-2 px-3 text-blue-800">Standard Deviation</td>
+						<td class="py-2 px-3 text-blue-700">MAD, IQR</td>
+						<td class="py-2 px-3 text-blue-700">Heavy tails, outliers</td>
+					</tr>
+					<tr>
+						<td class="py-2 px-3 text-blue-800">Independent t-test</td>
+						<td class="py-2 px-3 text-blue-700">Mann-Whitney U</td>
+						<td class="py-2 px-3 text-blue-700">Non-normal, ordinal data</td>
+					</tr>
+					<tr>
+						<td class="py-2 px-3 text-blue-800">Paired t-test</td>
+						<td class="py-2 px-3 text-blue-700">Wilcoxon signed-rank</td>
+						<td class="py-2 px-3 text-blue-700">Non-normal differences</td>
+					</tr>
+					<tr>
+						<td class="py-2 px-3 text-blue-800">Pearson's r</td>
+						<td class="py-2 px-3 text-blue-700">Spearman's ρ</td>
+						<td class="py-2 px-3 text-blue-700">Non-linear, outliers, ordinal</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+	</section>
+
+	<!-- What's Next -->
+	<section class="bg-violet-50 rounded-xl p-6 mb-8 border border-violet-200">
+		<h2 class="text-xl font-semibold text-violet-900 mb-3">What's Next?</h2>
+		<p class="text-violet-800 mb-3">
+			When you run many tests, false positives accumulate. Next, we'll learn about the
+			<strong>multiple testing problem</strong> and how to control error rates when making many comparisons.
+		</p>
+		<div class="bg-white/60 rounded-lg p-4">
+			<h3 class="font-medium text-violet-900 mb-2">Preview: Multiple Testing</h3>
+			<ul class="text-sm text-violet-700 space-y-1">
+				<li>• Why 20 tests at α = 0.05 gives ~1 false positive</li>
+				<li>• Bonferroni, Holm, and FDR corrections</li>
+				<li>• When to correct and when not to</li>
+			</ul>
 		</div>
 	</section>
 
