@@ -24,11 +24,11 @@
 	function generateData() {
 		const newData: Array<{ size: number; age: number; price: number }> = [];
 		for (let i = 0; i < 50; i++) {
-			const z1 = normal.random(0, 1);
-			const z2 = correlation * z1 + Math.sqrt(1 - correlation * correlation) * normal.random(0, 1);
+			const z1 = normal.sample(0, 1);
+			const z2 = correlation * z1 + Math.sqrt(1 - correlation * correlation) * normal.sample(0, 1);
 			const size = 10 + z1 * 3;
 			const age = 25 + z2 * 15;
-			const price = basePrice + sizeEffect * size / 10 + ageEffect * age + normal.random(0, noise);
+			const price = basePrice + sizeEffect * size / 10 + ageEffect * age + normal.sample(0, noise);
 			newData.push({ size: Math.max(5, size), age: Math.max(0, age), price: Math.max(0, price) });
 		}
 		data = newData;

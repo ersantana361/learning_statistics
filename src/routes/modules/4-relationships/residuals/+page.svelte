@@ -20,19 +20,19 @@
 
 			switch (type) {
 				case 'good':
-					y = 10 + 2 * x + normal.random(0, 3);
+					y = 10 + 2 * x + normal.sample(0, 3);
 					break;
 				case 'nonlinear':
-					y = 5 + 0.5 * x + 0.15 * x * x + normal.random(0, 2);
+					y = 5 + 0.5 * x + 0.15 * x * x + normal.sample(0, 2);
 					break;
 				case 'heteroscedastic':
-					y = 10 + 2 * x + normal.random(0, 0.5 * x);
+					y = 10 + 2 * x + normal.sample(0, 0.5 * x);
 					break;
 				case 'outliers':
 					if (Math.random() < 0.1) {
-						y = 10 + 2 * x + normal.random(0, 20);
+						y = 10 + 2 * x + normal.sample(0, 20);
 					} else {
-						y = 10 + 2 * x + normal.random(0, 2);
+						y = 10 + 2 * x + normal.sample(0, 2);
 					}
 					break;
 			}

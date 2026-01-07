@@ -38,8 +38,8 @@
 		const data: Array<{ before: number; after: number; diff: number }> = [];
 		for (let i = 0; i < n; i++) {
 			// Generate correlated pairs
-			const z1 = normal.random(0, 1);
-			const z2 = correlation * z1 + Math.sqrt(1 - correlation * correlation) * normal.random(0, 1);
+			const z1 = normal.sample(0, 1);
+			const z2 = correlation * z1 + Math.sqrt(1 - correlation * correlation) * normal.sample(0, 1);
 			const before = beforeMean + betweenSD * z1;
 			const after = afterMean + betweenSD * z2;
 			data.push({ before, after, diff: after - before });

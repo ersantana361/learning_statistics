@@ -25,7 +25,7 @@
 		const newData: Array<{ x: number; y: number }> = [];
 		for (let i = 0; i < numPoints; i++) {
 			const x = Math.random() * 20 + 5;
-			const y = trueIntercept + trueSlope * x + normal.random(0, noiseLevel);
+			const y = trueIntercept + trueSlope * x + normal.sample(0, noiseLevel);
 			newData.push({ x, y });
 		}
 		data = newData;

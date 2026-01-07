@@ -20,7 +20,7 @@
 	let showType = $state<'both' | 'sd' | 'se'>('both');
 
 	// Generate population data for illustration
-	const populationData = Array.from({ length: 1000 }, () => normal.random(50, 10));
+	const populationData = Array.from({ length: 1000 }, () => normal.sample(50, 10));
 
 	// Sampling simulation
 	let samples = $state<Array<{ data: number[]; mean: number; sd: number }>>([]);

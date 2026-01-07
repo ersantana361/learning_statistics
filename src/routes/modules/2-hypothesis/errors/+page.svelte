@@ -127,7 +127,7 @@
 	function runSimulation(count: number, nullIsTrue: boolean) {
 		const newResults = Array.from({ length: count }, () => {
 			const trueMean = nullIsTrue ? 0 : trueEffect;
-			const sampleMean = normal.random(trueMean, standardError);
+			const sampleMean = normal.sample(trueMean, standardError);
 			const reject = Math.abs(sampleMean) > criticalValue;
 
 			let error: 'type1' | 'type2' | 'correct';

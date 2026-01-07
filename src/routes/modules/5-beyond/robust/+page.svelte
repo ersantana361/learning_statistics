@@ -21,11 +21,11 @@
 
 		// Normal data
 		for (let i = 0; i < numNormal; i++) {
-			newData.push(normal.random(50, 10));
+			newData.push(normal.sample(50, 10));
 		}
 		// Outliers
 		for (let i = 0; i < numOutliers; i++) {
-			newData.push(50 + outlierMagnitude * 10 * (Math.random() > 0.5 ? 1 : -1) + normal.random(0, 2));
+			newData.push(50 + outlierMagnitude * 10 * (Math.random() > 0.5 ? 1 : -1) + normal.sample(0, 2));
 		}
 
 		data = newData.sort((a, b) => a - b);
