@@ -21,7 +21,7 @@
 	const meaningful = $derived(Math.abs(effectSize) >= minMeaningful);
 
 	// CI calculation
-	const critT = $derived(studentT.quantile(1 - alpha / 2, df));
+	const critT = $derived(studentT.inv(1 - alpha / 2, df));
 	const ciLower = $derived(effectSize - critT * standardError);
 	const ciUpper = $derived(effectSize + critT * standardError);
 	const ciIncludesMinMeaningful = $derived(ciUpper >= minMeaningful || ciLower <= -minMeaningful);

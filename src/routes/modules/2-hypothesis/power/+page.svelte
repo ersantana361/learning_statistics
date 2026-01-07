@@ -19,12 +19,12 @@
 
 	// Derived values
 	const standardError = $derived(1 / Math.sqrt(sampleSize));
-	const criticalZ = $derived(normal.quantile(1 - alpha / 2, 0, 1));
+	const criticalZ = $derived(normal.inv(1 - alpha / 2, 0, 1));
 	const zPower = $derived((effectSize - criticalZ * standardError) / standardError);
 	const power = $derived(1 - normal.cdf(-zPower, 0, 1));
 
 	// Calculate required sample size for target power
-	const zBeta = $derived(normal.quantile(targetPower, 0, 1));
+	const zBeta = $derived(normal.inv(targetPower, 0, 1));
 	const requiredN = $derived(Math.ceil(Math.pow((criticalZ + zBeta) / effectSize, 2)));
 
 	// Power curve data (power vs sample size)

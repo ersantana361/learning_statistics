@@ -26,7 +26,7 @@
 	const standardError = $derived(pooledSD * Math.sqrt(1 / n1 + 1 / n2));
 	const tStatistic = $derived((mean1 - mean2) / standardError);
 	const df = $derived(n1 + n2 - 2);
-	const criticalT = $derived(studentT.quantile(1 - alpha / 2, df));
+	const criticalT = $derived(studentT.inv(1 - alpha / 2, df));
 	const pValue = $derived(2 * (1 - studentT.cdf(Math.abs(tStatistic), df)));
 	const significant = $derived(Math.abs(tStatistic) > criticalT);
 	const cohensD = $derived((mean1 - mean2) / pooledSD);

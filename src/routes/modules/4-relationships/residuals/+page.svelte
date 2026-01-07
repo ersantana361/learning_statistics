@@ -114,7 +114,7 @@
 	const qqData = $derived(() => {
 		const sortedResiduals = [...residuals].sort((a, b) => a.residual - b.residual);
 		return sortedResiduals.map((d, i) => ({
-			theoretical: normal.quantile((i + 0.5) / sortedResiduals.length, 0, 1),
+			theoretical: normal.inv((i + 0.5) / sortedResiduals.length, 0, 1),
 			observed: d.residual / (d3.deviation(residuals, r => r.residual) ?? 1)
 		}));
 	});

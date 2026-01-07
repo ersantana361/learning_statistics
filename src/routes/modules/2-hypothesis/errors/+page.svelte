@@ -19,7 +19,7 @@
 
 	// Derived values
 	const standardError = $derived(sigma / Math.sqrt(sampleSize));
-	const criticalZ = $derived(normal.quantile(1 - alpha / 2, 0, 1));
+	const criticalZ = $derived(normal.inv(1 - alpha / 2, 0, 1));
 	const criticalValue = $derived(criticalZ * standardError);
 	const trueEffect = $derived(effectSize * sigma);
 	const zPowerRight = $derived((criticalValue - trueEffect) / standardError);

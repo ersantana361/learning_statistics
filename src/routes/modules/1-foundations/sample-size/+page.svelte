@@ -19,7 +19,7 @@
 	let confidenceLevel = $state(95);
 
 	// Derived values
-	const zScore = $derived(normal.quantile((1 + confidenceLevel / 100) / 2, 0, 1));
+	const zScore = $derived(normal.inv((1 + confidenceLevel / 100) / 2, 0, 1));
 	const standardError = $derived(populationSd / Math.sqrt(sampleSize));
 	const marginOfError = $derived(zScore * standardError);
 	const ciWidth = $derived(2 * marginOfError);

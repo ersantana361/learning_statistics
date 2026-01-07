@@ -368,7 +368,7 @@
 			<!-- Reference lines -->
 			<div class="mt-4 flex justify-center gap-6 text-sm">
 				{#each significanceLevels as level}
-					{@const criticalZ = testType === 'two-tailed' ? level.critical : (testType === 'right' ? normal.quantile(1 - level.alpha, 0, 1) : normal.quantile(level.alpha, 0, 1))}
+					{@const criticalZ = testType === 'two-tailed' ? level.critical : (testType === 'right' ? normal.inv(1 - level.alpha, 0, 1) : normal.inv(level.alpha, 0, 1))}
 					<div class="text-center">
 						<div class="text-gray-600">{level.label}</div>
 						<div class="text-gray-500">
