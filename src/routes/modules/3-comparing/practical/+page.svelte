@@ -393,7 +393,7 @@
 				<h3 class="font-semibold text-red-900 mb-3">✗ Don't</h3>
 				<ul class="space-y-2 text-sm text-red-800">
 					<li>• Confuse "significant" with "important"</li>
-					<li>• Ignore effect size if p < 0.05</li>
+					<li>• Ignore effect size if p &lt; 0.05</li>
 					<li>• Claim "no effect" from non-significant p</li>
 					<li>• Use rigid Cohen benchmarks for all contexts</li>
 					<li>• Chase significance with huge samples</li>
